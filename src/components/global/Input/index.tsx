@@ -1,16 +1,28 @@
 import React from 'react';
 
-const Input: React.FC = () => {
+interface propsInterface {
+  type: string;
+  value: string | number;
+  label: string;
+  errorText: string;
+  helperText: string;
+  error: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const Input: React.FC<propsInterface> = ({type = 'text', value, label, errorText, helperText, error, onChange}) => {
+  const message = error ? errorText : helperText;
+
   return (
     <div>
       <label>
-        Лэйбл
+        {label}
       </label>
 
-      <input /> 
+      <input value={value} type={type} onChange={onChange} /> 
 
       <p>
-        Текст подсказки 
+        {message}
       </p>
     </div>
   )
