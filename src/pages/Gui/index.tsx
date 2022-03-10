@@ -1,9 +1,11 @@
 import React from 'react';
 
-const GuiPage:React.FC = () => {
+import GuiInputs from 'features/Gui/GuiInputs';
+
+const GuiPage : React.FC = () => {
   return (
     <div>
-      gui
+      <GuiInputs />
     </div>
   )
 };

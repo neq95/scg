@@ -10,19 +10,59 @@
   --vermilion: #ff3900;
   --sunglo: #e26265;
   --porsche: #e8b95a;
-  --green-yellow: #89ff41; 
+  --green-yellow: #89ff41;
+  --pickled-bluewood: #273B4A;
+  --vermilion: #ff3900;
+}
+
+:root {
+  --text-primary: var(--pickled-bluewood);
+  --text-error: var(--vermilion);
+
+  --input-color: var(--alice-blue); 
+}
+
+* {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  outline: none;
+  box-sizing: border-box;
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Roboto'),
+    url('/src/assets/fonts/Roboto-Regular.woff2') format('woff2'),
+    url('/src/assets/fonts/Roboto-Regular.woff') format('woff'),
+    url('/src/assets/fonts/Roboto-Regular.ttf') format('ttf'),
+    url('/src/assets/fonts/Roboto-Regular.eot') format('eot');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 500;
+  src: local('Roboto'),
+    url('/src/assets/fonts/Roboto-Medium.eot') format('woff2'),
+    url('/src/assets/fonts/Roboto-Medium.woff') format('woff'),
+    url('/src/assets/fonts/Roboto-Medium.ttf') format('ttf'),
+    url('/src/assets/fonts/Roboto-Medium.eot') format('eot');
+}
+
+@font-face {
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  src: local('Roboto'),
+    url('/src/assets/fonts/Roboto-Bold.woff2') format('woff2'),
+    url('/src/assets/fonts/Roboto-Bold.woff') format('woff'),
+    url('/src/assets/fonts/Roboto-Bold.ttf') format('ttf'),
+    url('/src/assets/fonts/Roboto-Bold.eot') format('eot');
 }
 
 body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: 'Roboto', sans-serif;
 }

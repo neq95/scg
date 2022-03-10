@@ -1,0 +1,42 @@
+import React from 'react';
+
+import styles from './styles.module.css';
+
+interface propsInterface {
+  type?: string;
+  value: string | number;
+  label?: string;
+  placeholder?: string;
+  errorText?: string;
+  helperText?: string;
+  error?: boolean;
+  onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
+}
+
+const Input: React.FC<propsInterface> = ({type = 'text', value, label, placeholder, errorText, helperText, error, onChange}) => {
+  const message = error ? errorText : helperText;
+
+  return (
+    <div className={styles.wrapper}>
+      <label className={styles.label}>
+        {label}
+      </label>
+
+      <input
+        className={styles.input}
+        value={value}
+        type={type}
+        placeholder={placeholder}
+        onChange={onChange}
+      /> 
+
+      {message && message.length > 0 && 
+        <p className={styles.message}>
+          {message}
+        </p>
+      }
+    </div>
+  )
+}
+
+export default Input; 
