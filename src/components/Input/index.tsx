@@ -22,13 +22,21 @@ const Input: React.FC<propsInterface> = ({type = 'text', value, label, placehold
         {label}
       </label>
 
-      <input
-        className={styles.input}
-        value={value}
-        type={type}
-        placeholder={placeholder}
-        onChange={onChange}
-      /> 
+      <div className={styles.input}>
+        <form className={styles.inputForm}>
+          <input
+            className={styles.inputContent}
+            value={value}
+            type={type}
+            placeholder={placeholder}
+            onChange={onChange}
+          /> 
+        </form>
+
+        <button className={styles.clear}>
+          Кнопка
+        </button>
+      </div>
 
       {message && message.length > 0 && 
         <p className={styles.message}>

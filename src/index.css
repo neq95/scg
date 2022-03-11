@@ -13,13 +13,37 @@
   --green-yellow: #89ff41;
   --pickled-bluewood: #273B4A;
   --vermilion: #ff3900;
+  --silver-chalice: #ababab;
+}
+
+:root {
+  --font-size-title-1: 24px;
+  --font-size-title-2: 20px;
+  --font-size-title-3: 18px;
+  --font-size-title-4: 16px;
+  --font-size-text-1: 14px;
+  --font-size-text-2: 12px;
+  --font-size-text-3: 10px;
+
+  --line-height-title-1: 28px;
+  --line-height-title-2: 24px;
+  --line-height-title-3: 22px;
+  --line-height-title-4: 20px;
+  --line-height-text-1: 16px;
+  --line-height-text-2: 14px;
+  --line-height-text-3: 12px;
 }
 
 :root {
   --text-primary: var(--pickled-bluewood);
+  --text-disabled: var(--silver-chalice);
+  --text-help: var(--text-disabled);
+  --text-placeholder: var(--text-disabled);
   --text-error: var(--vermilion);
 
-  --input-color: var(--alice-blue); 
+  --primary-color: var(--primal-blue);
+  --input-color: var(--alice-blue);
+  --background-active-color: var(--titan-white);
 }
 
 * {
@@ -28,6 +52,17 @@
   list-style: none;
   outline: none;
   box-sizing: border-box;
+}
+
+button,
+input,
+optgroup,
+select,
+textarea {
+  font-family: inherit;
+  font-size: 100%;
+  line-height: 1.15;
+  margin: 0;
 }
 
 @font-face {

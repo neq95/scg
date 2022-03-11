@@ -4,18 +4,63 @@
 }
 
 .label {
+  font-size: var(--font-size-text-3);
+  line-height: var(--line-height-text-3);
+
   margin-left: 12px;
 
   color: var(--text-color);
 }
 
 .input {
-  padding: 8px 12px;
+  font-size: var(--font-size-text-1);
+  line-height: var(--font-size-text-1);
+
+  display: flex;
+  align-items: center;
+  padding-right: 4px;
 
   border: 1px solid  var(--input-color);
   border-radius: 12px;
 }
 
+.input::placeholder {
+  color: var(--text-placeholder);
+}
+
+.input:hover {
+  background-color: var(--background-active-color);
+}
+
+.input:focus-within {
+  border-color: var(--primary-color);
+  background-color: var(--background-active-color);
+}
+
+.inputForm {
+  flex-grow: 1;
+
+  height: 100%;
+}
+
+.inputContent {
+  width: 100%;
+  height: 100%;
+  padding: 8px 12px;
+
+  border: 0;
+  background-color: inherit;
+}
+
+.clear {
+
+}
+
 .message {
+  font-size: var(--font-size-text-3);
+  line-height: var(--line-height-text-3);
+
   margin-left: 12px;
+
+  color: var(--text-help);
 }
