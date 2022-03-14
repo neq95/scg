@@ -1,6 +1,7 @@
 import React from 'react';
 
 import styles from './styles.module.css';
+import CrossIcon from 'icons/CrossIcon';
 
 interface propsInterface {
   type?: string;
@@ -34,7 +35,7 @@ const Input: React.FC<propsInterface> = ({type = 'text', value, label, placehold
         </form>
 
         <button className={styles.clear}>
-          Кнопка
+          <CrossIcon />
         </button>
       </div>
 
