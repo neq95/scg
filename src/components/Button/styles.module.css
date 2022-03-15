@@ -1,7 +1,139 @@
 .button {
-  border: 2px solid red;
+  font-weight: var(--font-weight-medium);
+
+  cursor: pointer;
+
+  transition-property: border-radius, background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
+}
+
+.button.small {
+  font-size: var(--font-size-text-1);
+  line-height: var(--line-height-text-1);
+
+  padding: 6px 20px;
+
+  border-radius: 6px;
+}
+
+.button.medium {
+  font-size: var(--font-size-text-1);
+  line-height: var(--line-height-text-1);
+
+  padding: 8px 20px;
+
+  border-radius: 8px;
+}
+
+.button.big {
+  font-size: var(--font-size-title-4);
+  line-height: var(--line-height-title-4);
+
+  padding: 10px 24px;
+
+  border-radius: 10px;
+}
+
+.button.large {
+  font-size: var(--font-size-title-2);
+  line-height: var(--line-height-title-2);
+
+  padding: 12px 28px;
+
+  border-radius: 12px;
 }
 
 .button.text {
-  background-color: aqua;
+  color: var(--primary-color);
+
+  border: none;
+  background-color: transparent;
+}
+
+.button.text.small {
+  border-radius: 6px;
+}
+
+.button.text.medium {
+  border-radius: 8px;
+}
+
+.button.text.big {
+  border-radius: 10px;
+}
+
+.button.text.large {
+  border-radius: 12px;
+}
+
+.button.text:not(:disabled):hover {
+  background-color: var(--background-hover-secondary);
+}
+
+.button.text:not(:disabled):active {
+  background-color: var(--background-active-secondary);
+}
+
+.button.text:disabled {
+  color: var(--text-disabled);
+  cursor: unset;
+}
+
+.button.contained {
+  color: var(--text-reversed);
+
+  border: none;
+  background-color: var(--primary-color);
+}
+
+.button.contained.small {
+  border-radius: 12px;
+}
+
+.button.contained.medium {
+  border-radius: 16px;
+}
+
+.button.contained.big {
+  border-radius: 20px;
+}
+
+.button.contained.large {
+  border-radius: 24px;
+}
+
+.button.contained.small:not(:disabled):hover,
+.button.contained.small:not(:disabled):active {
+  border-radius: 6px;
+}
+
+.button.contained.medium:not(:disabled):hover,
+.button.contained.medium:not(:disabled):active {
+  border-radius: 8px;
+}
+
+.button.contained.big:not(:disabled):hover,
+.button.contained.big:not(:disabled):active {
+  border-radius: 10px;
+}
+
+.button.contained.large:not(:disabled):hover,
+.button.contained.large:not(:disabled):active {
+  border-radius: 12px;
+}
+
+.button.contained:not(:disabled):hover {
+  background-color: var(--background-hover-primary);
+}
+
+.button.contained:not(:disabled):active {
+  background-color: var(--background-active-primary);
+}
+
+.button.contained:disabled {
+  color: var(--text-disabled);
+  cursor: unset;
+
+  background-color: var(--background-disabled);
 }

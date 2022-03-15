@@ -17,6 +17,10 @@
 }
 
 :root {
+  --font-weight-regular: 400;
+  --font-weight-medium: 500;
+  --font-weight-bold: 700;
+
   --font-size-title-1: 24px;
   --font-size-title-2: 20px;
   --font-size-title-3: 18px;
@@ -40,10 +44,16 @@
   --text-help: var(--text-disabled);
   --text-placeholder: var(--text-disabled);
   --text-error: var(--vermilion);
+  --text-reversed: var(--alabaster);
 
   --primary-color: var(--primal-blue);
   --input-color: var(--alice-blue);
-  --background-active-color: var(--titan-white);
+  --background-control-active-color: var(--titan-white);
+  --background-hover-primary: var(--persian-blue);
+  --background-hover-secondary: var(--alice-blue);
+  --background-active-primary: var(--torea-bay);
+  --background-active-secondary: var(--periwinkle);
+  --background-disabled: var(--gallery);
 }
 
 * {
