@@ -1,0 +1,27 @@
+.icon {
+  display: inline-block;
+
+  width: 1em;
+  height: 1em;
+  
+  transition: fill 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+
+  user-select: none;
+  fill: currentColor;
+}
+
+.icon.small {
+  font-size: 20px;
+}
+
+.icon.medium {
+  font-size: 24px;
+}
+
+.icon.big {
+  font-size: 32px;
+}
+
+.icon.large {
+  font-size: 36px;
+}

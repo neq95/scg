@@ -1,0 +1,80 @@
+.button {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  cursor: pointer;
+
+  border: 1px solid transparent;
+}
+
+.button.small {
+  padding: 3px;
+
+  border-radius: 6px;
+}
+
+.button.medium {
+  padding: 3px;
+
+  border-radius: 8px;
+}
+
+.button.big {
+  padding: 3px;
+
+  border-radius: 10px;
+}
+
+.button.large {
+  padding: 5px;
+
+  border-radius: 12px;
+}
+
+.button.contained {
+  color: var(--text-reversed);
+
+  border-color: var(--primary-color);
+  background-color: var(--primary-color);
+}
+
+.button.contained:not(:disabled):hover {
+  border-color: var(--background-hover-primary);
+  background-color: var(--background-hover-primary);
+}
+
+.button.contained:not(:disabled):active {
+  border-color: var(--background-active-primary);
+  background-color: var(--background-active-primary);
+}
+
+.button.contained:not(:disabled):not(:active):focus {
+  border-color: var(--pickled-bluewood);
+}
+
+.button.contained:disabled {
+  color: var(--text-disabled);
+
+  border-color: var(--background-disabled);
+  background-color: var(--background-disabled);
+}
+
+
+.button.simple:not(:disabled):hover {
+  border-color: var(--background-hover-secondary);
+  background-color: var(--background-hover-secondary);
+}
+
+.button.simple:not(:disabled):active {
+  border-color: var(--background-active-secondary);
+  background-color: var(--background-active-secondary);
+}
+
+.button.simple:not(:disabled):not(:active):focus {
+  border-color: var(--primary-color);
+}
+
+.button.simple:disabled {
+  color: var(--text-disabled);
+}

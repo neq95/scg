@@ -1,6 +1,8 @@
 import GuiSection from "features/Gui/GuiSection";
 import GuiSectionBlock from "features/Gui/GuiSection/GuiSectionBlock";
 import Button from 'components/Button';
+import IconButton from 'components/IconButton';
+import CrossIcon from 'icons/CrossIcon';
 
 
 const GuiButtons = () => {
@@ -72,6 +74,40 @@ const GuiButtons = () => {
         <Button variant="contained" size="large" disabled>
           Large disabled
         </Button>
+      </GuiSectionBlock>
+
+      <GuiSectionBlock title="компонент IconButton, variant contained">
+        <IconButton variant="contained" size="small">
+          <CrossIcon size="small" />
+        </IconButton>
+
+        <IconButton variant="contained" size="small" disabled>
+          <CrossIcon size="small" />
+        </IconButton>
+
+        <IconButton variant="contained" size="medium">
+          <CrossIcon size="medium" />
+        </IconButton>
+
+        <IconButton variant="contained" size="medium" disabled>
+          <CrossIcon size="medium" />
+        </IconButton>
+
+        <IconButton variant="contained" size="big">
+          <CrossIcon size="big" />
+        </IconButton>
+
+        <IconButton variant="contained" size="big" disabled>
+          <CrossIcon size="big" />
+        </IconButton>
+
+        <IconButton variant="contained" size="large">
+          <CrossIcon size="large" />
+        </IconButton>
+
+        <IconButton variant="contained" size="large" disabled>
+          <CrossIcon size="large" />
+        </IconButton>
       </GuiSectionBlock>
     </GuiSection>
   )
