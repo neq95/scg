@@ -10,6 +10,7 @@ interface propsInterface {
   endIcon?: React.FC;
   size?: 'small' | 'medium' | 'big' | 'large';
   fullWidth?: boolean;
+  type?: 'button' | 'submit';
   disabled?: boolean;
 }
 
@@ -20,6 +21,7 @@ const Button : React.FC<propsInterface> = ({
   endIcon,
   size = 'small',
   fullWidth,
+  type = 'button',
   disabled,
   children
 }) => {
@@ -29,6 +31,7 @@ const Button : React.FC<propsInterface> = ({
       {
         cn(className, styles.button, styles[variant], styles[size], {[styles.fullWidth]: fullWidth})
       }
+      type={type}
       disabled={disabled}
     >
       {children}
