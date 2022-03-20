@@ -1,0 +1,107 @@
+.wrapper {
+  font-size: var(--font-size-text-2);
+  line-height: var(--line-height-text-2);
+  font-weight: var(--font-weight-medium);
+}
+
+.content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.checkbox,
+.icon {
+  transition-duration: .12s;
+  transition-timing-function: ease-in-out;
+}
+
+.checkbox {
+  position: relative;
+
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 20px;
+  height: 20px;
+
+  transition-property: background-color, border-color;
+
+  border: 1px solid var(--color-control);
+  border-radius: 6px;
+}
+
+.icon {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  opacity: 0;
+
+  transition-property: opacity, transform;
+  transform: translateY(-5px);
+}
+
+.label {
+  margin-left: 12px;
+}
+
+input:not(:checked):not(:disabled):hover ~ .content .checkbox {
+  background-color: var(--background-control-hover);
+}
+
+input:not(:checked):not(:disabled):active ~ .content .checkbox {
+  background-color: var(--background-control-active);
+}
+
+input:not(:checked):not(:disabled):focus ~ .content .checkbox {
+  border-color: var(--color-primary);
+}
+
+input:not(:checked):disabled ~ .content .checkbox {
+  border-color: var(--background-disabled-primary);
+  background-color: var(--background-disabled-secondary);
+}
+
+input:not(:checked):disabled ~ .content .label {
+  color: var(--text-disabled);
+}
+
+input:checked ~ .content .checkbox {
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
+}
+
+input:checked:not(:disabled):hover ~ .content .checkbox {
+  border-color: var(--background-hover-primary);
+  background-color: var(--background-hover-primary);
+}
+
+input:checked:not(:disabled):active ~ .content .checkbox {
+  border-color: var(--background-active-primary);
+  background-color: var(--background-active-primary);
+}
+
+input:checked:not(:disabled):focus ~ .content .checkbox {
+  border-color: var(--color-focus);
+}
+
+input:checked:disabled ~ .content .checkbox {
+  border-color: var(--background-disabled-primary);
+  background-color: var(--background-disabled-primary);
+}
+
+input:checked:disabled ~ .content .label {
+  color: var(--text-disabled);
+}
+
+input:checked ~ .content .icon {
+  opacity: 1;
+
+  transform: translateY(0);
+
+  color: var(--text-reversed);
+}

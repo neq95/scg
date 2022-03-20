@@ -3,9 +3,23 @@
   flex-direction: column;
 }
 
+.wrapper.error .input {
+  border-color: var(--color-error);
+}
+
+.wrapper.error .message {
+  color: var(--text-error) ;
+}
+
+.wrapper.empty .clear {
+  display: none;
+}
+
 .label {
   font-size: var(--font-size-text-3);
   line-height: var(--line-height-text-3);
+
+  display: inline-flex;
 
   margin-left: 12px;
 
@@ -13,14 +27,11 @@
 }
 
 .input {
-  font-size: var(--font-size-text-1);
-  line-height: var(--font-size-text-1);
-
   display: flex;
   align-items: center;
   padding-right: 4px;
 
-  border: 1px solid  var(--input-color);
+  border: 1px solid  var(--color-control);
   border-radius: 12px;
 }
 
@@ -29,31 +40,26 @@
 }
 
 .input:hover {
-  background-color: var(--background-control-active-color);
+  background-color: var(--background-control-hover);
 }
 
 .input:focus-within {
-  border-color: var(--primary-color);
-  background-color: var(--background-control-active-color);
-}
-
-.inputForm {
-  flex-grow: 1;
-
-  height: 100%;
+  border-color: var(--color-primary);
+  background-color: var(--background-control-hover);
 }
 
 .inputContent {
-  width: 100%;
+  font-size: var(--font-size-text-1);
+  line-height: var(--font-size-text-1);
+
+  flex-grow: 1;
+
   height: 100%;
-  padding: 8px 12px;
+  padding: 7px 12px;
 
   border: 0;
+  border-radius: inherit;
   background-color: inherit;
-}
-
-.clear {
-
 }
 
 .message {

@@ -4,12 +4,14 @@ import cn from 'classnames';
 import styles from './styles.module.css';
 
 interface propsInterface {
+  className?: string,
   size?: 'small' | 'medium' | 'big' | 'large';
   variant?: 'contained' | 'simple';
   disabled?: boolean;
 }
 
 const IconButton : React.FC<propsInterface> = ({
+  className,
   size = 'small',
   variant = 'simple',
   disabled,
@@ -17,7 +19,7 @@ const IconButton : React.FC<propsInterface> = ({
 }) => {
   return (
     <button
-      className={cn(styles.button, styles[size], styles[variant])}
+      className={cn(className, styles.button, styles[size], styles[variant])}
       disabled={disabled}
     >
       {children}

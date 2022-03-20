@@ -1,16 +1,14 @@
 import React from 'react';
 import cn from 'classnames';
 
+import { iconPropsInterface } from 'models/icon';
 import styles from './styles.module.css';
 
-interface propsInterface {
-  size: 'small' | 'medium' | 'big' | 'large';
-}
 
-const BaseIcon : React.FC<propsInterface> = ({size = 'small', children}) => {
+const BaseIcon : React.FC<iconPropsInterface> = ({className, size = 'small', children}) => {
   return (
     <svg
-      className={cn(styles.icon, styles[size])}
+      className={cn(className, styles.icon, styles[size])}
       focusable="false"
       aria-hidden="true"
       viewBox="0 0 24 24"

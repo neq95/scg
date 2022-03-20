@@ -10,6 +10,10 @@
   fill: currentColor;
 }
 
+.extra-small {
+  font-size: 18px;
+}
+
 .icon.small {
   font-size: 20px;
 }

@@ -4,6 +4,9 @@
   align-items: center;
 
   cursor: pointer;
+  transition-property: background-color;
+  transition-duration: 150ms;
+  transition-timing-function: ease;
 
   border: 1px solid transparent;
 }
@@ -35,8 +38,8 @@
 .button.contained {
   color: var(--text-reversed);
 
-  border-color: var(--primary-color);
-  background-color: var(--primary-color);
+  border-color: var(--color-primary);
+  background-color: var(--color-primary);
 }
 
 .button.contained:not(:disabled):hover {
@@ -56,10 +59,15 @@
 .button.contained:disabled {
   color: var(--text-disabled);
 
-  border-color: var(--background-disabled);
-  background-color: var(--background-disabled);
+  border-color: var(--background-disabled-secondary);
+  background-color: var(--background-disabled-secondary);
 }
 
+.button.simple {
+  color: var(--color-primary);
+
+  background-color: transparent;
+}
 
 .button.simple:not(:disabled):hover {
   border-color: var(--background-hover-secondary);
@@ -72,7 +80,7 @@
 }
 
 .button.simple:not(:disabled):not(:active):focus {
-  border-color: var(--primary-color);
+  border-color: var(--color-primary);
 }
 
 .button.simple:disabled {

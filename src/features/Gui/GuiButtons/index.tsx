@@ -109,6 +109,40 @@ const GuiButtons = () => {
           <CrossIcon size="large" />
         </IconButton>
       </GuiSectionBlock>
+
+      <GuiSectionBlock title="компонент IconButton, variant simple">
+        <IconButton size="small">
+          <CrossIcon size="small" />
+        </IconButton>
+
+        <IconButton size="small" disabled>
+          <CrossIcon size="small" />
+        </IconButton>
+
+        <IconButton size="medium">
+          <CrossIcon size="medium" />
+        </IconButton>
+
+        <IconButton size="medium" disabled>
+          <CrossIcon size="medium" />
+        </IconButton>
+
+        <IconButton size="big">
+          <CrossIcon size="big" />
+        </IconButton>
+
+        <IconButton size="big" disabled>
+          <CrossIcon size="big" />
+        </IconButton>
+
+        <IconButton size="large">
+          <CrossIcon size="large" />
+        </IconButton>
+
+        <IconButton size="large" disabled>
+          <CrossIcon size="large" />
+        </IconButton>
+      </GuiSectionBlock>
     </GuiSection>
   )
 }

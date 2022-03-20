@@ -12,7 +12,6 @@
   --porsche: #e8b95a;
   --green-yellow: #89ff41;
   --pickled-bluewood: #273B4A;
-  --vermilion: #ff3900;
   --silver-chalice: #ababab;
 }
 
@@ -43,18 +42,23 @@
   --text-disabled: var(--silver-chalice);
   --text-help: var(--text-disabled);
   --text-placeholder: var(--text-disabled);
-  --text-error: var(--vermilion);
   --text-reversed: var(--alabaster);
+  --text-error: var(--vermilion);
 
-  --primary-color: var(--primal-blue);
-  --input-color: var(--alice-blue);
-  --background-control-active-color: var(--titan-white);
+  --color-primary: var(--primal-blue);
+  --color-control: var(--alice-blue);
+  --color-error: var(--vermilion);
+  --color-focus: var(--pickled-bluewood);
+
+  --background-control-hover: var(--titan-white);
+  --background-control-active: var(--alice-blue);
+  
   --background-hover-primary: var(--persian-blue);
   --background-hover-secondary: var(--alice-blue);
   --background-active-primary: var(--torea-bay);
   --background-active-secondary: var(--periwinkle);
-  --background-disabled: var(--gallery);
-  
+  --background-disabled-primary: var(--silver-chalice);
+  --background-disabled-secondary: var(--gallery);
 }
 
 * {
@@ -74,6 +78,19 @@ textarea {
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  border: 0;
+  padding: 0;
+  white-space: nowrap;
+  clip-path: inset(100%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
 }
 
 @font-face {
@@ -111,4 +128,5 @@ textarea {
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-weight: var(--font-weight-regular);
 }
