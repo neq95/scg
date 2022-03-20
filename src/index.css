@@ -38,6 +38,10 @@
 }
 
 :root {
+  --shadow-block: 0px 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+:root {
   --text-primary: var(--pickled-bluewood);
   --text-disabled: var(--silver-chalice);
   --text-help: var(--text-disabled);
@@ -52,7 +56,7 @@
 
   --background-control-hover: var(--titan-white);
   --background-control-active: var(--alice-blue);
-  
+
   --background-hover-primary: var(--persian-blue);
   --background-hover-secondary: var(--alice-blue);
   --background-active-primary: var(--torea-bay);
@@ -126,7 +130,19 @@ textarea {
     url('/src/assets/fonts/Roboto-Bold.eot') format('eot');
 }
 
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: 'Roboto', sans-serif;
   font-weight: var(--font-weight-regular);
+}
+
+#root {
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100%;
 }

@@ -7,6 +7,7 @@ import styles from './styles.module.css';
 import CrossIcon from 'icons/CrossIcon';
 
 interface propsInterface {
+  className?: string;
   id: string;
   type?: string;
   value: string;
@@ -19,7 +20,8 @@ interface propsInterface {
 }
 
 const Input: React.FC<propsInterface> = (
-  { 
+  {
+    className,
     id,
     type = 'text',
     value,
@@ -34,7 +36,7 @@ const Input: React.FC<propsInterface> = (
   const message = error ? errorText : helperText;
 
   return (
-    <div className={cn(styles.wrapper, {[styles.error]: error, [styles.empty]: isEmpty})}>
+    <div className={cn(className, styles.wrapper, {[styles.error]: error, [styles.empty]: isEmpty})}>
       {label && <label className={styles.label} htmlFor={id}>
         {label}
       </label>
@@ -55,11 +57,10 @@ const Input: React.FC<propsInterface> = (
         </IconButton>
       </div>
 
-      {message && message.length > 0 && 
-        <p className={styles.message}>
-          {message}
-        </p>
-      }
+      
+      <p className={cn(styles.message, {active: message && message.length > 0})}>
+        {message}
+      </p>
     </div>
   )
 }

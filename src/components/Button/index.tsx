@@ -4,15 +4,17 @@ import cn from 'classnames';
 import styles from './styles.module.css';
 
 interface propsInterface {
+  className?: string;
   variant?: 'contained' | 'text';
   startIcon?: React.FC;
   endIcon?: React.FC;
   size?: 'small' | 'medium' | 'big' | 'large';
-  fullWidth?: boolean,
+  fullWidth?: boolean;
   disabled?: boolean;
 }
 
 const Button : React.FC<propsInterface> = ({
+  className,
   variant = 'text',
   startIcon,
   endIcon,
@@ -25,7 +27,7 @@ const Button : React.FC<propsInterface> = ({
     <button
       className=
       {
-        cn(styles.button, styles[variant], styles[size], {[styles.fullWidth]: fullWidth})
+        cn(className, styles.button, styles[variant], styles[size], {[styles.fullWidth]: fullWidth})
       }
       disabled={disabled}
     >

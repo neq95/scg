@@ -49,6 +49,10 @@
   margin-left: 12px;
 }
 
+input:not(:disabled) ~ .content {
+  cursor: pointer;
+}
+
 input:not(:checked):not(:disabled):hover ~ .content .checkbox {
   background-color: var(--background-control-hover);
 }
