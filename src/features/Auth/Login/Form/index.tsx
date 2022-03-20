@@ -64,6 +64,13 @@ const LoginForm: React.FC = () => {
     });
   }
 
+  const onClear = (name: string) => {
+    setValues({
+      ...values,
+      [name]: '',
+    })
+  }
+
   const getKeyValue = <T extends object, U extends keyof T>(obj: T) => (key: U) =>
   obj[key];
 
@@ -112,6 +119,7 @@ const LoginForm: React.FC = () => {
           errorText="Такого адреса не существует"
           onFocus={onFocus}
           onChange={onChange}
+          onClear={() => onClear('email')}
         />
 
         <Input

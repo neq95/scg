@@ -15,11 +15,17 @@
   display: none;
 }
 
+.wrapper.focused .input {
+  border-color: var(--color-primary);
+  background-color: var(--background-control-hover);
+}
+
 .label {
   font-size: var(--font-size-text-3);
   line-height: var(--line-height-text-3);
 
   display: inline-flex;
+  align-self: flex-start;
 
   margin-left: 12px;
 
@@ -40,11 +46,6 @@
 }
 
 .input:hover {
-  background-color: var(--background-control-hover);
-}
-
-.input:focus-within {
-  border-color: var(--color-primary);
   background-color: var(--background-control-hover);
 }
 

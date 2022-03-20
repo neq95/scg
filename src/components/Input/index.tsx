@@ -20,7 +20,9 @@ interface propsInterface {
   helperText?: string;
   error?: boolean;
   onFocus?: (event: React.FocusEvent<HTMLInputElement, Element>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLInputElement, Element>) => void;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onClear?: (event: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const Input: React.FC<propsInterface> = (
@@ -36,20 +38,35 @@ const Input: React.FC<propsInterface> = (
     helperText,
     error,
     onFocus,
-    onChange
+    onBlur,
+    onChange,
+    onClear,
   }) => {
+    const [focused, setFocused] = useState(false);
     const [visible, setVisible] = useState(false);
 
   const isEmpty = value.length === 0;  
   const message = error ? errorText : helperText;
+  const isPasswordInput = type === 'password';
+  const resolvedType = type !== 'password' ? type : visible ? 'text' : 'password';
   const visibilityIcon = visible ? <EyeOffIcon size='small' /> : <EyeIcon size='small' />
 
-  const onVisibilityButtonClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+  const onInputFocus = (event: React.FocusEvent<HTMLInputElement, Element>) => {
+    setFocused(true);
+    onFocus?.(event);
+  }
+
+  const onInputBlur = (event: React.FocusEvent<HTMLInputElement, Element>) => {
+    setFocused(false);
+    onBlur?.(event);
+  }
+
+  const onVisibilityButtonClick = () => {
     setVisible((previousState) => !previousState);
   }
 
   return (
-    <div className={cn(className, styles.wrapper, {[styles.error]: error, [styles.empty]: isEmpty})}>
+    <div className={cn(className, styles.wrapper, {[styles.error]: error, [styles.empty]: isEmpty, [styles.focused]: focused})}>
       {label && <label className={styles.label} htmlFor={id}>
         {label}
       </label>
@@ -61,22 +78,27 @@ const Input: React.FC<propsInterface> = (
           id={id}
           name={name}
           value={value}
-          type={type}
+          type={resolvedType}
           placeholder={placeholder}
-          onFocus={onFocus}
+          onFocus={onInputFocus}
+          onBlur={onInputBlur}
           onChange={onChange}
         />
 
-        <IconButton
-          className={styles.clear}
+        {isPasswordInput ? <IconButton
+          className={styles.visibility}
           size="small"
+          tabIndex={-1}
           onClick={onVisibilityButtonClick}
         >
           {visibilityIcon}
         </IconButton>
+        : <IconButton className={styles.clear} size="small" tabIndex={-1} onClick={onClear}>
+            <CrossIcon size="small" />
+          </IconButton>
+        }
       </div>
 
-      
       <p className={cn(styles.message, {active: message && message.length > 0})}>
         {message}
       </p>
