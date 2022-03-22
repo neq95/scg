@@ -3,6 +3,10 @@ import cn from 'classnames';
 import Container from 'layout/Container';
 import LoginForm from 'features/Auth/Login/Form';
 import Button from 'components/Button';
+import ReceiptIcon from 'icons/Receipt';
+import AssignmentIcon from 'icons/Assignment';
+import TaskIcon from 'icons/Task';
+import ChartIcon from 'icons/Chart';
 
 import styles from './styles.module.css';
 
@@ -20,7 +24,21 @@ const LoginPage = () => {
           </p>
 
           <div className={styles.icons}>
+            <span className={styles.icon}>
+              <ReceiptIcon size="big" />
+            </span>
 
+            <span className={styles.icon}>
+              <AssignmentIcon size="big" />
+            </span>
+
+            <span className={styles.icon}>
+              <TaskIcon size="big" />
+            </span>
+
+            <span className={styles.icon}>
+              <ChartIcon size="big" />
+            </span>
           </div>
 
           <p className={styles.description}>

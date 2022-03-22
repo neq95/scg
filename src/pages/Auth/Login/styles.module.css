@@ -23,7 +23,34 @@
   background-color: var(--primal-blue);
 }
 
+.slogan {
+  font-size: var(--font-size-title-1);
+  line-height: var(--line-height-title-1);
+  font-weight: var(--font-weight-medium);
+
+  margin-top: 16px;
+}
+
+.icons {
+  margin-top: 16px;
+}
+
+.icon {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 48px;
+  height: 48px;
+}
+
+.icon:not(:first-child) {
+  margin-left: 20px;
+}
+
 .description {
+  font-weight: var(--font-weight-medium);
+
   margin-top: 16px;
 }
 
@@ -44,14 +71,6 @@
 
 .logo.mobile {
   color: var(--color-primary);
-}
-
-.slogan {
-  font-size: var(--font-size-title-1);
-  line-height: var(--line-height-title-1);
-  font-weight: var(--font-weight-medium);
-
-  margin-top: 16px;
 }
 
 .content {
