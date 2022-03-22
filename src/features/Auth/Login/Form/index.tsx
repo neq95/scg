@@ -13,7 +13,12 @@ interface IValidationField {
   errorText: string;
 }
 
-const validationConfig: {[key: string]: IValidationField} = {
+interface IValidationConfig {
+  email: IValidationField,
+  password: IValidationField,
+} 
+
+const validationConfig: IValidationConfig = {
   email: {
     validate: buildValidateText(4),
     errorText: 'Неверный почтовый адрес',
@@ -25,7 +30,7 @@ const validationConfig: {[key: string]: IValidationField} = {
   }
 }
 
-const initialValues = {
+const initialValues: Record<string, string> = {
   email: '',
   password: '',
 }
@@ -71,13 +76,10 @@ const LoginForm: React.FC = () => {
     })
   }
 
-  const getKeyValue = <T extends object, U extends keyof T>(obj: T) => (key: U) =>
-  obj[key];
-
   const validateForm = () => {
     const newErrors: IErrors = {};
     Object.entries(values).forEach(([key, value]) => {
-      const isValid = getKeyValue(validationConfig)(key).validate(value);
+      const isValid = (validationConfig)[key as keyof IValidationConfig].validate(value);
       if (!isValid) {
         newErrors[key] = true;
       }
@@ -116,7 +118,7 @@ const LoginForm: React.FC = () => {
           error={errors.email}
           label="Электронная почта"
           placeholder="Введите вашу электронную почту"
-          errorText="Такого адреса не существует"
+          errorText={validationConfig.email.errorText}
           onFocus={onFocus}
           onChange={onChange}
           onClear={() => onClear('email')}
@@ -131,7 +133,7 @@ const LoginForm: React.FC = () => {
           error={errors.password}
           label="Пароль"
           placeholder="Введите ваш пароль"
-          errorText="Пароль должен состоять минимум и 8 символов, содержать как минимум 1 прописную букву, 1 строчную букву и 1 цифру"
+          errorText={validationConfig.password.errorText}
           onFocus={onFocus}
           onChange={onChange}
         />
@@ -157,7 +159,7 @@ const LoginForm: React.FC = () => {
         >
           Войти
         </Button>
-      </form>
+      </form> 
     </div>
   )
 }

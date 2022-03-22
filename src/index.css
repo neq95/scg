@@ -137,6 +137,8 @@ body {
 
 body {
   font-family: 'Roboto', sans-serif;
+  font-size: var(--font-size-text-1);
+  line-height: var(--line-height-text-1);
   font-weight: var(--font-weight-regular);
 }
 

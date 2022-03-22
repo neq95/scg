@@ -12,6 +12,7 @@ interface propsInterface {
   fullWidth?: boolean;
   type?: 'button' | 'submit';
   disabled?: boolean;
+  onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
 const Button : React.FC<propsInterface> = ({
@@ -23,7 +24,8 @@ const Button : React.FC<propsInterface> = ({
   fullWidth,
   type = 'button',
   disabled,
-  children
+  children,
+  onClick,
 }) => {
   return (
     <button
@@ -33,6 +35,7 @@ const Button : React.FC<propsInterface> = ({
       }
       type={type}
       disabled={disabled}
+      onClick={onClick}
     >
       {children}
     </button>
