@@ -2,6 +2,7 @@ import cn from 'classnames';
 
 import Container from 'layout/Container';
 import LoginForm from 'features/Auth/Login/Form';
+import SignUpForm from 'features/Auth/SignUp/Form';
 import Button from 'components/Button';
 import ReceiptIcon from 'icons/Receipt';
 import AssignmentIcon from 'icons/Assignment';
@@ -51,7 +52,8 @@ const LoginPage = () => {
           <p className={cn(styles.logo, styles.mobile)}>SprinCanGile</p>
   
           <div className={styles.content}>
-            <LoginForm />
+            {/* <LoginForm /> */}
+            <SignUpForm />
           </div>
   
           <p className={styles.tip}>

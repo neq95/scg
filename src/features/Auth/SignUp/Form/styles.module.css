@@ -1,0 +1,19 @@
+.title {
+  font-size: var(--font-size-title-3);
+  line-height: var(--line-height-title-3);
+  font-weight: var(--font-weight-medium);
+
+  text-align: center;
+}
+
+.form {
+  margin-top: 16px;
+}
+
+.input:not(:first-child) {
+  margin-top: 2px;
+}
+
+.submit {
+  margin-top: 16px;
+}
