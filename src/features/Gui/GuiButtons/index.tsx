@@ -76,6 +76,12 @@ const GuiButtons = () => {
         </Button>
       </GuiSectionBlock>
 
+      <GuiSectionBlock title="компонент Button, variant contained, navigation">
+        <Button variant="contained" href="/auth/login" size="small">
+          Navigation button
+        </Button>
+      </GuiSectionBlock>
+
       <GuiSectionBlock title="компонент IconButton, variant contained">
         <IconButton variant="contained" size="small">
           <CrossIcon size="small" />

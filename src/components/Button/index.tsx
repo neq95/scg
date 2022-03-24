@@ -1,5 +1,6 @@
 import React from 'react';
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
 import styles from './styles.module.css';
 
@@ -11,6 +12,7 @@ interface propsInterface {
   size?: 'small' | 'medium' | 'big' | 'large';
   fullWidth?: boolean;
   type?: 'button' | 'submit';
+  href?: string;
   disabled?: boolean;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
@@ -23,22 +25,27 @@ const Button : React.FC<propsInterface> = ({
   size = 'small',
   fullWidth,
   type = 'button',
+  href,
   disabled,
   children,
   onClick,
 }) => {
+  const Component: any = href ? Link : 'button';
+  const resolvedType = href ? null: type;
+
   return (
-    <button
+    <Component
       className=
       {
         cn(className, styles.button, styles[variant], styles[size], {[styles.fullWidth]: fullWidth})
       }
-      type={type}
+      type={resolvedType}
+      to={href}
       disabled={disabled}
       onClick={onClick}
     >
       {children}
-    </button>
+    </Component>
   )
 }
 

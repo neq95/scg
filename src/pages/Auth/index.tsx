@@ -1,8 +1,7 @@
+import { Outlet, useLocation } from 'react-router-dom';
 import cn from 'classnames';
 
 import Container from 'layout/Container';
-import LoginForm from 'features/Auth/Login/Form';
-import SignUpForm from 'features/Auth/SignUp/Form';
 import Button from 'components/Button';
 import ReceiptIcon from 'icons/Receipt';
 import AssignmentIcon from 'icons/Assignment';
@@ -11,7 +10,29 @@ import ChartIcon from 'icons/Chart';
 
 import styles from './styles.module.css';
 
-const LoginPage = () => {
+enum routes {
+  login = '/auth/login',
+  signup = '/auth/signup',
+}
+
+const routesConfig = {
+  [routes.login]: {
+    tipText: 'Нет аккаунта? Создать его просто',
+    redirectHref: 'signup',
+    redirectButtonText: 'Регистрация',
+  },
+
+  [routes.signup]: {
+    tipText: 'Уже зарегистрированы? Войдите',
+    redirectHref: 'login',
+    redirectButtonText: 'Авторизация', 
+  },
+}
+
+const AuthPage = () => {
+  const {pathname} = useLocation();
+  const routeConfig = routesConfig[pathname as keyof typeof routesConfig];
+
   return (
     <Container className={styles.container}>
       <div className={styles.login}>
@@ -52,16 +73,15 @@ const LoginPage = () => {
           <p className={cn(styles.logo, styles.mobile)}>SprinCanGile</p>
   
           <div className={styles.content}>
-            {/* <LoginForm /> */}
-            <SignUpForm />
+            <Outlet />
           </div>
   
           <p className={styles.tip}>
-            Нет аккаунта? Создать его просто
+            {routeConfig.tipText}
           </p>
   
-          <Button className={styles.registry} size="big">
-            Регистрация
+          <Button className={styles.registry} size="big" href={routeConfig.redirectHref}>
+            {routeConfig.redirectButtonText}
           </Button>
         </div>
       </div>
@@ -69,4 +89,4 @@ const LoginPage = () => {
   )
 }
 
-export default LoginPage;
+export default AuthPage;

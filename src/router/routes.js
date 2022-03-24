@@ -1,7 +1,9 @@
 import { useRoutes } from 'react-router-dom';
 
 import GuiPage from 'pages/Gui';
-import LoginPage from 'pages/Auth/Login';
+import AuthPage from 'pages/Auth';
+import LoginForm from 'features/Auth/Login/Form';
+import SignUpForm from 'features/Auth/SignUp/Form';
 
 const Routes = () => {
   return useRoutes([
@@ -10,9 +12,19 @@ const Routes = () => {
       element: <GuiPage />,
     },
     {
-      path: '/login',
-      element: <LoginPage />
-    }
+      path: '/auth',
+      element: <AuthPage />,
+      children: [
+        {
+          path: 'login',
+          element: <LoginForm />
+        },
+        {
+          path: 'signup',
+          element: <SignUpForm />
+        }
+      ]
+    },
   ]);
 }
 

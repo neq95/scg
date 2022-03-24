@@ -1,7 +1,12 @@
 .button {
   font-weight: var(--font-weight-medium);
 
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
   cursor: pointer;
+  text-decoration: none;
 
   transition-property: border-radius, background-color;
   transition-duration: 150ms;
