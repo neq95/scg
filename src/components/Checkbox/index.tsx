@@ -12,34 +12,34 @@ interface propsInterface {
 }
 
 const Checkbox: React.FC<propsInterface> = (
-  {
-    label,
-    disabled,
-    checked,
-    onChange,
-  }
+	{
+		label,
+		disabled,
+		checked,
+		onChange,
+	}
 ) => {
-  return (
-    <div className={styles.wrapper}>
-      <label>
-        <input
-          className="visually-hidden"
-          type="checkbox"
-          disabled={disabled}
-          checked={checked}
-          onChange={onChange}
-        />
+	return (
+		<div className={styles.wrapper}>
+			<label>
+				<input
+					className="visually-hidden"
+					type="checkbox"
+					disabled={disabled}
+					checked={checked}
+					onChange={onChange}
+				/>
 
-        <span className={styles.content}>
-          <span className={styles.checkbox}>
-            <CheckIcon className={styles.icon} size="extra-small" />
-          </span>
+				<span className={styles.content}>
+					<span className={styles.checkbox}>
+						<CheckIcon className={styles.icon} size="extra-small" />
+					</span>
 
-          {label && <span className={styles.label}>{label}</span>}
-        </span>
-      </label>
-    </div>
-  )
-}
+					{label && <span className={styles.label}>{label}</span>}
+				</span>
+			</label>
+		</div>
+	);
+};
 
 export default Checkbox;

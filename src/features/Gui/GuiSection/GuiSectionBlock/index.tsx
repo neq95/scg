@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 interface propsInterface {
   title: string,
@@ -6,17 +6,17 @@ interface propsInterface {
 }
 
 const GuiSectionBlock : React.FC<propsInterface> = ({title, description, children}) => {
-  return (
-    <article>
-      <p>
-        {title}
-      </p>
+	return (
+		<article>
+			<p>
+				{title}
+			</p>
 
-      {description && <p>{description}</p>}
+			{description && <p>{description}</p>}
 
-      {children}
-    </article>
-  )
-}
+			{children}
+		</article>
+	);
+};
 
 export default GuiSectionBlock;

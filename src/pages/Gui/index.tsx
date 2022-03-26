@@ -5,15 +5,15 @@ import GuiButtons from 'features/Gui/GuiButtons';
 import GuiCheckboxes from 'features/Gui/Checkboxes';
 
 const GuiPage : React.FC = () => {
-  return (
-    <div>
-      <GuiInputs />
+	return (
+		<div>
+			<GuiInputs />
 
-      <GuiButtons />
+			<GuiButtons />
 
-      <GuiCheckboxes />
-    </div>
-  )
+			<GuiCheckboxes />
+		</div>
+	);
 };
 
 export default GuiPage;

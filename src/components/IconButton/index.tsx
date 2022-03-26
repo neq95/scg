@@ -14,26 +14,26 @@ interface propsInterface {
 }
 
 const IconButton : React.FC<propsInterface> = ({
-  className,
-  size = 'small',
-  variant = 'simple',
-  type = 'button',
-  disabled,
-  tabIndex,
-  children,
-  onClick,
+	className,
+	size = 'small',
+	variant = 'simple',
+	type = 'button',
+	disabled,
+	tabIndex,
+	children,
+	onClick,
 }) => {
-  return (
-    <button
-      className={cn(className, styles.button, styles[size], styles[variant])}
-      type={type}
-      disabled={disabled}
-      tabIndex={tabIndex}
-      onClick={onClick}
-    >
-      {children}
-    </button>
-  )
-}
+	return (
+		<button
+			className={cn(className, styles.button, styles[size], styles[variant])}
+			type={type}
+			disabled={disabled}
+			tabIndex={tabIndex}
+			onClick={onClick}
+		>
+			{children}
+		</button>
+	);
+};
 
 export default IconButton;

@@ -8,11 +8,11 @@ interface IProps {
 }
 
 const Container: React.FC<IProps> = ({className, children}) => {
-  return (
-    <div className={cn(className, styles.container)}>
-      {children}
-    </div>
-  )
+	return (
+		<div className={cn(className, styles.container)}>
+			{children}
+		</div>
+	);
 };
 
 export default Container;

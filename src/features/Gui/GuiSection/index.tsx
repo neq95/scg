@@ -6,17 +6,17 @@ interface propsInterface {
 }
 
 const GuiSection : React.FC<propsInterface> = ({title, description, children}) => {
-  return (
-    <section>
-      <h3>
-        {title}
-      </h3>
+	return (
+		<section>
+			<h3>
+				{title}
+			</h3>
 
-      {description && <p>{description}</p>}
+			{description && <p>{description}</p>}
 
-      {children}
-    </section>
-  )
-}
+			{children}
+		</section>
+	);
+};
 
 export default GuiSection;

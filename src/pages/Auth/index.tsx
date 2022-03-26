@@ -16,77 +16,77 @@ enum routes {
 }
 
 const routesConfig = {
-  [routes.login]: {
-    tipText: 'Нет аккаунта? Создать его просто',
-    redirectHref: 'signup',
-    redirectButtonText: 'Регистрация',
-  },
+	[routes.login]: {
+		tipText: 'Нет аккаунта? Создать его просто',
+		redirectHref: 'signup',
+		redirectButtonText: 'Регистрация',
+	},
 
-  [routes.signup]: {
-    tipText: 'Уже зарегистрированы? Войдите',
-    redirectHref: 'login',
-    redirectButtonText: 'Авторизация', 
-  },
-}
+	[routes.signup]: {
+		tipText: 'Уже зарегистрированы? Войдите',
+		redirectHref: 'login',
+		redirectButtonText: 'Авторизация', 
+	},
+};
 
 const AuthPage = () => {
-  const {pathname} = useLocation();
-  const routeConfig = routesConfig[pathname as keyof typeof routesConfig];
+	const {pathname} = useLocation();
+	const routeConfig = routesConfig[pathname as keyof typeof routesConfig];
 
-  return (
-    <Container className={styles.container}>
-      <div className={styles.login}>
-        <div className={styles.info}>
-          <p className={styles.logo}>
+	return (
+		<Container className={styles.container}>
+			<div className={styles.login}>
+				<div className={styles.info}>
+					<p className={styles.logo}>
             SprinCanGile
-          </p>
+					</p>
 
-          <p className={styles.slogan}>
+					<p className={styles.slogan}>
             Управление - это понятно!
-          </p>
+					</p>
 
-          <div className={styles.icons}>
-            <span className={styles.icon}>
-              <ReceiptIcon size="big" />
-            </span>
+					<div className={styles.icons}>
+						<span className={styles.icon}>
+							<ReceiptIcon size="big" />
+						</span>
 
-            <span className={styles.icon}>
-              <AssignmentIcon size="big" />
-            </span>
+						<span className={styles.icon}>
+							<AssignmentIcon size="big" />
+						</span>
 
-            <span className={styles.icon}>
-              <TaskIcon size="big" />
-            </span>
+						<span className={styles.icon}>
+							<TaskIcon size="big" />
+						</span>
 
-            <span className={styles.icon}>
-              <ChartIcon size="big" />
-            </span>
-          </div>
+						<span className={styles.icon}>
+							<ChartIcon size="big" />
+						</span>
+					</div>
 
-          <p className={styles.description}>
+					<p className={styles.description}>
             Создавайте задачи, формируйте спринты, контролируйте процесс 
             и собирайте аналитику и всё это в одном месте и на всех платформах.
-          </p>
-        </div>
+					</p>
+				</div>
 
-        <div className={styles.main}>
-          <p className={cn(styles.logo, styles.mobile)}>SprinCanGile</p>
+				<div className={styles.main}>
+					<p className={cn(styles.logo, styles.mobile)}>SprinCanGile</p>
   
-          <div className={styles.content}>
-            <Outlet />
-          </div>
+					<div className={styles.content}>
+						<Outlet />
+					</div>
   
-          <p className={styles.tip}>
-            {routeConfig.tipText}
-          </p>
+					<p className={styles.tip}>
+						{routeConfig.tipText}
+					</p>
   
-          <Button className={styles.registry} size="big" href={routeConfig.redirectHref}>
-            {routeConfig.redirectButtonText}
-          </Button>
-        </div>
-      </div>
-    </Container>
-  )
-}
+					<Button className={styles.registry} size="big" href={routeConfig.redirectHref}>
+						{routeConfig.redirectButtonText}
+					</Button>
+				</div>
+			</div>
+		</Container>
+	);
+};
 
 export default AuthPage;

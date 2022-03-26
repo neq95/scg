@@ -5,11 +5,11 @@ interface propsInterface {
 }
 
 const Form: React.FC<propsInterface> = ({className, children}) => {
-  return (
-    <form className={className} >
-      {children}
-    </form>
-  )
-}
+	return (
+		<form className={className} >
+			{children}
+		</form>
+	);
+};
 
 export default Form;

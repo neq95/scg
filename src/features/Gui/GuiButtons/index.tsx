@@ -1,156 +1,156 @@
-import GuiSection from "features/Gui/GuiSection";
-import GuiSectionBlock from "features/Gui/GuiSection/GuiSectionBlock";
+import GuiSection from 'features/Gui/GuiSection';
+import GuiSectionBlock from 'features/Gui/GuiSection/GuiSectionBlock';
 import Button from 'components/Button';
 import IconButton from 'components/IconButton';
 import CrossIcon from 'icons/CrossIcon';
 
 
 const GuiButtons = () => {
-  return (
-    <GuiSection title="Кнопки">
-      <GuiSectionBlock title="компонент Button, variant text">
-        <Button size="small">
+	return (
+		<GuiSection title="Кнопки">
+			<GuiSectionBlock title="компонент Button, variant text">
+				<Button size="small">
           Small
-        </Button>
+				</Button>
 
-        <Button size="small" disabled>
+				<Button size="small" disabled>
           Small disabled
-        </Button>
+				</Button>
 
-        <Button size="medium">
+				<Button size="medium">
           Medium
-        </Button>
+				</Button>
 
-        <Button size="medium" disabled>
+				<Button size="medium" disabled>
           Medium disabled
-        </Button>
+				</Button>
 
-        <Button size="big">
+				<Button size="big">
           Big
-        </Button>
+				</Button>
 
-        <Button size="big" disabled>
+				<Button size="big" disabled>
           Big disabled
-        </Button>
+				</Button>
 
-        <Button size="large">
+				<Button size="large">
           Large
-        </Button>
+				</Button>
 
-        <Button size="large" disabled>
+				<Button size="large" disabled>
           Large disabled
-        </Button>
-      </GuiSectionBlock>
+				</Button>
+			</GuiSectionBlock>
 
-      <GuiSectionBlock title="компонент Button, variant contained">
-        <Button variant="contained" size="small">
+			<GuiSectionBlock title="компонент Button, variant contained">
+				<Button variant="contained" size="small">
           Small
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="small" disabled>
+				<Button variant="contained" size="small" disabled>
           Small disabled
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="medium">
+				<Button variant="contained" size="medium">
           Medium
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="medium" disabled>
+				<Button variant="contained" size="medium" disabled>
           Medium disabled
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="big">
+				<Button variant="contained" size="big">
           Big
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="big" disabled>
+				<Button variant="contained" size="big" disabled>
           Big disabled
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="large">
+				<Button variant="contained" size="large">
           Large
-        </Button>
+				</Button>
 
-        <Button variant="contained" size="large" disabled>
+				<Button variant="contained" size="large" disabled>
           Large disabled
-        </Button>
-      </GuiSectionBlock>
+				</Button>
+			</GuiSectionBlock>
 
-      <GuiSectionBlock title="компонент Button, variant contained, navigation">
-        <Button variant="contained" href="/auth/login" size="small">
+			<GuiSectionBlock title="компонент Button, variant contained, navigation">
+				<Button variant="contained" href="/auth/login" size="small">
           Navigation button
-        </Button>
-      </GuiSectionBlock>
+				</Button>
+			</GuiSectionBlock>
 
-      <GuiSectionBlock title="компонент IconButton, variant contained">
-        <IconButton variant="contained" size="small">
-          <CrossIcon size="small" />
-        </IconButton>
+			<GuiSectionBlock title="компонент IconButton, variant contained">
+				<IconButton variant="contained" size="small">
+					<CrossIcon size="small" />
+				</IconButton>
 
-        <IconButton variant="contained" size="small" disabled>
-          <CrossIcon size="small" />
-        </IconButton>
+				<IconButton variant="contained" size="small" disabled>
+					<CrossIcon size="small" />
+				</IconButton>
 
-        <IconButton variant="contained" size="medium">
-          <CrossIcon size="medium" />
-        </IconButton>
+				<IconButton variant="contained" size="medium">
+					<CrossIcon size="medium" />
+				</IconButton>
 
-        <IconButton variant="contained" size="medium" disabled>
-          <CrossIcon size="medium" />
-        </IconButton>
+				<IconButton variant="contained" size="medium" disabled>
+					<CrossIcon size="medium" />
+				</IconButton>
 
-        <IconButton variant="contained" size="big">
-          <CrossIcon size="big" />
-        </IconButton>
+				<IconButton variant="contained" size="big">
+					<CrossIcon size="big" />
+				</IconButton>
 
-        <IconButton variant="contained" size="big" disabled>
-          <CrossIcon size="big" />
-        </IconButton>
+				<IconButton variant="contained" size="big" disabled>
+					<CrossIcon size="big" />
+				</IconButton>
 
-        <IconButton variant="contained" size="large">
-          <CrossIcon size="large" />
-        </IconButton>
+				<IconButton variant="contained" size="large">
+					<CrossIcon size="large" />
+				</IconButton>
 
-        <IconButton variant="contained" size="large" disabled>
-          <CrossIcon size="large" />
-        </IconButton>
-      </GuiSectionBlock>
+				<IconButton variant="contained" size="large" disabled>
+					<CrossIcon size="large" />
+				</IconButton>
+			</GuiSectionBlock>
 
-      <GuiSectionBlock title="компонент IconButton, variant simple">
-        <IconButton size="small">
-          <CrossIcon size="small" />
-        </IconButton>
+			<GuiSectionBlock title="компонент IconButton, variant simple">
+				<IconButton size="small">
+					<CrossIcon size="small" />
+				</IconButton>
 
-        <IconButton size="small" disabled>
-          <CrossIcon size="small" />
-        </IconButton>
+				<IconButton size="small" disabled>
+					<CrossIcon size="small" />
+				</IconButton>
 
-        <IconButton size="medium">
-          <CrossIcon size="medium" />
-        </IconButton>
+				<IconButton size="medium">
+					<CrossIcon size="medium" />
+				</IconButton>
 
-        <IconButton size="medium" disabled>
-          <CrossIcon size="medium" />
-        </IconButton>
+				<IconButton size="medium" disabled>
+					<CrossIcon size="medium" />
+				</IconButton>
 
-        <IconButton size="big">
-          <CrossIcon size="big" />
-        </IconButton>
+				<IconButton size="big">
+					<CrossIcon size="big" />
+				</IconButton>
 
-        <IconButton size="big" disabled>
-          <CrossIcon size="big" />
-        </IconButton>
+				<IconButton size="big" disabled>
+					<CrossIcon size="big" />
+				</IconButton>
 
-        <IconButton size="large">
-          <CrossIcon size="large" />
-        </IconButton>
+				<IconButton size="large">
+					<CrossIcon size="large" />
+				</IconButton>
 
-        <IconButton size="large" disabled>
-          <CrossIcon size="large" />
-        </IconButton>
-      </GuiSectionBlock>
-    </GuiSection>
-  )
-}
+				<IconButton size="large" disabled>
+					<CrossIcon size="large" />
+				</IconButton>
+			</GuiSectionBlock>
+		</GuiSection>
+	);
+};
 
 export default GuiButtons;
