@@ -1,4 +1,5 @@
 :root {
+  --white: #ffffff;
   --alabaster: #f8f8f8;
   --gallery: #ececec;
   --titan-white: #f3f4ff;
@@ -39,6 +40,7 @@
 
 :root {
   --shadow-block: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  --shadow-secondary: 0px 2px 16px rgba(0, 0, 0, 0.1);
 }
 
 :root {
@@ -48,11 +50,15 @@
   --text-placeholder: var(--text-disabled);
   --text-reversed: var(--alabaster);
   --text-error: var(--vermilion);
+  --text-no-accent: var(--silver-chalice);
 
   --color-primary: var(--primal-blue);
   --color-control: var(--alice-blue);
   --color-error: var(--vermilion);
   --color-focus: var(--pickled-bluewood);
+  --color-success: var(--green-yellow);
+
+  --background-color-primary: var(--white);
 
   --background-control-hover: var(--titan-white);
   --background-control-active: var(--alice-blue);
@@ -95,6 +101,12 @@ textarea {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+.text-one-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @font-face {

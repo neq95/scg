@@ -1,9 +1,12 @@
 import { useRoutes } from 'react-router-dom';
 
 import GuiPage from 'pages/Gui';
+
 import AuthPage from 'pages/Auth';
 import LoginForm from 'features/Auth/Login/Form';
 import SignUpForm from 'features/Auth/SignUp/Form';
+
+import TaskList from 'pages/Task/TaskList';
 
 const Routes = () => {
 	return useRoutes([
@@ -25,6 +28,10 @@ const Routes = () => {
 				}
 			]
 		},
+		{
+			path: '/',
+			element: <TaskList />
+		}
 	]);
 };
 
