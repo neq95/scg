@@ -1,0 +1,22 @@
+.label {
+  display: flex;
+  padding: 9px 12px;
+
+  min-width: 0;
+
+  border-radius: 6px;
+}
+
+.label.small {
+  padding: 3px 6px;
+}
+
+.label.medium {
+  padding: 9px 12px;
+}
+
+.text {
+  font-size: var(--font-size-text-2);
+  line-height: var(--line-height-text-2);
+  font-weight: var(--font-weight-medium);
+}

@@ -8,15 +8,16 @@ import styles from './styles.module.css';
 
 interface IStatusProps {
   value: 'success' | 'fail';
+  className?: string;
 }
 
-const Status: React.FC<IStatusProps> = ({value}) => {
+const Status: React.FC<IStatusProps> = ({className, value}) => {
   const icon = value === 'success' 
     ? <CheckIcon size="extra-small" />
     : <CrossIcon size="extra-small" />;
 
   return (
-    <span className={cn(styles.status, styles[value])}>
+    <span className={cn(className, styles.status, styles[value])}>
       {icon}
     </span>
   );

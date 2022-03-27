@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 
 const GuiTaskCards = () => {
 	return (
-		<GuiSection title="Кнопки">
+		<GuiSection title="Карточка задачи">
 			<GuiSectionBlock title="компонент TaskCard">
 				<div className={styles.column}>
 					<TaskCard />
