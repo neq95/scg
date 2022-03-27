@@ -14,6 +14,7 @@
   --green-yellow: #89ff41;
   --pickled-bluewood: #273B4A;
   --silver-chalice: #ababab;
+  --como: #467761;
 }
 
 :root {
@@ -56,7 +57,7 @@
   --color-control: var(--alice-blue);
   --color-error: var(--vermilion);
   --color-focus: var(--pickled-bluewood);
-  --color-success: var(--green-yellow);
+  --color-success: var(--como);
 
   --background-color-primary: var(--white);
 
@@ -88,6 +89,12 @@ textarea {
   font-size: 100%;
   line-height: 1.15;
   margin: 0;
+}
+
+ul {
+  padding-left: 0;
+
+  list-style: none;
 }
 
 .visually-hidden {

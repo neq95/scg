@@ -7,17 +7,18 @@ import CheckIcon from 'icons/CheckIcon';
 import styles from './styles.module.css';
 
 interface IStatusProps {
-  value: 'success' | 'fail';
   className?: string;
+  value: 'success' | 'fail' | 'progress';
+  variant?: 'outlined' | 'contained';
 }
 
-const Status: React.FC<IStatusProps> = ({className, value}) => {
+const Status: React.FC<IStatusProps> = ({className, value, variant = 'contained'}) => {
   const icon = value === 'success' 
     ? <CheckIcon size="extra-small" />
     : <CrossIcon size="extra-small" />;
 
   return (
-    <span className={cn(className, styles.status, styles[value])}>
+    <span className={cn(className, styles.status, styles[value], styles[variant])}>
       {icon}
     </span>
   );

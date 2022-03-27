@@ -6,15 +6,20 @@
   width: 20px;
   height: 20px;
 
-  color: var(--text-reversed);
-
+  border: 1px solid transparent;
   border-radius: 50%;
 }
 
-.status.success {
+.status.contained {
+  color: var(--text-reversed);
+}
+
+.status.contained.success {
+  border-color: var(--color-success);
   background-color: var(--color-success);
 }
 
-.status.fail {
+.status.contained.fail {
+  border-color: var(--color-error);
   background-color: var(--color-error);
 }

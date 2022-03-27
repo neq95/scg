@@ -63,9 +63,12 @@
 .estimation {
   display: flex;
   align-items: center;
-  flex-grow: 1;
 }
 
 .estimationTime {
   margin-left: 4px;
+}
+
+.participants {
+  margin-left: auto;
 }

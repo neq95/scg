@@ -6,9 +6,7 @@ const GuiLabels = () => {
 	return (
 		<GuiSection title="Метки">
 			<GuiSectionBlock title="компонент Label">
-				<Label backgroundColor="#EAE8FF" color="#4734FF">
-          Дизайн
-        </Label>
+				<Label backgroundColor="#EAE8FF" color="#4734FF" text="Дизайн" />
 			</GuiSectionBlock>
 		</GuiSection>
 	);
