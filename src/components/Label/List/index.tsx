@@ -18,21 +18,25 @@ const LabelList: React.FC<ILabelListProps> = ({className, labels, limit}) => {
   const remainCount = labels.length - resolvedLabels.length;
 
   return (
-    <ul className={cn(className, styles.list)}>
-      {resolvedLabels.map((label, index) => {
-        return (
-          <li key={index}>
-            <Label
-              backgroundColor={label.backgroundColor}
-              color={label.color}
-              text={label.text}
-            />
-          </li>
-        );
-      })}
+    <div className={cn(className, styles.wrapper)}>
+      <ul className={cn(styles.list, styles.item)}>
+        {resolvedLabels.map((label, index) => {
+          return (
+            <li className={styles.label} key={index}>
+              <Label
+                backgroundColor={label.backgroundColor}
+                color={label.color}
+                text={label.text}
+              />
+            </li>
+          );
+        })}
+      </ul>
 
-      {hasLimit && remainCount}
-    </ul>
+      <span className={cn(styles.remain, styles.item)}>
+        {hasLimit && '+' + remainCount}
+      </span>
+    </div>
   );
 };
 

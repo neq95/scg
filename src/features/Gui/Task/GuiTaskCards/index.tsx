@@ -32,20 +32,49 @@ const labels: Array<ILabel> = [
 const GuiTaskCards = () => {
 	return (
 		<GuiSection title="Карточка задачи">
-			<GuiSectionBlock title="компонент TaskCard">
-				<div className={styles.column}>
-					<TaskCard
-						content={content1}
-						description={description1}
-						estimation={40}
-						priorityColor={priorityColor1}
-						labels={labels}
-						difficulty="Трудно очень"
-					/>
-				</div>
+			<GuiSectionBlock title="Expanded size">
+				<div className={styles.row}>
+					<div className={styles.column}>
+						<TaskCard
+							content={content1}
+							description={description1}
+							estimation={40}
+							priorityColor={priorityColor1}
+							labels={labels}
+							difficulty="Трудно очень"
+						/>
 
-				<div className={styles.column}>
-					<TaskCard content={content2} priorityColor={priorityColor2} />
+					</div>
+
+					<div className={styles.column}>
+						<TaskCard
+							content={content2}
+							priorityColor={priorityColor2}
+						/>
+					</div>
+				</div>
+			</GuiSectionBlock>
+
+			<GuiSectionBlock title="Fix size">
+				<div className={styles.row}>
+					<div className={styles.column}>
+						<TaskCard
+							content={content1}
+							description={description1}
+							estimation={40}
+							priorityColor={priorityColor1}
+							labels={labels}
+							difficulty="Трудно очень"
+						/>
+
+					</div>
+
+					<div className={styles.column}>
+						<TaskCard
+							content={content2}
+							priorityColor={priorityColor2}
+						/>
+					</div>
 				</div>
 			</GuiSectionBlock>
 		</GuiSection>

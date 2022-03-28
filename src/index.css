@@ -42,6 +42,7 @@
 :root {
   --shadow-block: 0px 8px 16px rgba(0, 0, 0, 0.15);
   --shadow-secondary: 0px 2px 16px rgba(0, 0, 0, 0.1);
+  --shadow-active-secondary: 0px 2px 16px rgba(0, 0, 0, 0.4);
 }
 
 :root {

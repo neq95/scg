@@ -1,16 +1,27 @@
 import React from 'react';
 import cn from 'classnames';
+import {Link} from 'react-router-dom';
 
 import PriorityLabel from 'components/Priority/PriorityLabel';
 import Status from 'components/Status';
 import LabelList from 'components/Label/List';
-import Label from 'components/Label';
 import TimerIcon from 'icons/TimerIcon';
 
 import styles from './styles.module.css';
 import {ILabel} from 'models/Label';
+import {StatusEnum} from 'models/Status';
+
+/**
+ * TODO:
+ * 1. получать дату пропсами (видимо, timestamp и приобразовывать к дате)
+ * 2. изменить стили статуса. Нужно, чтобы только статусы в состоянии IDLE меняли стили
+ * при ховере и фокусе
+ * 3. Сделать fix size вид отображения
+ */
+
 interface ITaskCardProps {
-  status?: 'done' | 'inProgress';
+  className?: string;
+  status?: StatusEnum;
   content: string;
   description?: string;
   estimation?: number;
@@ -20,7 +31,8 @@ interface ITaskCardProps {
 }
 
 const TaskCard: React.FC<ITaskCardProps> = ({
-  status = 'inProgress',
+  className,
+  status = StatusEnum.IDLE,
   content,
   description,
   estimation,
@@ -29,7 +41,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({
   difficulty,
 }) => {
   return (
-    <div className={styles.task}>
+    <Link className={cn(className, styles.task)} to="/">
        <div className={cn(styles.header, styles.row)}>
          <PriorityLabel color={priorityColor} />
 
@@ -37,7 +49,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({
            22.08.22 
          </span>
 
-        <Status className={styles.status} value="success" />
+        <Status className={styles.status} value={status} />
        </div>
 
        <div className={cn(styles.body, styles.row)}>
@@ -45,7 +57,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({
             {content}
           </p>
 
-          {labels && <LabelList labels={labels} limit={2} />}
+          {labels && <LabelList className={styles.row} labels={labels} limit={2} />}
 
           {description && <p className={cn(styles.description, 'text-one-line', styles.row)}>
             Могут возникнуть сложности в известном расположении
@@ -73,7 +85,7 @@ const TaskCard: React.FC<ITaskCardProps> = ({
            </span>
          </div>
        </div>
-    </div>
+    </Link>
   );
 };
 
