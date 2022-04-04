@@ -22,26 +22,28 @@ import {StatusEnum} from 'models/Status';
 interface ITaskCardProps {
   className?: string;
   status?: StatusEnum;
-  content: string;
+  title: string;
   description?: string;
   estimation?: number;
   labels?: ILabel[];
   priorityColor: string;
   difficulty?: string;
+  fixedSize?: boolean;
 }
 
 const TaskCard: React.FC<ITaskCardProps> = ({
   className,
   status = StatusEnum.IDLE,
-  content,
+  title,
   description,
   estimation,
   labels,
   priorityColor,
   difficulty,
+  fixedSize,
 }) => {
   return (
-    <Link className={cn(className, styles.task)} to="/">
+    <Link className={cn(className, styles.task, {[styles.fixed]: fixedSize})} to="/">
        <div className={cn(styles.header, styles.row)}>
          <PriorityLabel color={priorityColor} />
 
@@ -53,14 +55,14 @@ const TaskCard: React.FC<ITaskCardProps> = ({
        </div>
 
        <div className={cn(styles.body, styles.row)}>
-          <p className={cn(styles.content, styles.row)}>
-            {content}
+          <p className={cn(styles.title, styles.row)}>
+            {title}
           </p>
 
           {labels && <LabelList className={styles.row} labels={labels} limit={2} />}
 
           {description && <p className={cn(styles.description, 'text-one-line', styles.row)}>
-            Могут возникнуть сложности в известном расположении
+            {description}
           </p>
           }
        </div>

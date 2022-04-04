@@ -5,8 +5,8 @@ import TaskCard from 'features/Task/TaskCard';
 import styles from './styles.module.css';
 import { ILabel } from 'models/Label';
 
-const content1 = 'Сваггер - что это и как с ним работать? Погуглить, пообщаться с Ромой, придумать инструмент по просмотру для фронтов и для других персонажей';
-const content2 = 'Задача';
+const title1 = 'Сваггер - что это и как с ним работать? Погуглить, пообщаться с Ромой, придумать инструмент по просмотру для фронтов и для других персонажей';
+const title2 = 'Задача';
 const description1 = 'Могут возникнуть сложности в известном направлении';
 const description2 = 'Описаниеце';
 const priorityColor1 = '#E8B96A';
@@ -36,19 +36,18 @@ const GuiTaskCards = () => {
 				<div className={styles.row}>
 					<div className={styles.column}>
 						<TaskCard
-							content={content1}
+							title={title1}
 							description={description1}
 							estimation={40}
 							priorityColor={priorityColor1}
 							labels={labels}
 							difficulty="Трудно очень"
 						/>
-
 					</div>
 
 					<div className={styles.column}>
 						<TaskCard
-							content={content2}
+							title={title2}
 							priorityColor={priorityColor2}
 						/>
 					</div>
@@ -59,20 +58,21 @@ const GuiTaskCards = () => {
 				<div className={styles.row}>
 					<div className={styles.column}>
 						<TaskCard
-							content={content1}
-							description={description1}
+							title={title1}
+							description={description2}
 							estimation={40}
 							priorityColor={priorityColor1}
 							labels={labels}
 							difficulty="Трудно очень"
+							fixedSize
 						/>
-
 					</div>
 
 					<div className={styles.column}>
 						<TaskCard
-							content={content2}
+							title={title2}
 							priorityColor={priorityColor2}
+							fixedSize
 						/>
 					</div>
 				</div>

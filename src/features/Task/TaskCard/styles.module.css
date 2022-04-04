@@ -16,6 +16,18 @@
   box-shadow: var(--shadow-secondary);
 }
 
+.task.fixed {
+  height: 200px;
+}
+
+.task.fixed .title {
+  overflow: hidden;
+
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
 .task:hover {
   border-color: var(--alice-blue);
   box-shadow: var(--shadow-active-secondary);
@@ -58,6 +70,10 @@
   line-height: var(--line-height-text-2);
 
   color: var(--text-no-accent);
+}
+
+.body {
+  flex-grow: 1;
 }
 
 .description {
