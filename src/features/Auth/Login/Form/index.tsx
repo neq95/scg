@@ -6,6 +6,7 @@ import Button from 'components/Button';
 
 import { buildValidateText, buildValidateEmail } from 'utils/validation';
 import styles from './styles.module.css';
+import {login as apiLogin, getProjects} from 'api/routes/index';
 
 
 interface IValidationField {
@@ -25,7 +26,7 @@ const validationConfig: IValidationConfig = {
 	},
 
 	password: {
-		validate: buildValidateEmail(),
+		validate: buildValidateText(3),
 		errorText: 'Неверный пароль',
 	}
 };
@@ -93,12 +94,21 @@ const LoginForm: React.FC = () => {
 		return {success: isSuccess};
 	};
 
+	const login = async () => {
+		const response = await apiLogin(values.email, values.password);
+		const accessToken = response.data.content.accessToken;
+
+		localStorage.setItem('token', accessToken);
+
+		getProjects(1, 4);
+	};
+
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
     
 		const {success} = validateForm();
 		if (success) {
-			alert('success');
+			login();
 		}
 	};
 

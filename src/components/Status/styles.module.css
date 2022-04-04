@@ -1,0 +1,25 @@
+.status {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 20px;
+  height: 20px;
+
+  border: 1px solid transparent;
+  border-radius: 50%;
+}
+
+.status.contained {
+  color: var(--text-reversed);
+}
+
+.status.contained.success {
+  border-color: var(--color-success);
+  background-color: var(--color-success);
+}
+
+.status.contained.fail {
+  border-color: var(--color-error);
+  background-color: var(--color-error);
+}

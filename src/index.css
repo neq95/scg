@@ -1,4 +1,5 @@
 :root {
+  --white: #ffffff;
   --alabaster: #f8f8f8;
   --gallery: #ececec;
   --titan-white: #f3f4ff;
@@ -13,6 +14,7 @@
   --green-yellow: #89ff41;
   --pickled-bluewood: #273B4A;
   --silver-chalice: #ababab;
+  --como: #467761;
 }
 
 :root {
@@ -39,6 +41,8 @@
 
 :root {
   --shadow-block: 0px 8px 16px rgba(0, 0, 0, 0.15);
+  --shadow-secondary: 0px 2px 16px rgba(0, 0, 0, 0.1);
+  --shadow-active-secondary: 0px 2px 16px rgba(0, 0, 0, 0.4);
 }
 
 :root {
@@ -48,11 +52,15 @@
   --text-placeholder: var(--text-disabled);
   --text-reversed: var(--alabaster);
   --text-error: var(--vermilion);
+  --text-no-accent: var(--silver-chalice);
 
   --color-primary: var(--primal-blue);
   --color-control: var(--alice-blue);
   --color-error: var(--vermilion);
   --color-focus: var(--pickled-bluewood);
+  --color-success: var(--como);
+
+  --background-color-primary: var(--white);
 
   --background-control-hover: var(--titan-white);
   --background-control-active: var(--alice-blue);
@@ -84,6 +92,12 @@ textarea {
   margin: 0;
 }
 
+ul {
+  padding-left: 0;
+
+  list-style: none;
+}
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -95,6 +109,12 @@ textarea {
   clip-path: inset(100%);
   clip: rect(0 0 0 0);
   overflow: hidden;
+}
+
+.text-one-line {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @font-face {

@@ -1,0 +1,36 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.item:not(:first-child) {
+  margin-left: 4px;
+}
+
+.list {
+  display: flex;
+  align-items: center;
+  flex-grow: 1;
+
+  min-width: 0;
+}
+
+.label {
+  flex: 1 1 0px;
+
+  min-width: 0;
+}
+
+.label:not(:first-child) {
+  margin-left: 4px;
+}
+
+.remain {
+  display: inline-flex;
+  flex-shrink: 0;
+
+  padding: 3px 4px;
+
+  border-radius: 6px;
+  background-color: var(--titan-white);
+}

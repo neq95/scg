@@ -6,13 +6,13 @@ import GuiPage from './pages/Gui';
 import './App.css';
 
 const App:React.FC = () => {
-	return (
-		<div className="App">
-			<Routes>
-				<Route path="/gui" element={<GuiPage />} />
-			</Routes>
-		</div>
-	);
+  return (
+    <div className="App">
+      <Routes>
+        <Route path="/gui" element={<GuiPage />} />
+      </Routes>
+    </div>
+  );
 };
 
 export default App;
