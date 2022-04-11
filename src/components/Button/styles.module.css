@@ -1,6 +1,8 @@
 .button {
   font-weight: var(--font-weight-medium);
 
+  position: relative;
+
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -138,4 +140,18 @@
 
 .button.contained:not(:disabled):not(:active):focus {
   border-color: var(--pickled-bluewood);
+}
+
+.button.loading .content {
+  opacity: 0;
+}
+
+.button.loading .loader {
+  display: block;
+}
+
+.button .loader {
+  position: absolute;
+  
+  display: none;
 }
