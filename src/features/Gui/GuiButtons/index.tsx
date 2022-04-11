@@ -76,6 +76,40 @@ const GuiButtons = () => {
 				</Button>
 			</GuiSectionBlock>
 
+			<GuiSectionBlock title="компонент Button, variant contained, loading">
+				<Button variant="contained" size="small" loading>
+          Small
+				</Button>
+
+				<Button variant="contained" size="small" loading disabled>
+          Small disabled
+				</Button>
+
+				<Button variant="contained" size="medium" loading>
+          Medium
+				</Button>
+
+				<Button variant="contained" size="medium" loading disabled>
+          Medium disabled
+				</Button>
+
+				<Button variant="contained" size="big" loading>
+          Big
+				</Button>
+
+				<Button variant="contained" size="big" loading disabled>
+          Big disabled
+				</Button>
+
+				<Button variant="contained" size="large" loading>
+          Large
+				</Button>
+
+				<Button variant="contained" size="large" loading disabled>
+          Large disabled
+				</Button>
+			</GuiSectionBlock>
+
 			<GuiSectionBlock title="компонент Button, variant contained, navigation">
 				<Button variant="contained" href="/auth/login" size="small">
           Navigation button
