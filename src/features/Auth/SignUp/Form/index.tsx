@@ -3,7 +3,8 @@ import React, { useState } from 'react';
 import Input from 'components/Input';
 import Button from 'components/Button';
 
-import { register } from 'api/routes';
+import { register, login } from 'store/slices/auth';
+import { useAppDispatch } from 'store';
 import styles from './styles.module.css';
 
 interface IValues {
@@ -39,8 +40,33 @@ const initialErrors: IErrors = {
 };
 
 const SignUpForm: React.FC = () => {
+  const dispatch = useAppDispatch();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
+
+  const sendRequest = async () => {
+    setIsSubmitting(true);
+
+    try {
+      await dispatch(register(
+        {
+          name: values.name,
+          surname: values.lastName,
+          email: values.email,
+          password: values.password,
+        }
+      ));
+      
+      const content = await dispatch(login({email: values.email, password: values.password}));
+      // const accessToken = content.accessToken;
+
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
     const name = e.target.name;
@@ -71,7 +97,7 @@ const SignUpForm: React.FC = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    register(values.name, values.lastName, values.email, values.password);
+    sendRequest();
     
     // const {success} = validateForm();
     // if (success) {
@@ -162,6 +188,7 @@ const SignUpForm: React.FC = () => {
           size="large"
           fullWidth
           type="submit"
+          loading={isSubmitting}
         >
           Зарегистрироваться
         </Button>

@@ -95,10 +95,10 @@ const LoginForm: React.FC = () => {
 	};
 
 	const login = async () => {
-		const response = await apiLogin(values.email, values.password);
-		const accessToken = response.data.content.accessToken;
+		// const response = await apiLogin(values.email, values.password);
+		// const accessToken = response.data.content.accessToken;
 
-		localStorage.setItem('token', accessToken);
+		// localStorage.setItem('token', accessToken);
 
 		getProjects(1, 4);
 	};

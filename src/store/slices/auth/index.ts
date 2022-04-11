@@ -1,7 +1,30 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+
+import {
+  register as registerRequest,
+  registerRequestType,
+  login as loginRequest,
+  loginRequestType
+} from 'api/routes';
+
+export const register = createAsyncThunk('auth/register', async (
+  payload: registerRequestType,
+) => {
+  const response = await registerRequest(payload);
+
+  return response.data;
+});
+
+export const login = createAsyncThunk('auth/login', async (
+  payload: loginRequestType
+) => {
+  const response = await loginRequest(payload);
+
+  return response.data;
+});
 
 const initialState = {
-  value: 0,
+  id: '',
 };
 
 export const authSlice = createSlice({
@@ -9,7 +32,7 @@ export const authSlice = createSlice({
   initialState,
   reducers: {
 
-  }
+  },
 });
 
 export default authSlice.reducer;

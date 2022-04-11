@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
-import DotsLoader from 'components/Loader/Dots';
+import CircleDotsLoader from 'components/Loader/Circle/Dots';
 
 import { LoaderColors } from 'models/Enums/Loader';
 import styles from './styles.module.css';
@@ -54,7 +54,7 @@ const Button : React.FC<propsInterface> = ({
 				{children}
 			</div>
 
-			<DotsLoader className={styles.loader}  size={size} color={loaderColor} />
+			<CircleDotsLoader className={styles.loader}  size={size} color={loaderColor} />
 		</Component>
 	);
 };
