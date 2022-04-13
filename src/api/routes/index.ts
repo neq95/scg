@@ -16,12 +16,20 @@ export type loginRequestType = {
   password: string,
 }
 
+export type loginResponseType = {
+  content: {
+    accessToken: string,
+  },
+  status: string,
+  success: boolean,
+}
+
 export const register = (payload: registerRequestType) => {
   return API.post<registerResponseType>('/register', payload);
 };
 
 export const login = (payload: loginRequestType) => {
-  return API.post('/login', payload);
+  return API.post<loginResponseType>('/login', payload);
 };
 
 export const getProjects = (from: number, to: number) => {

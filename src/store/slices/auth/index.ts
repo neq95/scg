@@ -1,5 +1,6 @@
 import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 
+import { AppDispatch } from 'store';
 import {
   register as registerRequest,
   registerRequestType,
@@ -7,7 +8,14 @@ import {
   loginRequestType
 } from 'api/routes';
 
-export const register = createAsyncThunk('auth/register', async (
+export const register = (payload: registerRequestType) =>  async (dispatch: AppDispatch) => {
+  await dispatch(sendRegisterRequest(payload)).unwrap();
+  await dispatch(
+    login({email: payload.email, password: payload.password})
+  ).unwrap();
+};
+
+export const sendRegisterRequest = createAsyncThunk('auth/register', async (
   payload: registerRequestType,
 ) => {
   const response = await registerRequest(payload);
@@ -20,7 +28,8 @@ export const login = createAsyncThunk('auth/login', async (
 ) => {
   const response = await loginRequest(payload);
 
-  return response.data;
+  const token = response.data.content.accessToken;
+  localStorage.setItem('token', token);
 });
 
 const initialState = {

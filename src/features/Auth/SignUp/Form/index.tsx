@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import Input from 'components/Input';
 import Button from 'components/Button';
 
-import { register, login } from 'store/slices/auth';
+import { register as sendRegisterRequest } from 'store/slices/auth';
 import { useAppDispatch } from 'store';
 import styles from './styles.module.css';
 
@@ -40,16 +41,18 @@ const initialErrors: IErrors = {
 };
 
 const SignUpForm: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState(initialErrors);
 
-  const sendRequest = async () => {
+  const register = async () => {
     setIsSubmitting(true);
 
     try {
-      await dispatch(register(
+      await dispatch(sendRegisterRequest(
         {
           name: values.name,
           surname: values.lastName,
@@ -57,13 +60,11 @@ const SignUpForm: React.FC = () => {
           password: values.password,
         }
       ));
-      
-      const content = await dispatch(login({email: values.email, password: values.password}));
-      // const accessToken = content.accessToken;
 
+
+      navigate('/', {replace: true});
     } catch (error) {
-      console.log(error);
-    } finally {
+      //TODO: handle error
       setIsSubmitting(false);
     }
   };
@@ -97,12 +98,12 @@ const SignUpForm: React.FC = () => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    sendRequest();
-    
-    // const {success} = validateForm();
-    // if (success) {
-    //   alert('success');
-    // }
+
+    if (isSubmitting) {
+      return;
+    }
+
+    register();
   };
 
   return (

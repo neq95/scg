@@ -39,6 +39,14 @@ const Button : React.FC<propsInterface> = ({
 	const resolvedType = href ? null: type;
 	const loaderColor = disabled ? LoaderColors.primary : LoaderColors.white;
 
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		if (loading) {
+			return;
+		}
+
+		onClick?.(e);
+	};
+
 	return (
 		<Component
 			className=
@@ -48,7 +56,7 @@ const Button : React.FC<propsInterface> = ({
 			type={resolvedType}
 			to={href}
 			disabled={disabled} 
-			onClick={onClick}
+			onClick={handleClick}
 		>
 			<div className={styles.content}>
 				{children}
