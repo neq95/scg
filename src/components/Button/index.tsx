@@ -18,6 +18,7 @@ interface propsInterface {
   href?: string;
   disabled?: boolean;
 	loading?: boolean;
+	tabIndex?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -33,6 +34,7 @@ const Button : React.FC<propsInterface> = ({
 	disabled,
 	children,
 	loading,
+	tabIndex = 0,
 	onClick,
 }) => {
 	const Component: any = href ? Link : 'button';
@@ -55,7 +57,8 @@ const Button : React.FC<propsInterface> = ({
 				}
 			type={resolvedType}
 			to={href}
-			disabled={disabled} 
+			disabled={disabled}
+			tabIndex={tabIndex}
 			onClick={handleClick}
 		>
 			<div className={styles.content}>

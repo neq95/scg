@@ -56,8 +56,9 @@ const LoginForm: React.FC = () => {
 	const location = useLocation();
 	const navigate = useNavigate();
 
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [values, setValues] = useState(initialValues);
-	const [errors, setErrors] = useState<IErrors>(initialErrors);
+	const [errors, setErrors] = useState(initialErrors);
 	const [remember, setRemember] = useState(false);
 
 	const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -105,20 +106,30 @@ const LoginForm: React.FC = () => {
 	};
 
 	const login = async () => {
+		setIsSubmitting(true);
+
 		const locationState = location.state as {from: ILocation} | undefined;
 		const redirectRoute = locationState?.from.pathname ?? '/';
 
-		await dispatch(
-			sendLoginRequest({email: values.email, password: values.password})
-		).unwrap();
-
-		navigate(redirectRoute, {replace: true});
+		try {
+			await dispatch(
+				sendLoginRequest({email: values.email, password: values.password})
+			).unwrap();
+	
+			navigate(redirectRoute, {replace: true});
+		} catch (error) {
+			//TODO: handle error
+			console.log(error);
+			setIsSubmitting(false);
+		}
 	};
-
-	//TODO: начать с обозначения загрузки и стайл гайда
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (isSubmitting) {
+			return;
+		}
     
 		const {success} = validateForm();
 		if (success) {
@@ -180,6 +191,7 @@ const LoginForm: React.FC = () => {
 					size="large"
 					fullWidth
 					type="submit"
+					loading={isSubmitting}
 				>
           Войти
 				</Button>
