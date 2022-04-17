@@ -6,7 +6,6 @@ import GuiCheckboxes from 'features/Gui/Checkboxes';
 import GuiTaskCards from 'features/Gui/Task/GuiTaskCards';
 import GuiStatus from 'features/Gui/GuiStatus';
 import GuiLabels from 'features/Gui/GuiLabels';
-import GuiLoaders from 'features/Gui/GuiLoaders';
 
 import styles from './styles.module.css';
 
@@ -35,10 +34,6 @@ const GuiPage : React.FC = () => {
 
 			<div className={styles.section}>
 				<GuiTaskCards />
-			</div>
-
-			<div className={styles.section}>
-				<GuiLoaders />
 			</div>
 		</div>
 	);

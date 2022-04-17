@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
+import { useLocation, useNavigate, Location as ILocation } from 'react-router-dom';
 
 import Input from 'components/Input';
 import Checkbox from 'components/Checkbox';
 import Button from 'components/Button';
 
-import { buildValidateText, buildValidateEmail } from 'utils/validation';
+import { useAppDispatch } from 'store';
+import { buildValidateText } from 'utils/validation';
 import styles from './styles.module.css';
-import {login as apiLogin, getProjects} from 'api/routes/index';
-
+import {login as sendLoginRequest} from 'store/slices/auth';
 
 interface IValidationField {
   validate: (value: string) => boolean;
@@ -31,7 +32,12 @@ const validationConfig: IValidationConfig = {
 	}
 };
 
-const initialValues: Record<string, string> = {
+interface IValues {
+	email: string;
+	password: string;
+}
+
+const initialValues: IValues = {
 	email: '',
 	password: '',
 };
@@ -46,8 +52,13 @@ const initialErrors: IErrors = {
 };
 
 const LoginForm: React.FC = () => {
+	const dispatch = useAppDispatch();
+	const location = useLocation();
+	const navigate = useNavigate();
+
+	const [isSubmitting, setIsSubmitting] = useState(false);
 	const [values, setValues] = useState(initialValues);
-	const [errors, setErrors] = useState<IErrors>(initialErrors);
+	const [errors, setErrors] = useState(initialErrors);
 	const [remember, setRemember] = useState(false);
 
 	const onFocus = (e: React.FocusEvent<HTMLInputElement, Element>) => {
@@ -95,16 +106,30 @@ const LoginForm: React.FC = () => {
 	};
 
 	const login = async () => {
-		const response = await apiLogin(values.email, values.password);
-		const accessToken = response.data.content.accessToken;
+		setIsSubmitting(true);
 
-		localStorage.setItem('token', accessToken);
+		const locationState = location.state as {from: ILocation} | undefined;
+		const redirectRoute = locationState?.from.pathname ?? '/';
 
-		getProjects(1, 4);
+		try {
+			await dispatch(
+				sendLoginRequest({email: values.email, password: values.password})
+			).unwrap();
+	
+			navigate(redirectRoute, {replace: true});
+		} catch (error) {
+			//TODO: handle error
+			console.log(error);
+			setIsSubmitting(false);
+		}
 	};
 
 	const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
+
+		if (isSubmitting) {
+			return;
+		}
     
 		const {success} = validateForm();
 		if (success) {
@@ -166,6 +191,7 @@ const LoginForm: React.FC = () => {
 					size="large"
 					fullWidth
 					type="submit"
+					loading={isSubmitting}
 				>
           Войти
 				</Button>

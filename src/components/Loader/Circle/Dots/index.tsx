@@ -4,13 +4,13 @@ import cn from 'classnames';
 import { LoaderColors } from 'models/Enums/Loader';
 import styles from './styles.module.css';
 
-interface IDotsLoaderProps {
+interface ICircleDotsLoaderProps {
   className?: string;
   size?: 'small' | 'medium' | 'big' | 'large';
   color?: LoaderColors,
 }
 
-const DotsLoader: React.FC<IDotsLoaderProps> = ({className, size = 'small', color = LoaderColors.white}) => {
+const CircleDotsLoader: React.FC<ICircleDotsLoaderProps> = ({className, size = 'small', color = LoaderColors.white}) => {
   return (
     <div className={cn(className, styles.loader, styles[size], styles[color])}>
       <div className={styles.dot}></div>
@@ -23,4 +23,4 @@ const DotsLoader: React.FC<IDotsLoaderProps> = ({className, size = 'small', colo
   );
 };
 
-export default DotsLoader;
+export default CircleDotsLoader;

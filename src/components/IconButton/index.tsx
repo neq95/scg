@@ -19,7 +19,7 @@ const IconButton : React.FC<propsInterface> = ({
 	variant = 'simple',
 	type = 'button',
 	disabled,
-	tabIndex,
+	tabIndex = 0,
 	children,
 	onClick,
 }) => {

@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import { Link } from 'react-router-dom';
 
-import DotsLoader from 'components/Loader/Dots';
+import CircleDotsLoader from 'components/Loader/Circle/Dots';
 
 import { LoaderColors } from 'models/Enums/Loader';
 import styles from './styles.module.css';
@@ -18,6 +18,7 @@ interface propsInterface {
   href?: string;
   disabled?: boolean;
 	loading?: boolean;
+	tabIndex?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
 
@@ -33,11 +34,20 @@ const Button : React.FC<propsInterface> = ({
 	disabled,
 	children,
 	loading,
+	tabIndex = 0,
 	onClick,
 }) => {
 	const Component: any = href ? Link : 'button';
 	const resolvedType = href ? null: type;
 	const loaderColor = disabled ? LoaderColors.primary : LoaderColors.white;
+
+	const handleClick = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+		if (loading) {
+			return;
+		}
+
+		onClick?.(e);
+	};
 
 	return (
 		<Component
@@ -47,14 +57,15 @@ const Button : React.FC<propsInterface> = ({
 				}
 			type={resolvedType}
 			to={href}
-			disabled={disabled} 
-			onClick={onClick}
+			disabled={disabled}
+			tabIndex={tabIndex}
+			onClick={handleClick}
 		>
 			<div className={styles.content}>
 				{children}
 			</div>
 
-			<DotsLoader className={styles.loader}  size={size} color={loaderColor} />
+			<CircleDotsLoader className={styles.loader}  size={size} color={loaderColor} />
 		</Component>
 	);
 };
