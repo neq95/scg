@@ -6,8 +6,7 @@ import AuthGuard from 'features/Guards/Auth';
 import AuthPage from 'pages/Auth';
 import LoginForm from 'features/Auth/Login/Form';
 import SignUpForm from 'features/Auth/SignUp/Form';
-
-import TaskList from 'pages/Task/TaskList';
+import ProjectListPage from 'pages/Project/List';
 
 const Routes = () => {
 	return useRoutes([
@@ -31,7 +30,7 @@ const Routes = () => {
 		},
 		{
 			path: '/',
-			element: <AuthGuard><TaskList /></AuthGuard>
+			element: <AuthGuard><ProjectListPage /></AuthGuard>
 		}
 	]);
 };
