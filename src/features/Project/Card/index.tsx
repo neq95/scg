@@ -21,16 +21,16 @@ const ProjectCard: React.FC<IProjectCardProps> = ({className, id}) => {
 
   return (
     <div className={cn(className, styles.card)}>
-      <h3 className={cn(styles.title, styles.row)}>
+      <h3 className={cn(styles.title, styles.row, 'text-one-line')}>
         { card.title }
       </h3>
 
-      <p className={cn(styles.description, styles.row)}>
+      <p className={cn(styles.description, styles.row, 'text-two-lines')}>
         { card.description }
       </p>
 
       <div className={cn(styles.info, styles.row)}>
-        <time dateTime={ISODate}>
+        <time className={styles.date} dateTime={ISODate}>
           { formattedDate }
         </time>
       </div>

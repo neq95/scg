@@ -40,8 +40,12 @@ export const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-
+    add(state) {
+      return state;
+    }
   },
 });
+
+export const {add} = authSlice.actions;
 
 export default authSlice.reducer;

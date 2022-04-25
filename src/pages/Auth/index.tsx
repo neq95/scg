@@ -8,6 +8,7 @@ import AssignmentIcon from 'icons/Assignment';
 import TaskIcon from 'icons/Task';
 import ChartIcon from 'icons/Chart';
 
+import {add} from 'store/slices/auth';
 import styles from './styles.module.css';
 
 enum routes {
@@ -30,6 +31,7 @@ const routesConfig = {
 };
 
 const AuthPage = () => {
+	console.log(add());
 	const {pathname} = useLocation();
 	const routeConfig = routesConfig[pathname as keyof typeof routesConfig];
 
