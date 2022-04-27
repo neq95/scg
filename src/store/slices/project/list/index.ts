@@ -15,10 +15,13 @@ const prepareData = (projects: Project[]) => {
     allIds: [],
   };
 
-  projects.forEach((project) => {
-    result.byId[project.id] = project;
-    result.allIds.push(project.id);
-  });
+  for (let circle = 0; circle < 9; circle++) {
+    projects.forEach((project) => {
+      const id = project.id + circle; //temp
+      result.byId[id] = project;
+      result.allIds.push(id);
+    }); 
+  }
 
   return result;
 };
@@ -35,7 +38,6 @@ type State = {
   pagination: Pagination | null,
   error: string | null,
 }
-
 
 const initialState: State = {
   status: Statuses.idle,

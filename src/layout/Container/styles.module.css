@@ -1,3 +1,21 @@
 .container {
-  padding: 0px 16px;
+  padding: 0px 12px;
+}
+
+@media (min-width: 768px) {
+  .container {
+    padding: 0px 16px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    padding: 0px 20px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    padding: 0px 24px;
+  }
 }

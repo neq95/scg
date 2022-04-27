@@ -1,32 +1,31 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
-import styles from './styles.module.css';
+import { RootState } from 'store';
+import { getProjectById } from 'store/slices/project/list';
 import {formatToDottedView, formatToISOView} from 'utils/date';
+import styles from './styles.module.css';
 
 interface IProjectCardProps {
   className?: string;
   id: string;
 }
 
-const card = {
-  title: 'проект 1',
-  description: 'Равным образом укрепление и развитие структуры способствует подготовки и разработки',
-  timestamp: Date.now(),
-};
-
 const ProjectCard: React.FC<IProjectCardProps> = ({className, id}) => {
-  const formattedDate = formatToDottedView(card.timestamp);
-  const ISODate = formatToISOView(card.timestamp);
+  const project = useSelector((state: RootState) => getProjectById(state, id));
+
+  const formattedDate = formatToDottedView(project.createdAt * 1000);
+  const ISODate = formatToISOView(project.createdAt * 1000);
 
   return (
     <div className={cn(className, styles.card)}>
       <h3 className={cn(styles.title, styles.row, 'text-one-line')}>
-        { card.title }
+        { project.title }
       </h3>
 
       <p className={cn(styles.description, styles.row, 'text-two-lines')}>
-        { card.description }
+        { project.description }
       </p>
 
       <div className={cn(styles.info, styles.row)}>
