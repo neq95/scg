@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import cn from 'classnames';
 
 import ProjectCard from 'features/Project/Card';
 

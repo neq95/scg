@@ -14,7 +14,7 @@ const ProjectListPage: React.FC = () => {
     <div className={styles.page}>
       <Container>
         <header className={styles.header}>
-          <IconButton size="big">
+          <IconButton className={styles.burger} size="big">
             <MenuIcon size="big" />
           </IconButton>
 
