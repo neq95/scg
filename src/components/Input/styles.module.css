@@ -75,3 +75,7 @@
 .message:not(.active) {
   min-height: 12px;
 }
+
+.inputContent:-webkit-autofill {
+  -webkit-background-clip: text;
+}
