@@ -17,7 +17,7 @@ interface propsInterface {
   type?: 'button' | 'submit';
   href?: string;
   disabled?: boolean;
-	loading?: boolean;
+	loading?: boolean; 
 	tabIndex?: number;
   onClick?: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
 }
