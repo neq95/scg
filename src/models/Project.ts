@@ -5,3 +5,11 @@ export type Project = {
   title: string;
   updatedAt?: number;
 }
+
+export type ProjectPriority = {
+  color: string;
+  id: string;
+  name: string;
+  projectId: string;
+  sort: number;
+}

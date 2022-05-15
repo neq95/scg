@@ -1,6 +1,6 @@
 import API from 'api/axios';
 
-import { Project } from 'models/Project';
+import { Project, ProjectPriority } from 'models/Project';
 import { Pagination } from 'models/request';
 
 export type getProjectListRequestType = {
@@ -17,6 +17,22 @@ export type getProjectListResponseType = {
   };
 }
 
+export type getProjectPrioritiesRequestType = {
+  projectId: string;
+}
+
+export type getProjectPrioritiesResponseType = {
+  success: boolean;
+  status: string;
+  content: {
+    items: ProjectPriority[],
+  }
+}
+
 export const getProjectList = (payload: getProjectListRequestType) => {
   return API.get<getProjectListResponseType>('api/v1/projects', {params: payload});
+};
+
+export const getProjectPriorities = (payload: getProjectPrioritiesRequestType) => {
+  return API.get<getProjectPrioritiesResponseType>(`api/v1/project/${payload.projectId}/priorities`);
 };

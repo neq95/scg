@@ -1,10 +1,12 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import cn from 'classnames';
+import { Link } from 'react-router-dom';
 
 import { RootState } from 'store';
 import { getProjectById } from 'store/slices/project/list';
 import {formatToDottedView, formatToISOView} from 'utils/date';
+import { toProjectPage } from 'utils/routes';
 import styles from './styles.module.css';
 
 interface IProjectCardProps {
@@ -19,7 +21,7 @@ const ProjectCard: React.FC<IProjectCardProps> = ({className, id}) => {
   const ISODate = formatToISOView(project.createdAt * 1000);
 
   return (
-    <div className={cn(className, styles.card)}>
+    <Link to={toProjectPage(id)} className={cn(className, styles.card)}>
       <h3 className={cn(styles.title, styles.row, 'text-one-line')}>
         { project.title }
       </h3>
@@ -33,7 +35,7 @@ const ProjectCard: React.FC<IProjectCardProps> = ({className, id}) => {
           { formattedDate }
         </time>
       </div>
-    </div>
+    </Link>
   );
 };
 
