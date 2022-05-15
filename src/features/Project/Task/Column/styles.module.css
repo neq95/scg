@@ -1,0 +1,33 @@
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  width: 300px;
+}
+
+.header {
+  padding-left: 8px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+}
+
+.name {
+  display: flex;
+  align-items: center;
+}
+
+.nameText {
+  font-size: var(--font-size-title-2);
+  line-height: var(--line-height-title-2);
+  font-weight: var(--font-weight-medium);
+
+  margin-left: 8px;
+}
+
+.empty {
+  flex-grow: 1;
+
+  border-radius: 16px;
+  background-color: var(--background-disabled-secondary);
+}

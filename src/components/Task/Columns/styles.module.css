@@ -1,0 +1,13 @@
+.columns {
+  display: flex;
+  flex-grow: 1;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+}
+
+.column:not(:first-of-type) {
+  margin-left: 4px;
+}

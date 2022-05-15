@@ -20,7 +20,7 @@ const prepareData = (priorities: ProjectPriority[]) => {
 
   priorities.forEach((priority) => {
     result.byId[priority.id] = priority;
-    result.allIds.push(priority.id); 
+    result.allIds[priority.sort] = priority.id; 
   });
 
   return result;
@@ -64,5 +64,7 @@ const projectPrioritiesSlice = createSlice({
 
 export const getStatus = (state: RootState) => state.projectPriorities.status;
 export const getError = (state: RootState) => state.projectPriorities.error;
+export const getAllPriorityIds = (state: RootState) => state.projectPriorities.priorities.allIds;
+export const getPriorityById = (state: RootState, id: string) => state.projectPriorities.priorities.byId[id];
 
 export default projectPrioritiesSlice.reducer;

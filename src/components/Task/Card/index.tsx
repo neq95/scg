@@ -2,7 +2,7 @@ import React from 'react';
 import cn from 'classnames';
 import {Link} from 'react-router-dom';
 
-import PriorityLabel from 'components/Priority/PriorityLabel';
+import PriorityLabel from 'components/Priority/Label';
 import Status from 'components/Status';
 import LabelList from 'components/Label/List';
 import TimerIcon from 'icons/TimerIcon';
@@ -19,7 +19,7 @@ import {StatusEnum} from 'models/Status';
  * 3. Сделать fix size вид отображения
  */
 
-interface ITaskCardProps {
+type Props = {
   className?: string;
   status?: StatusEnum;
   title: string;
@@ -31,7 +31,7 @@ interface ITaskCardProps {
   fixedSize?: boolean;
 }
 
-const TaskCard: React.FC<ITaskCardProps> = ({
+const TaskCard: React.FC<Props> = ({
   className,
   status = StatusEnum.IDLE,
   title,

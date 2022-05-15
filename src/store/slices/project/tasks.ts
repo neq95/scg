@@ -3,6 +3,7 @@ import { getTasks, getTasksRequestType, getTasksResponseType } from 'api/routes/
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
 import { Task } from 'models/Task';
+import { RootState } from 'store';
 
 export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequestType) => {
   const response = await getTasks(payload);
@@ -84,3 +85,14 @@ const projectTasksSlice = createSlice({
 });
 
 export default projectTasksSlice.reducer;
+
+export const getPriorityTaskIdsById = (state: RootState, id: string) => {
+  const tasksByPriority = state.projectTasks.tasksByPriority;
+
+  if (!tasksByPriority[id]) {
+    return [];
+  }
+
+  return state.projectTasks.tasksByPriority[id].ids;
+};
+export const getTaskById = (state: RootState, id: string) => state.projectTasks.tasks.byId[id];

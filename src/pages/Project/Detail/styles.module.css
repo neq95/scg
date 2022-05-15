@@ -6,6 +6,12 @@
   padding: 20px 0;
 }
 
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+}
+
 .loader{
   display: flex;
   flex-grow: 1;
@@ -37,5 +43,9 @@
 }
 
 .main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
   margin-top: 12px;
 }

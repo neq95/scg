@@ -8,7 +8,7 @@ import IconButton from 'components/IconButton';
 import Button from 'components/Button';
 import SearchIcon from 'icons/Search';
 import FilterIcon from 'icons/Filter';
-import ProjectTasks from 'features/Project/Tasks';
+import ProjectTasks from 'features/Project/Task/List';
 
 import { LoaderColors } from 'models/Enums/Loader';
 import { Statuses } from 'models/Enums/Statuses';
@@ -31,7 +31,7 @@ const ProjectDetailPage: React.FC = () => {
   return (
     <div className={styles.page}>
       {status === Statuses.loading ? <div className={styles.loader}><CircleDotsLoader color={LoaderColors.primary} size="huge" /></div> : status === Statuses.failed ? <p> {error}</p> : 
-      <Container>
+      <Container className={styles.container}>
         <header className={styles.header}>
           <h1 className={styles.title}>Список задач</h1>
 
