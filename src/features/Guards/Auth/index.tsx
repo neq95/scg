@@ -13,7 +13,7 @@ const AuthGuard = ({children}: IProps) => {
     return <Navigate to="/auth/login" state={{from: location}} replace />;
   }
 
-  return children;
+  return <>{children}</>;
 };
 
 export default AuthGuard;
