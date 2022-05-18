@@ -1,0 +1,15 @@
+.wrapper {
+  background-color: var(--background-color-primary);
+
+  padding: 20px;
+}
+
+.text {
+  height: 20px;
+  width: 100px;
+}
+
+.avatar {
+  height: 40px;
+  width: 40px;
+}
