@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getTasks, getTasksRequestType, getTasksResponseType } from 'api/routes/task';
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
@@ -86,6 +86,9 @@ const projectTasksSlice = createSlice({
 
 export default projectTasksSlice.reducer;
 
+const getProjectTasks = (state: RootState) => state.projectTasks;
+
+export const getStatus = createSelector(getProjectTasks, (tasks) => tasks.status);
 export const getPriorityTaskIdsById = (state: RootState, id: string) => {
   const tasksByPriority = state.projectTasks.tasksByPriority;
 

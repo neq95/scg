@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 import { RootState } from 'store';
 import { Statuses } from 'models/Enums/Statuses';
@@ -62,9 +62,11 @@ const projectPrioritiesSlice = createSlice({
   }
 });
 
-export const getStatus = (state: RootState) => state.projectPriorities.status;
-export const getError = (state: RootState) => state.projectPriorities.error;
-export const getAllPriorityIds = (state: RootState) => state.projectPriorities.priorities.allIds;
+const selectProjectPriorities = (state: RootState) => state.projectPriorities;
+
+export const getStatus = createSelector(selectProjectPriorities, (priorities) => priorities.status);
+export const getError = createSelector(selectProjectPriorities, (priorities) => priorities.error);
+export const getAllPriorityIds = createSelector(selectProjectPriorities, (priorities) => priorities.priorities.allIds);
 export const getPriorityById = (state: RootState, id: string) => state.projectPriorities.priorities.byId[id];
 
 export default projectPrioritiesSlice.reducer;

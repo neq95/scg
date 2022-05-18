@@ -28,38 +28,51 @@ const ProjectDetailPage: React.FC = () => {
     }
   }, []);
 
+
+
   return (
     <div className={styles.page}>
-      {status === Statuses.loading ? <div className={styles.loader}><CircleDotsLoader color={LoaderColors.primary} size="huge" /></div> : status === Statuses.failed ? <p> {error}</p> : 
-      <Container className={styles.container}>
-        <header className={styles.header}>
-          <h1 className={styles.title}>Список задач</h1>
+      {
+        status === Statuses.idle
+        ? null
+        : status === Statuses.loading 
+        ? (
+          <div className={styles.loader}>
+            <CircleDotsLoader color={LoaderColors.primary} size="huge" />
+          </div>
+         ) 
+        : status === Statuses.failed 
+        ? <p> {error}</p> 
+        : 
+          <Container className={styles.container}>
+            <header className={styles.header}>
+              <h1 className={styles.title}>Список задач</h1>
 
-          <ul className={styles.actions}>
-            <li className={styles.action}>
-              <IconButton size="big">
-                <SearchIcon size="big" />
-              </IconButton>
-            </li>
+              <ul className={styles.actions}>
+                <li className={styles.action}>
+                  <IconButton size="big">
+                    <SearchIcon size="big" />
+                  </IconButton>
+                </li>
 
-            <li className={styles.action}>
-              <IconButton size="big">
-                <FilterIcon size="big" />
-              </IconButton>
-            </li>
+                <li className={styles.action}>
+                  <IconButton size="big">
+                    <FilterIcon size="big" />
+                  </IconButton>
+                </li>
 
-            <li className={styles.action}>
-              <Button variant="contained" size="large">
-                Создать
-              </Button>
-            </li>
-          </ul>
-        </header>
+                <li className={styles.action}>
+                  <Button variant="contained" size="large">
+                    Создать
+                  </Button>
+                </li>
+              </ul>
+            </header>
 
-        <div className={styles.main}>
-          <ProjectTasks />
-        </div>
-      </Container>
+            <div className={styles.main}>
+              <ProjectTasks />
+            </div>
+          </Container>
       }
     </div>
   );
