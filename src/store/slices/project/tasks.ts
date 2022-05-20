@@ -84,18 +84,18 @@ const projectTasksSlice = createSlice({
   }
 });
 
-export default projectTasksSlice.reducer;
+// export default projectTasksSlice.reducer;
 
-const getProjectTasks = (state: RootState) => state.projectTasks;
+// const getProjectTasks = (state: RootState) => state.projectTasks;
 
-export const getStatus = createSelector(getProjectTasks, (tasks) => tasks.status);
-export const getPriorityTaskIdsById = (state: RootState, id: string) => {
-  const tasksByPriority = state.projectTasks.tasksByPriority;
+// export const getStatus = createSelector(getProjectTasks, (tasks) => tasks.status);
+// export const getPriorityTaskIdsById = (state: RootState, id: string) => {
+//   const tasksByPriority = state.projectTasks.tasksByPriority;
 
-  if (!tasksByPriority[id]) {
-    return [];
-  }
+//   if (!tasksByPriority[id]) {
+//     return [];
+//   }
 
-  return state.projectTasks.tasksByPriority[id].ids;
-};
-export const getTaskById = (state: RootState, id: string) => state.projectTasks.tasks.byId[id];
+//   return state.projectTasks.tasksByPriority[id].ids;
+// };
+// export const getTaskById = (state: RootState, id: string) => state.projectTasks.tasks.byId[id];

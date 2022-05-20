@@ -8,31 +8,59 @@ import IconButton from 'components/IconButton';
 import Button from 'components/Button';
 import SearchIcon from 'icons/Search';
 import FilterIcon from 'icons/Filter';
-import ProjectTasks from 'features/Project/Task/List';
+import ProjectTaskList from 'features/Project/Task/List';
 
 import { LoaderColors } from 'models/Enums/Loader';
 import { Statuses } from 'models/Enums/Statuses';
 import { useAppDispatch } from 'store';
-import { fetchProjectPriorities, getStatus, getError } from 'store/slices/project/priorities';
+import { fetchProject } from 'store/slices/project';
+import { fetchTasks } from 'store/slices/project/tasks';
 import styles from './styles.module.css';
 
 const ProjectDetailPage: React.FC = () => {
   const dispatch = useAppDispatch();
   const {projectId} = useParams();
-  const status = useSelector(getStatus);
-  const error = useSelector(getError);
 
   useEffect(() => {
-    if (projectId) {
-      dispatch(fetchProjectPriorities({projectId}));
+    if (!projectId) {
+      return;
     }
+
+    dispatch(fetchProject({projectId}));
   }, []);
-
-
 
   return (
     <div className={styles.page}>
-      {
+      <Container className={styles.container}>
+        <header className={styles.header}>
+          <h1 className={styles.title}>Список задач</h1>
+
+          <ul className={styles.actions}>
+            <li className={styles.action}>
+              <IconButton size="big">
+                <SearchIcon size="big" />
+              </IconButton>
+            </li>
+
+            <li className={styles.action}>
+              <IconButton size="big">
+                <FilterIcon size="big" />
+              </IconButton>
+            </li>
+
+            <li className={styles.action}>
+              <Button variant="contained" size="large">
+                Создать
+              </Button>
+            </li>
+          </ul>
+        </header>
+
+        <div className={styles.main}>
+          <ProjectTaskList />
+        </div>
+      </Container>
+      {/* {
         status === Statuses.idle
         ? null
         : status === Statuses.loading 
@@ -42,7 +70,7 @@ const ProjectDetailPage: React.FC = () => {
           </div>
          ) 
         : status === Statuses.failed 
-        ? <p> {error}</p> 
+        ? <p>{error}</p> 
         : 
           <Container className={styles.container}>
             <header className={styles.header}>
@@ -70,10 +98,10 @@ const ProjectDetailPage: React.FC = () => {
             </header>
 
             <div className={styles.main}>
-              <ProjectTasks />
+              <ProjectTaskList />
             </div>
           </Container>
-      }
+      } */}
     </div>
   );
 };

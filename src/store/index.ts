@@ -3,15 +3,17 @@ import {useDispatch} from 'react-redux';
 
 import authReducer from './slices/auth';
 import projectListReducer from './slices/project/list';
-import projectPrioritiesReducer from './slices/project/priorities';
-import projectTasksReducer from './slices/project/tasks';
+// import projectPrioritiesReducer from './slices/project/priorities';
+// import projectTasksReducer from './slices/project/tasks';
+import projectReducer from './slices/project';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     projectList: projectListReducer,
-    projectPriorities: projectPrioritiesReducer,
-    projectTasks: projectTasksReducer,
+    // projectPriorities: projectPrioritiesReducer,
+    // projectTasks: projectTasksReducer,
+    project: projectReducer,
   }
 });
 

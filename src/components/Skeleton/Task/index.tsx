@@ -5,7 +5,7 @@ import BaseSkeleton from '../Base';
 
 import styles from './styles.module.css';
 
-const TaskSkeleton: React.FC = () => {
+const SkeletonTask: React.FC = () => {
   return (
     <div className={styles.task}>
       <BaseSkeleton className={cn(styles.item, styles.text)} />
@@ -17,4 +17,4 @@ const TaskSkeleton: React.FC = () => {
   );
 };
 
-export default TaskSkeleton;
+export default SkeletonTask;

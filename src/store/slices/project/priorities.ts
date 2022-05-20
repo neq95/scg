@@ -62,11 +62,11 @@ const projectPrioritiesSlice = createSlice({
   }
 });
 
-const selectProjectPriorities = (state: RootState) => state.projectPriorities;
+// const selectProjectPriorities = (state: RootState) => state.projectPriorities;
 
-export const getStatus = createSelector(selectProjectPriorities, (priorities) => priorities.status);
-export const getError = createSelector(selectProjectPriorities, (priorities) => priorities.error);
-export const getAllPriorityIds = createSelector(selectProjectPriorities, (priorities) => priorities.priorities.allIds);
-export const getPriorityById = (state: RootState, id: string) => state.projectPriorities.priorities.byId[id];
+// export const getStatus = createSelector(selectProjectPriorities, (priorities) => priorities.status);
+// export const getError = createSelector(selectProjectPriorities, (priorities) => priorities.error);
+// export const getAllPriorityIds = createSelector(selectProjectPriorities, (priorities) => priorities.priorities.allIds);
+// export const getPriorityById = (state: RootState, id: string) => state.projectPriorities.priorities.byId[id];
 
-export default projectPrioritiesSlice.reducer;
+// export default projectPrioritiesSlice.reducer;

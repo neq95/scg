@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux';
 import TaskCard from 'components/Task/Card';
 
 import { RootState } from 'store';
-import { getTaskById } from 'store/slices/project/tasks';
+import { getTaskById } from 'store/slices/project';
 
 type Props = {
   id: string;
