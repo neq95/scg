@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 
 import PriorityLabel from 'components/Priority/Label';
 import ProjectTaskCard from 'features/Project/Task/Card';
+import Scrollbar from 'components/Scrollbar';
 
 import { RootState } from 'store';
 import { getPriorityById, getPriorityTaskIdsById } from 'store/slices/project';
@@ -19,22 +20,24 @@ const ProjectTaskColumn: React.FC<Props> = ({priorityId}) => {
   const renderEmptyMessage = () => {
     return (
       <div className={styles.empty} >
-        
+
       </div>
     );
   };
 
   const renderContent = () => {
     return (
-      <ul className={styles.list}>
-        {taskIds.map((id) => {
-          return (
-            <li className={styles.item} key={id}>
-              <ProjectTaskCard id={id} priorityColor={priority.color} />
-            </li>
-          );
-        })}
-      </ul>
+      <Scrollbar className={styles.content}>
+        <ul className={styles.list}>
+          {taskIds.map((id) => {
+            return (
+              <li className={styles.item} key={id}>
+                <ProjectTaskCard id={id} priorityColor={priority.color} />
+              </li>
+            );
+          })}
+        </ul>
+      </Scrollbar>
     );
   };
 

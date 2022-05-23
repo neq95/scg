@@ -1,28 +1,18 @@
 import React from 'react';
-// import { useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { getStatus, getAllPriorityIds } from 'store/slices/project';
 
 import SkeletonColumn from 'components/Skeleton/Column';
 import SkeletonTask from 'components/Skeleton/Task';
 import ProjectTaskColumn from 'features/Project/Task/Column';
+import Scrollbar from 'components/Scrollbar';
 
-// import { fetchTasks } from 'store/slices/project/tasks';
-// import { useAppDispatch } from 'store';
 import { Statuses } from 'models/Enums/Statuses';
 import styles from './styles.module.css';
 
 const ProjectTaskList: React.FC = () => {
-  // const {projectId} = useParams();
-  // const dispatch = useAppDispatch();
   const status = useSelector(getStatus);
   const priorityIds = useSelector(getAllPriorityIds);
-
-  // useEffect(() => {
-  //   if (projectId) {
-  //     dispatch(fetchTasks({projectId}));
-  //   }
-  // }, []);
 
   return (
     <>
@@ -41,15 +31,17 @@ const ProjectTaskList: React.FC = () => {
           )
         : status === Statuses.succeeded
         ? (
-            <section className={styles.columns}>
-              {priorityIds.map((id) => {
-                return (
-                  <section className={styles.column} key={id}>
-                    <ProjectTaskColumn priorityId={id} />
-                  </section>
-                );
-              })}
-            </section>
+            <Scrollbar className={styles.content} autoHide={false}>
+              <section className={styles.columns}>
+                {priorityIds.map((id) => {
+                  return (
+                    <section className={styles.column} key={id}>
+                      <ProjectTaskColumn priorityId={id} />
+                    </section>
+                  );
+                })}
+              </section>
+            </Scrollbar>
           )
         : null
      }

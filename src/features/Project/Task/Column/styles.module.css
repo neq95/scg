@@ -3,7 +3,7 @@
   flex-direction: column;
   flex-grow: 1;
 
-  width: 300px;
+  min-height: 0;
 }
 
 .header {
@@ -30,6 +30,12 @@
 
   border-radius: 16px;
   background-color: var(--background-disabled-secondary);
+}
+
+.content {
+  display: flex;
+
+  min-height: 0;
 }
 
 .list {
