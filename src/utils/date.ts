@@ -23,3 +23,7 @@ export const formatToDottedView = (date: dateType) => {
 export const formatToISOView = (date: dateType) => {
   return formatISO(date);
 };
+
+export const getDateFromTimestamp = (timestamp: number) => {
+  return new Date(timestamp * 1000);
+};

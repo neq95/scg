@@ -27,14 +27,13 @@ const ProjectTaskList: React.FC = () => {
   return (
     <>
      {
-       // eslint-disable-next-line no-constant-condition
-       true
+       status === Statuses.loading
         ? (
             <section className={styles.columns}>
               {[1,2,3,4].map((id) => {
                 return (
                   <section className={styles.column} key={id}>
-                    <SkeletonColumn elementsAmount={3} renderElement={() => <SkeletonTask />} />
+                    <SkeletonColumn withHeader elementsAmount={3} renderElement={() => <SkeletonTask />} />
                   </section>
                 );
               })}

@@ -2,6 +2,8 @@ import React from 'react';
 
 import BaseSkeleton from '../Base';
 
+import styles from './styles.module.css';
+
 type Props = {
   withHeader?: boolean;
   elementsAmount?: number;
@@ -17,16 +19,16 @@ const SkeletonColumn: React.FC<Props> = ({withHeader = false, elementsAmount = 1
     <>
       {
         withHeader && (
-          <div>
-            <BaseSkeleton />
+          <div className={styles.header}>
+            <BaseSkeleton className={styles.title} />
           </div>
         )
       }
-      <ul>
+      <ul className={styles.list}>
         {
           array.map((_, index) => {
             return (
-              <li key={index}>
+              <li key={index} className={styles.element}>
                 { renderElement() }
               </li>
             );

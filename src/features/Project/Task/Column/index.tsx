@@ -16,22 +16,27 @@ const ProjectTaskColumn: React.FC<Props> = ({priorityId}) => {
   const priority = useSelector((state: RootState) => getPriorityById(state, priorityId));
   const taskIds = useSelector((state: RootState) => getPriorityTaskIdsById(state, priorityId));
 
-  // const renderContent = () => {
-  //   return taskIds.length === 0
-  //   ? <div className={styles.empty} />
-  //   : (
-  //     <ul className={styles.list}>
-  //       {taskIds.map((id) => {
-  //         return (
-  //           <li className={styles.item} key={id}>
-  //             { renderElement(id) }
-  //           </li>
-  //         );
-  //       })}
-  //     </ul>
-  //   );
-  //   // : <TaskColumn elementIds={taskIds} renderElement={renderElement} />;
-  // };
+  const renderEmptyMessage = () => {
+    return (
+      <div className={styles.empty} >
+        
+      </div>
+    );
+  };
+
+  const renderContent = () => {
+    return (
+      <ul className={styles.list}>
+        {taskIds.map((id) => {
+          return (
+            <li className={styles.item} key={id}>
+              <ProjectTaskCard id={id} priorityColor={priority.color} />
+            </li>
+          );
+        })}
+      </ul>
+    );
+  };
 
   return (
     <div className={styles.column}>
@@ -46,15 +51,9 @@ const ProjectTaskColumn: React.FC<Props> = ({priorityId}) => {
       </header>
 
       {
-        <ul className={styles.list}>
-          {taskIds.map((id) => {
-            return (
-              <li className={styles.item} key={id}>
-                <ProjectTaskCard id={id} priorityColor={priority.color} />
-              </li>
-            );
-          })}
-        </ul>
+        taskIds.length === 0
+        ? renderEmptyMessage()
+        : renderContent()
       }
     </div>
   );

@@ -31,3 +31,11 @@
   border-radius: 16px;
   background-color: var(--background-disabled-secondary);
 }
+
+.list {
+  padding: 0px 16px;
+}
+
+.item:not(:first-child) {
+  margin-top: 12px;
+}

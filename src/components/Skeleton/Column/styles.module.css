@@ -1,0 +1,16 @@
+.header {
+  padding: 16px 0;
+}
+
+.title {
+  height: 28px;
+  width: 150px;
+}
+
+.list {
+  padding: 0 16px;
+}
+
+.element:not(:first-child) {
+  margin-top: 12px;
+}

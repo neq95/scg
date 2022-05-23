@@ -15,7 +15,12 @@ const ProjectTaskCard: React.FC<Props> = ({id, priorityColor}) => {
   const task = useSelector((state: RootState) => getTaskById(state, id));
 
   return (
-    <TaskCard title={task.title} priorityColor={priorityColor} />
+    <TaskCard
+      title={task.title}
+      description={task.description}
+      priorityColor={priorityColor}
+      createdAt={task.createdAt}
+    />
   );
 };
 
