@@ -1,0 +1,27 @@
+.content {
+  display: flex;
+  flex-grow: 1;
+
+  min-height: 0;
+  padding-bottom: 16px;
+}
+
+.columns {
+  display: flex;
+  flex-grow: 1;
+
+  min-height: 0;
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+
+  width: 300px;
+  min-height: 0;
+}
+
+.column:not(:first-of-type) {
+  margin-left: 4px;
+}

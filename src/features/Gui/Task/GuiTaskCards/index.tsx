@@ -1,6 +1,6 @@
 import GuiSection from 'features/Gui/GuiSection';
 import GuiSectionBlock from 'features/Gui/GuiSection/GuiSectionBlock';
-import TaskCard from 'features/Task/TaskCard';
+import TaskCard from 'components/Task/Card';
 
 import styles from './styles.module.css';
 import { ILabel } from 'models/Label';

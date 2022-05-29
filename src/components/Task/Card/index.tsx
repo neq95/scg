@@ -2,24 +2,24 @@ import React from 'react';
 import cn from 'classnames';
 import {Link} from 'react-router-dom';
 
-import PriorityLabel from 'components/Priority/PriorityLabel';
+import PriorityLabel from 'components/Priority/Label';
 import Status from 'components/Status';
 import LabelList from 'components/Label/List';
 import TimerIcon from 'icons/TimerIcon';
 
+import { ILabel } from 'models/Label';
+import { StatusEnum } from 'models/Status';
+import { getDateFromTimestamp, formatToDottedView } from 'utils/date';
 import styles from './styles.module.css';
-import {ILabel} from 'models/Label';
-import {StatusEnum} from 'models/Status';
 
 /**
  * TODO:
- * 1. получать дату пропсами (видимо, timestamp и приобразовывать к дате)
  * 2. изменить стили статуса. Нужно, чтобы только статусы в состоянии IDLE меняли стили
  * при ховере и фокусе
  * 3. Сделать fix size вид отображения
  */
 
-interface ITaskCardProps {
+type Props = {
   className?: string;
   status?: StatusEnum;
   title: string;
@@ -29,9 +29,10 @@ interface ITaskCardProps {
   priorityColor: string;
   difficulty?: string;
   fixedSize?: boolean;
+  createdAt?: number;
 }
 
-const TaskCard: React.FC<ITaskCardProps> = ({
+const TaskCard: React.FC<Props> = ({
   className,
   status = StatusEnum.IDLE,
   title,
@@ -41,20 +42,24 @@ const TaskCard: React.FC<ITaskCardProps> = ({
   priorityColor,
   difficulty,
   fixedSize,
+  createdAt,
 }) => {
   return (
     <Link className={cn(className, styles.task, {[styles.fixed]: fixedSize})} to="/">
-       <div className={cn(styles.header, styles.row)}>
-         <PriorityLabel color={priorityColor} />
+        <div className={cn(styles.header, styles.row)}>
+          <div className={styles.headerMeta}>
+            <PriorityLabel color={priorityColor} />
+  
+            {createdAt && <span className={styles.date}>
+              { formatToDottedView(getDateFromTimestamp(createdAt)) }
+            </span>
+            }
+          </div>
 
-         <span className={styles.date}>
-           22.08.22 
-         </span>
+          <Status className={styles.status} value={status} />
+        </div>
 
-        <Status className={styles.status} value={status} />
-       </div>
-
-       <div className={cn(styles.body, styles.row)}>
+        <div className={cn(styles.body, styles.row)}>
           <p className={cn(styles.title, styles.row)}>
             {title}
           </p>
@@ -65,15 +70,15 @@ const TaskCard: React.FC<ITaskCardProps> = ({
             {description}
           </p>
           }
-       </div>
+        </div>
 
-       <div className={cn(styles.footer, styles.row)}>
-         {difficulty && <span className={cn(styles.difficulty, 'text-one-line')}>
-           {difficulty}
+        <div className={cn(styles.footer, styles.row)}>
+          {difficulty && <span className={cn(styles.difficulty, 'text-one-line')}>
+            {difficulty}
           </span>
           }
 
-         <div className={cn(styles.meta, styles.row)}>
+          <div className={cn(styles.meta, styles.row)}>
             {estimation && <span className={styles.estimation}>
               <TimerIcon />
 
@@ -82,11 +87,11 @@ const TaskCard: React.FC<ITaskCardProps> = ({
             </span>
             }
 
-           <span className={styles.participants}>
-             participants
-           </span>
-         </div>
-       </div>
+            <span className={styles.participants}>
+              participants
+            </span>
+          </div>
+        </div>
     </Link>
   );
 };

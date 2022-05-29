@@ -51,7 +51,7 @@ export const projectListSlice = createSlice({
   initialState,
   reducers: {
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
     .addCase(fetchProjects.pending, (state) => {
       state.status = Statuses.loading;

@@ -1,0 +1,56 @@
+.page {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  height: 100vh;
+
+  padding: 20px 0;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  min-height: 0;
+}
+
+.loader{
+  display: flex;
+  flex-grow: 1;
+  align-items: center;
+  justify-content: center;
+}
+
+.header {
+  display: flex;
+  align-items: center;
+}
+
+.title {
+  font-size: 40px;
+  line-height: 46px;
+
+  flex-grow: 1;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+
+  margin-left: 16px;
+}
+
+.action:not(:first-of-type) {
+  margin-left: 4px;
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  min-height: 0;
+  margin-top: 12px;
+}

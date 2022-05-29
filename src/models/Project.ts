@@ -10,6 +10,6 @@ export type ProjectPriority = {
   color: string;
   id: string;
   name: string;
-  projectId: string;
+  projectID: string;
   sort: number;
 }
