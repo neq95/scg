@@ -12,6 +12,16 @@ export type getTasksResponseType = {
   content: Record<string, {items: Task[], pagination: Pagination}>;
 }
 
+export type createTaskRequestType = {
+  projectId: getTasksRequestType['projectId'];
+  title: Task['title'];
+  priorityId: string;
+}
+
 export const getTasks = (payload: getTasksRequestType) => {
   return API.get<getTasksResponseType>(`api/v1/project/${payload.projectId}/tasks`);
+};
+
+export const createTask = (payload: createTaskRequestType) => {
+  return API.post(`api/v1/project/${payload.projectId}/task`, {title: payload.title, priorityID: payload.priorityId});
 };

@@ -1,0 +1,6 @@
+.textarea {
+  padding: 16px;
+
+  border: 1px solid var(--text-primary);
+  border-radius: 16px;
+}

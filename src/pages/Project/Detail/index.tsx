@@ -9,7 +9,7 @@ import FilterIcon from 'icons/Filter';
 import ProjectTaskList from 'features/Project/Task/List';
 
 import { useAppDispatch } from 'store';
-import { fetchProject } from 'store/slices/project';
+import { initialized, fetchProject } from 'store/slices/project';
 import styles from './styles.module.css';
 
 const ProjectDetailPage: React.FC = () => {
@@ -21,7 +21,8 @@ const ProjectDetailPage: React.FC = () => {
       return;
     }
 
-    dispatch(fetchProject({projectId}));
+    dispatch(initialized({projectId}));
+    dispatch(fetchProject());
   }, []);
 
   return (

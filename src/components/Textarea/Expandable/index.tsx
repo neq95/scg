@@ -1,8 +1,10 @@
 import React, { useEffect, useRef } from 'react';
+import cn from 'classnames';
 
 import styles from './styles.module.css';
 
 type Props = {
+  className?: string;
   value: string;
   rows?: number;
   placeholder?: string;
@@ -13,6 +15,7 @@ type Props = {
 
 const ExpandableTextarea: React.FC<Props> = (
   {
+    className,
     value,
     rows = 1,
     placeholder='Введите текст',
@@ -45,7 +48,7 @@ const ExpandableTextarea: React.FC<Props> = (
 
     return (
       <textarea
-        className={styles.textarea}
+        className={cn(styles.textarea, className)}
         ref={element}
         rows={rows}
         value={value}

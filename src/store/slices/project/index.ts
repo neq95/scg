@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getProjectPriorities, getProjectPrioritiesRequestType } from 'api/routes/project';
-import { getTasks, getTasksRequestType, getTasksResponseType } from 'api/routes/task';
+import { getTasks, getTasksRequestType, getTasksResponseType, createTaskRequestType, createTask as createTaskRequest } from 'api/routes/task';
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
 import { Task } from 'models/Task';
@@ -17,6 +17,7 @@ type errorType = {
 
 type State = {
   status: Statuses;
+  id: string | null;
   priorities: NormalizedItems<ProjectPriority>;
   tasks: NormalizedItems<Task>,
   tasksByPriority: tasksByPriorityType,
@@ -92,6 +93,7 @@ const prepareTasks = (tasks: getTasksResponseType['content']) => {
 
 const initialState: State = {
   status: Statuses.idle,
+  id: null,
   priorities: {
     byId: {},
     allIds: [],
@@ -109,16 +111,23 @@ const projectSlice = createSlice({
   name: 'project',
   initialState,
   reducers: {
+    initialized(state, action: PayloadAction<{projectId: string}>) {
+      state.id = action.payload.projectId;
+    },
+
     fetchingStarted(state) {
       state.status = Statuses.loading;
     },
+
     fetchingSucceeded(state) {
       state.status = Statuses.succeeded;
     },
+
     fetchingFailed(state, action: PayloadAction<{message: string, rejectedRequests: boolean[]}>) {
       state.status = Statuses.failed;
       state.error = action.payload;
     },
+
     taskCreatingStarted(state, action: PayloadAction<{priorityId: string}>) {
       if (state.taskAdditingInPriority) {
         state.priorities.byId[state.taskAdditingInPriority].taskAdditing = false;
@@ -126,7 +135,7 @@ const projectSlice = createSlice({
 
       state.priorities.byId[action.payload.priorityId].taskAdditing = true;
       state.taskAdditingInPriority = action.payload.priorityId;
-    }
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -142,10 +151,10 @@ const projectSlice = createSlice({
   }
 });
 
-export const fetchProject = (payload: getProjectPrioritiesRequestType | getTasksRequestType) => async (dispatch: AppDispatch, getState: () => RootState) => {
-  const {status, error} = getState().project;
+export const fetchProject = () => async (dispatch: AppDispatch, getState: () => RootState) => {
+  const {id, status, error} = getState().project;
 
-  if (status === Statuses.loading) {
+  if (!id || status === Statuses.loading) {
     return;
   }
 
@@ -158,8 +167,8 @@ export const fetchProject = (payload: getProjectPrioritiesRequestType | getTasks
   dispatch(fetchingStarted());
 
   const results = await Promise.allSettled([
-    ...(sendRequests[0] ? [dispatch(fetchProjectPriorities(payload))] : []),
-    ...(sendRequests[1] ? [dispatch(fetchTasks(payload))] : []),
+    ...(sendRequests[0] ? [dispatch(fetchProjectPriorities({projectId: id}))] : []),
+    ...(sendRequests[1] ? [dispatch(fetchTasks({projectId: id}))] : []),
   ]);
 
   const rejectedRequests: boolean[] = [];
@@ -191,8 +200,26 @@ export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTas
   return response.data.content;
 });
 
+export const createTask = createAsyncThunk<
+  void,
+  {priorityId: createTaskRequestType['priorityId'], title: createTaskRequestType['title']},
+  {state: RootState}>('tasks/create', async (payload, {getState}) => {
+    const {id} = getState().project;
 
-const {fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted} = projectSlice.actions;
+    if (!id) {
+      return;
+    }
+
+    const data: createTaskRequestType = {
+      ...payload,
+      projectId: id,
+    };
+    const response = await createTaskRequest(data);
+    console.log(response);
+});
+
+
+const {initialized, fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted} = projectSlice.actions;
 
 export default projectSlice.reducer;
 
@@ -214,4 +241,4 @@ export const getPriorityTaskIdsById = (state: RootState, id: string) => {
   return state.project.tasksByPriority[id].ids;
 };
 export const getTaskById = (state: RootState, id: string) => state.project.tasks.byId[id];
-export {taskCreatingStarted};
+export {initialized, taskCreatingStarted};

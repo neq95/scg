@@ -7,6 +7,7 @@ import ProjectTaskCard from 'features/Project/Task/Card';
 import Scrollbar from 'components/Scrollbar';
 import IconButton from 'components/IconButton';
 import PlusIcon from 'icons/Plus';
+import ProjectTaskAddition from 'features/Project/Task/Addition';
 
 import { RootState, useAppDispatch } from 'store';
 import { getPriorityById, getPriorityTaskIdsById, taskCreatingStarted } from 'store/slices/project';
@@ -32,9 +33,7 @@ const ProjectTaskColumn: React.FC<Props> = ({priorityId}) => {
           {
             priority.taskAdditing && 
             <li className={styles.item}>
-              <div className={styles.addition}>
-
-              </div>
+              <ProjectTaskAddition priorityId={priorityId}  />
             </li>
           } 
 
