@@ -4,9 +4,15 @@ import { useState } from 'react';
 import GuiSection from 'features/Gui/GuiSection';
 import GuiSectionBlock from 'features/Gui/GuiSection/GuiSectionBlock';
 import Input from 'components/Input';
+import ExpandableTextarea from 'components/Textarea/Expandable';
 
 const GuiInputs : React.FC = () => {
 	const [nameInputValue, setNameInputValue] = useState('');
+	const [text, setText] = useState('');
+
+  const onTextChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setText(event.target.value);
+  };
 
 	return (
 		<GuiSection title="Инпуты">
@@ -32,6 +38,12 @@ const GuiInputs : React.FC = () => {
 					error
 					errorText="Неправильное имя у тебя"
 				/>
+			</GuiSectionBlock>
+
+			<GuiSectionBlock title="компонент ExpandableTextarea">
+        <div>
+          <ExpandableTextarea value={text} onChange={onTextChange} />
+        </div>
 			</GuiSectionBlock>
 		</GuiSection>
 	);

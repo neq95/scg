@@ -20,6 +20,7 @@ type State = {
   priorities: NormalizedItems<ProjectPriority>;
   tasks: NormalizedItems<Task>,
   tasksByPriority: tasksByPriorityType,
+  taskAdditingInPriority: string | null, 
   error: errorType | null;
 }
 
@@ -29,19 +30,20 @@ const preparePriorities = (priorities: ProjectPriority[]) => {
     allIds: [],
   };
 
-  for (let circle = 0; circle < 5; circle++) {
-    priorities.forEach((priority) => {
-      const id = `${priority.id}${circle > 0 ? circle : ''}`;
-      const sort = priority.sort + (circle > 0 ? circle + 2 : 0) - 1;
-      result.byId[id] = priority;
-      result.allIds[sort] = id; 
-    });
-  }
+  // for (let circle = 0; circle < 5; circle++) {
+  //   priorities.forEach((priority) => {
+  //     const id = `${priority.id}${circle > 0 ? circle : ''}`;
+  //     const sort = priority.sort + (circle > 0 ? circle + 2 : 0) - 1;
+  //     result.byId[id] = priority;
+  //     result.allIds[sort] = id; 
+  //   });
+  // }
 
-  // priorities.forEach((priority) => {
-  //   result.byId[priority.id] = priority;
-  //   result.allIds[priority.sort] = priority.id; 
-  // });
+  priorities.forEach((priority) => {
+    priority.taskAdditing = false;
+    result.byId[priority.id] = priority;
+    result.allIds[priority.sort] = priority.id; 
+  });
 
   return result;
 };
@@ -64,20 +66,20 @@ const prepareTasks = (tasks: getTasksResponseType['content']) => {
   Object.keys(tasks).forEach((key) => {
     const priorityTaskIds: string[] = [];
 
-    for(let circle = 0; circle < 4; circle++) {
-      tasks[key].items.forEach((item) => {
-        const id = item.id + circle;
-        result.tasks.byId[id] = item;
-        result.tasks.allIds.push(id);
-        priorityTaskIds.push(id);
-      });
-    }
+    // for(let circle = 0; circle < 4; circle++) {
+    //   tasks[key].items.forEach((item) => {
+    //     const id = item.id + circle;
+    //     result.tasks.byId[id] = item;
+    //     result.tasks.allIds.push(id);
+    //     priorityTaskIds.push(id);
+    //   });
+    // }
 
-    // tasks[key].items.forEach((item) => {
-    //   result.tasks.byId[item.id] = item;
-    //   result.tasks.allIds.push(item.id);
-    //   priorityTaskIds.push(item.id);
-    // });
+    tasks[key].items.forEach((item) => {
+      result.tasks.byId[item.id] = item;
+      result.tasks.allIds.push(item.id);
+      priorityTaskIds.push(item.id);
+    });
 
     result.tasksByPriority[key] = {
       ids: priorityTaskIds,
@@ -99,6 +101,7 @@ const initialState: State = {
     allIds: [],
   },
   tasksByPriority: {},
+  taskAdditingInPriority: null,
   error: null,
 };
 
@@ -116,6 +119,14 @@ const projectSlice = createSlice({
       state.status = Statuses.failed;
       state.error = action.payload;
     },
+    taskCreatingStarted(state, action: PayloadAction<{priorityId: string}>) {
+      if (state.taskAdditingInPriority) {
+        state.priorities.byId[state.taskAdditingInPriority].taskAdditing = false;
+      }
+
+      state.priorities.byId[action.payload.priorityId].taskAdditing = true;
+      state.taskAdditingInPriority = action.payload.priorityId;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -181,7 +192,7 @@ export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTas
 });
 
 
-const {fetchingStarted, fetchingSucceeded, fetchingFailed} = projectSlice.actions;
+const {fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted} = projectSlice.actions;
 
 export default projectSlice.reducer;
 
@@ -203,3 +214,4 @@ export const getPriorityTaskIdsById = (state: RootState, id: string) => {
   return state.project.tasksByPriority[id].ids;
 };
 export const getTaskById = (state: RootState, id: string) => state.project.tasks.byId[id];
+export {taskCreatingStarted};
