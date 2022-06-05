@@ -1,4 +1,5 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
 
 import Container from 'layout/Container';
@@ -8,6 +9,8 @@ import AssignmentIcon from 'icons/Assignment';
 import TaskIcon from 'icons/Task';
 import ChartIcon from 'icons/Chart';
 
+import { getStatus } from 'store/slices/auth/selectors';
+import { Statuses } from 'models/Enums/Statuses';
 import styles from './styles.module.css';
 
 enum routes {
@@ -30,6 +33,12 @@ const routesConfig = {
 };
 
 const AuthPage = () => {
+	const status = useSelector(getStatus);
+
+	if (status === Statuses.succeeded) {
+		return <Navigate to="/" replace />;
+	}
+
 	const {pathname} = useLocation();
 	const routeConfig = routesConfig[pathname as keyof typeof routesConfig];
 

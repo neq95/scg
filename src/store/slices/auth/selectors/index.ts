@@ -1,9 +1,9 @@
 import { RootState } from 'store';
 
-const getIsAuthenticated = (state: RootState) => {
-  return state.auth.isAuthenticated;
+const getStatus = (state: RootState) => {
+  return state.auth.status;
 };
 
 export {
-  getIsAuthenticated,
+  getStatus,
 };

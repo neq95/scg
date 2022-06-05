@@ -9,6 +9,7 @@ import {
 } from 'api/routes';
 import { AuthUser } from 'models/User';
 import { getUser } from './thunks';
+import { Statuses } from 'models/Enums/Statuses';
 
 export const register = (payload: registerRequestType) =>  async (dispatch: AppDispatch) => {
   await dispatch(sendRegisterRequest(payload)).unwrap();
@@ -35,12 +36,12 @@ export const login = createAsyncThunk('auth/login', async (
 });
 
 type state = {
-  isAuthenticated: boolean;
+  status: Statuses;
   user: AuthUser | null;
 }
 
 const initialState: state = {
-  isAuthenticated: false,
+  status: Statuses.idle,
   user: null,
 };
 
@@ -48,20 +49,20 @@ const authSlice = createSlice({
   name: 'auth',
   initialState,
   reducers: {
-    userAuthenticated(state) {
-      state.isAuthenticated = true;
-    }
   },
   extraReducers: (builder) => {
     builder
+      .addCase(getUser.pending, (state) => {
+        state.status = Statuses.loading;
+      })
+      .addCase(getUser.rejected, (state) => {
+        state.status = Statuses.failed;
+      })
       .addCase(getUser.fulfilled, (state, action: PayloadAction<AuthUser>) => {
-        state.isAuthenticated = true;
+        state.status = Statuses.succeeded;
         state.user = action.payload;
       });
   }
 });
 
-const {userAuthenticated} = authSlice.actions;
-
-export {userAuthenticated};
 export default authSlice.reducer;

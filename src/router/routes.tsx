@@ -1,7 +1,7 @@
 import { useRoutes } from 'react-router-dom';
 
 import GuiPage from 'pages/Gui';
-
+import App from 'App';
 import AuthGuard from 'features/Guards/Auth';
 import AuthPage from 'pages/Auth';
 import LoginForm from 'features/Auth/Login/Form';
@@ -16,35 +16,40 @@ const Routes = () => {
       element: <GuiPage />,
     },
     {
-      path: '/auth',
-      element: <AuthPage />,
+      element: <App />,
       children: [
         {
-          path: 'login',
-          element: <LoginForm />,
-        },
-        {
-          path: 'signup',
-          element: <SignUpForm />,
-        },
-      ],
-    },
-    {
-      element: <AuthGuard />,
-      children: [
-        {
-          path: '/',
-          element: <ProjectListPage />,
-        },
-        {
-          path: '/project',
+          path: '/auth',
+          element: <AuthPage />,
           children: [
             {
-              path: ':projectId',
-              element: <ProjectDetailPage />,
+              path: 'login',
+              element: <LoginForm />,
+            },
+            {
+              path: 'signup',
+              element: <SignUpForm />,
             },
           ],
         },
+        {
+          element: <AuthGuard />,
+          children: [
+            {
+              path: '/',
+              element: <ProjectListPage />,
+            },
+            {
+              path: '/project',
+              children: [
+                {
+                  path: ':projectId',
+                  element: <ProjectDetailPage />,
+                },
+              ],
+            },
+          ]
+        }
       ]
     }
   ]);
