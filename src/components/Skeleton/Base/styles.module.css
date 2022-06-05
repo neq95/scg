@@ -1,7 +1,7 @@
 .skeleton {
-  animation: pulse 2s ease-in-out 0.5s infinite;
+  animation: pulse 1.65s ease-in-out 0.5s infinite;
 
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: var(--gallery);
 }
 
@@ -14,7 +14,7 @@
     opacity: 1;
   }
   50% {
-    opacity: 0.65;
+    opacity: 0.55;
   }
   100% {
     opacity: 1;

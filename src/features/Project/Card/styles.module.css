@@ -8,6 +8,10 @@
 
     padding: 16px;
 
+    color: var(--text-primary);
+
+    text-decoration: none;
+
     border-radius: 16px;
     background-color: var(--white);
     box-shadow: var(--shadow-secondary);

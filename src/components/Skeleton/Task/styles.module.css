@@ -1,0 +1,19 @@
+.task {
+  padding: 16px;
+
+  border-radius: 16px;
+  background-color: var(--background-color-primary);
+}
+
+.item:not(:first-child) {
+  margin-top: 8px;
+}
+
+.text {
+  width: 75px;
+  height: 20px;
+}
+
+.content {
+  height: 32px;
+}

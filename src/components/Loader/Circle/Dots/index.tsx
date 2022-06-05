@@ -6,7 +6,7 @@ import styles from './styles.module.css';
 
 interface ICircleDotsLoaderProps {
   className?: string;
-  size?: 'small' | 'medium' | 'big' | 'large';
+  size?: 'small' | 'medium' | 'big' | 'large' | 'huge';
   color?: LoaderColors,
 }
 

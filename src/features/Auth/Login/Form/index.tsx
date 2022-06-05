@@ -119,7 +119,7 @@ const LoginForm: React.FC = () => {
 			navigate(redirectRoute, {replace: true});
 		} catch (error) {
 			//TODO: handle error
-			console.log(error);
+			console.log('error is', error);
 			setIsSubmitting(false);
 		}
 	};

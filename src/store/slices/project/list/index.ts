@@ -15,18 +15,15 @@ const prepareData = (projects: Project[]) => {
     allIds: [],
   };
 
-  for (let circle = 0; circle < 9; circle++) {
-    projects.forEach((project) => {
-      const id = project.id + circle; //temp
-      result.byId[id] = project;
-      result.allIds.push(id);
-    }); 
-  }
+  projects.forEach((project) => {
+    result.byId[project.id] = project;
+    result.allIds.push(project.id);
+  }); 
 
   return result;
 };
 
-export const fetchProjects = createAsyncThunk('auth/login', async (payload: getProjectListRequestType) => {
+export const fetchProjects = createAsyncThunk('projects/fetch', async (payload: getProjectListRequestType) => {
   const response = await getProjectList(payload);
 
   return response.data.content;
@@ -54,7 +51,7 @@ export const projectListSlice = createSlice({
   initialState,
   reducers: {
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
     .addCase(fetchProjects.pending, (state) => {
       state.status = Statuses.loading;
