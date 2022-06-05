@@ -52,9 +52,6 @@ const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getUser.pending, (state) => {
-        state.status = Statuses.loading;
-      })
       .addCase(getUser.rejected, (state) => {
         state.status = Statuses.failed;
       })

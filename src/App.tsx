@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { Outlet } from 'react-router-dom';
 
@@ -7,24 +7,34 @@ import CircleDotsLoader from 'components/Loader/Circle/Dots';
 import { useAppDispatch } from 'store';
 import { getStatus } from 'store/slices/auth/selectors';
 import { getUser } from 'store/slices/auth/thunks';
-import { Statuses } from 'models/Enums/Statuses';
 import { LoaderColors } from 'models/Enums/Loader';
+import { Statuses } from 'models/Enums/Statuses';
 import styles from './App.module.scss';
 
 const App = () => {
+  const [isLoading, setIsLoading] = useState(false);
   const dispatch = useAppDispatch();
   const status = useSelector(getStatus);
-  const isInitializing = status === Statuses.idle || status === Statuses.loading;
 
   useEffect(() => {
-    if (status === Statuses.idle) {
-      dispatch(getUser());
+    if (status !== Statuses.succeeded) {
+      loadUser();
     }
   }, []);
 
+  const loadUser = async () => {
+    setIsLoading(true);
+
+    try {
+      await dispatch(getUser());
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
     <>
-      {isInitializing ? <div className={styles.loader}><CircleDotsLoader size="huge" color={LoaderColors.primary} /></div> : <Outlet />}
+      {status === Statuses.idle || isLoading ? <div className={styles.loader}><CircleDotsLoader size="huge" color={LoaderColors.primary} /></div> : <Outlet />}
     </>
   );
 };
