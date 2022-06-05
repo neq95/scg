@@ -30,22 +30,23 @@ const Routes = () => {
       ],
     },
     {
-      path: '/',
-      element: (
-        <AuthGuard>
-          <ProjectListPage />
-        </AuthGuard>
-      ),
-    },
-    {
-      path: '/project',
+      element: <AuthGuard />,
       children: [
         {
-          path: ':projectId',
-          element: <AuthGuard><ProjectDetailPage /></AuthGuard>,
+          path: '/',
+          element: <ProjectListPage />,
         },
-      ],
-    },
+        {
+          path: '/project',
+          children: [
+            {
+              path: ':projectId',
+              element: <ProjectDetailPage />,
+            },
+          ],
+        },
+      ]
+    }
   ]);
 };
 
