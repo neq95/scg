@@ -1,19 +1,19 @@
-import React from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { Navigate, Outlet, useLocation } from 'react-router-dom';
 
-interface IProps {
-  children: React.ReactNode;
-}
+import { getStatus } from 'store/slices/auth/selectors';
+import { Statuses } from 'models/Enums/Statuses';
 
-const AuthGuard = ({children}: IProps) => {
-  const authToken = localStorage.getItem('token');
+const AuthGuard = () => {
+  const status = useSelector(getStatus);
   const location = useLocation();
+  const authToken = localStorage.getItem('token');
 
-  if (!authToken) {
+  if (!authToken || status === Statuses.failed) {
     return <Navigate to="/auth/login" state={{from: location}} replace />;
   }
 
-  return <>{children}</>;
+  return <Outlet />;
 };
 
 export default AuthGuard;

@@ -9,6 +9,7 @@ import { useAppDispatch } from 'store';
 import { buildValidateText } from 'utils/validation';
 import styles from './styles.module.css';
 import {login as sendLoginRequest} from 'store/slices/auth';
+import { getUser } from 'store/slices/auth/thunks';
 
 interface IValidationField {
   validate: (value: string) => boolean;
@@ -115,11 +116,12 @@ const LoginForm: React.FC = () => {
 			await dispatch(
 				sendLoginRequest({email: values.email, password: values.password})
 			).unwrap();
+
+			await dispatch(getUser());
 	
 			navigate(redirectRoute, {replace: true});
 		} catch (error) {
 			//TODO: handle error
-			console.log('error is', error);
 			setIsSubmitting(false);
 		}
 	};
