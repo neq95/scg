@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getProjectPriorities, getProjectPrioritiesRequestType } from 'api/routes/project';
-import { getTasks, getTasksRequestType, getTasksResponseType, createTaskRequestType, createTask as createTaskRequest } from 'api/routes/task';
+import { getTasks, getTasksRequestType, getTasksResponseType } from 'api/routes/task';
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
 import { Task } from 'models/Task';
 import { RootState } from 'store';
 import { ProjectPriority } from 'models/Project';
 import { AppDispatch } from 'store';
+import { createTask } from './thunks';
 
 type tasksByPriorityType = Record<string, {ids: string[], pagination: Pagination}>;
 
@@ -147,6 +148,26 @@ const projectSlice = createSlice({
         const preparedData = prepareTasks(action.payload);
         state.tasks = preparedData.tasks;
         state.tasksByPriority = preparedData.tasksByPriority;
+      })
+      .addCase(createTask.fulfilled, (state, action: PayloadAction<Task | void>) => {
+        if (!action.payload) {
+          return;
+        }
+
+        state.tasks.allIds.unshift(action.payload.id);
+        state.tasks.byId[action.payload.id] = action.payload;
+
+        if (!state.tasksByPriority[action.payload.priorityID]) {
+          state.tasksByPriority[action.payload.priorityID] = {
+            ids: [],
+            pagination: {
+              from: 1,
+              to: 1,
+              total: 1,
+            }
+          };
+        }
+        state.tasksByPriority[action.payload.priorityID].ids.unshift(action.payload.id);
       });
   }
 });
@@ -199,25 +220,6 @@ export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTas
 
   return response.data.content;
 });
-
-export const createTask = createAsyncThunk<
-  void,
-  {priorityId: createTaskRequestType['priorityId'], title: createTaskRequestType['title']},
-  {state: RootState}>('tasks/create', async (payload, {getState}) => {
-    const {id} = getState().project;
-
-    if (!id) {
-      return;
-    }
-
-    const data: createTaskRequestType = {
-      ...payload,
-      projectId: id,
-    };
-    const response = await createTaskRequest(data);
-    console.log(response);
-});
-
 
 const {initialized, fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted} = projectSlice.actions;
 

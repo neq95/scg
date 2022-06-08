@@ -4,7 +4,7 @@ import ExpandableTextarea from 'components/Textarea/Expandable';
 import Button from 'components/Button';
 
 import { useAppDispatch } from 'store';
-import { createTask } from 'store/slices/project';
+import { createTask } from 'store/slices/project/thunks';
 import styles from './styles.module.css';
 
 type Props = {
@@ -12,8 +12,23 @@ type Props = {
 };
 
 const ProjectTaskAddition: React.FC<Props> = ({priorityId}) => {
-  const dispatch = useAppDispatch();
+  const [additing, setAdditing] = useState(false);
   const [title, setTitle] = useState('');
+  const dispatch = useAppDispatch();
+
+  const sendCreateTaskRequest = async () => {
+    setAdditing(true);
+
+    try {
+      await dispatch(createTask({priorityId, title})).unwrap();
+
+      setTitle('');
+    } catch {
+      console.log('catch!'); //TODO: handle errors;
+    } finally {
+      setAdditing(false);
+    }
+  };
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
@@ -21,7 +36,7 @@ const ProjectTaskAddition: React.FC<Props> = ({priorityId}) => {
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    dispatch(createTask({priorityId, title}));
+    sendCreateTaskRequest();
   };
 
   return (
@@ -35,7 +50,7 @@ const ProjectTaskAddition: React.FC<Props> = ({priorityId}) => {
       />
 
       <div className={styles.actions}>
-        <Button variant="contained" type='submit'>
+        <Button variant="contained" type='submit' loading={additing}>
           Добавить задачу
         </Button>
       </div>

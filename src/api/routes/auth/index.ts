@@ -6,8 +6,6 @@ const getUser = () => {
   return API.get<getUserResponse>('api/v1/me');
 };
 
-
-
 export default {
   getUser,
 };
