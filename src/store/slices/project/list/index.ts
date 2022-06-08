@@ -53,17 +53,17 @@ export const projectListSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(fetchProjects.pending, (state) => {
-      state.status = Statuses.loading;
-      state.error = null;
-    })
-    .addCase(fetchProjects.fulfilled, (state, action: PayloadAction<{items: Project[], pagination: Pagination}>) => {
-      const preparedData = prepareData(action.payload.items);
+      .addCase(fetchProjects.pending, (state) => {
+        state.status = Statuses.loading;
+        state.error = null;
+      })
+      .addCase(fetchProjects.fulfilled, (state, action: PayloadAction<{items: Project[], pagination: Pagination}>) => {
+        const preparedData = prepareData(action.payload.items);
 
-      state.status = Statuses.succeeded;
-      state.projects = preparedData;
-      state.pagination = action.payload.pagination;
-    });
+        state.status = Statuses.succeeded;
+        state.projects = preparedData;
+        state.pagination = action.payload.pagination;
+      });
   }
 });
 
