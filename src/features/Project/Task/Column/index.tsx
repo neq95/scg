@@ -10,7 +10,8 @@ import PlusIcon from 'icons/Plus';
 import ProjectTaskAddition from 'features/Project/Task/Addition';
 
 import { RootState, useAppDispatch } from 'store';
-import { getPriorityById, getPriorityTaskIdsById, taskCreatingStarted } from 'store/slices/project';
+import {taskCreatingStarted} from 'store/slices/project';
+import { getPriorityById, getPriorityTaskIdsById } from 'store/slices/project/selectors';
 import styles from './styles.module.css';
 
 type Props = {

@@ -1,0 +1,11 @@
+.textarea {
+  overflow: hidden;
+
+  width: 100%;
+
+  resize: none;
+
+  &::placeholder {
+    color: var(--text-placeholder);
+  }
+}

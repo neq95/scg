@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useImperativeHandle, useRef } from 'react';
 import cn from 'classnames';
 
-import styles from './styles.module.css';
+import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
@@ -13,7 +13,7 @@ type Props = {
   onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
 };
 
-const ExpandableTextarea: React.FC<Props> = (
+const ExpandableTextarea = React.forwardRef<{focus: () => void}, Props>((
   {
     className,
     value,
@@ -22,8 +22,16 @@ const ExpandableTextarea: React.FC<Props> = (
     maxLength,
     onChange,
     onKeyDown,
-  }) => {
+  }, ref) => {
     const element = useRef<EventTarget & HTMLTextAreaElement>(null);
+
+    useImperativeHandle(ref, () => ({
+      focus: () => {
+        if (element.current) {
+          element.current.focus();
+        }
+      }
+    }));
 
     useEffect(() => {
       if (element.current) {
@@ -45,7 +53,6 @@ const ExpandableTextarea: React.FC<Props> = (
       adjustHeight(event.target);
       onChange(event);
     };
-
     return (
       <textarea
         className={cn(styles.textarea, className)}
@@ -54,10 +61,12 @@ const ExpandableTextarea: React.FC<Props> = (
         value={value}
         placeholder={placeholder}
         maxLength={maxLength}
-        onChange={onChangeEvent}
         onKeyDown={onKeyDown}
+        onChange={onChangeEvent}
       />
     );
-};
+});
+
+ExpandableTextarea.displayName = 'ExpandableTextarea';
 
 export default ExpandableTextarea;

@@ -1,13 +1,12 @@
-import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getProjectPriorities, getProjectPrioritiesRequestType } from 'api/routes/project';
-import { getTasks, getTasksRequestType, getTasksResponseType } from 'api/routes/task';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { getTasksResponseType } from 'api/routes/task';
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
 import { Task } from 'models/Task';
 import { RootState } from 'store';
 import { ProjectPriority } from 'models/Project';
 import { AppDispatch } from 'store';
-import { createTask } from './thunks';
+import { createTask, fetchProjectPriorities, fetchTasks } from './thunks';
 
 type tasksByPriorityType = Record<string, {ids: string[], pagination: Pagination}>;
 
@@ -137,6 +136,15 @@ const projectSlice = createSlice({
       state.priorities.byId[action.payload.priorityId].taskAdditing = true;
       state.taskAdditingInPriority = action.payload.priorityId;
     },
+
+    taskCreatingFinished(state) {
+      if (!state.taskAdditingInPriority) {
+        return;
+      }
+
+      state.priorities.byId[state.taskAdditingInPriority].taskAdditing = false;
+      state.taskAdditingInPriority = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -172,7 +180,7 @@ const projectSlice = createSlice({
   }
 });
 
-export const fetchProject = () => async (dispatch: AppDispatch, getState: () => RootState) => {
+const fetchProject = () => async (dispatch: AppDispatch, getState: () => RootState) => {
   const {id, status, error} = getState().project;
 
   if (!id || status === Statuses.loading) {
@@ -208,39 +216,8 @@ export const fetchProject = () => async (dispatch: AppDispatch, getState: () => 
   }
 };
 
-export const fetchProjectPriorities = createAsyncThunk('project/priorities/fetch', async (payload: getProjectPrioritiesRequestType) => {
-  const response = await getProjectPriorities(payload);
-
-  return response.data.content;
-});
-
-
-export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequestType) => {
-  const response = await getTasks(payload);
-
-  return response.data.content;
-});
-
-const {initialized, fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted} = projectSlice.actions;
+const {initialized, fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted, taskCreatingFinished} = projectSlice.actions;
 
 export default projectSlice.reducer;
 
-const getProject = (state: RootState) => state.project;
-
-export const getStatus = createSelector(getProject, (project) => project.status);
-export const getError = createSelector(getProject, (project) => project.error);
-
-export const getAllPriorityIds = createSelector(getProject, (project) => project.priorities.allIds);
-export const getPriorityById = (state: RootState, id: string) => state.project.priorities.byId[id];
-
-export const getPriorityTaskIdsById = (state: RootState, id: string) => {
-  const tasksByPriority = state.project.tasksByPriority;
-
-  if (!tasksByPriority[id]) {
-    return [];
-  }
-
-  return state.project.tasksByPriority[id].ids;
-};
-export const getTaskById = (state: RootState, id: string) => state.project.tasks.byId[id];
-export {initialized, taskCreatingStarted};
+export { fetchProject, initialized, taskCreatingStarted, taskCreatingFinished};
