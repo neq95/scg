@@ -12,4 +12,5 @@ export type ProjectPriority = {
   name: string;
   projectID: string;
   sort: number;
+  taskAdditing: boolean;
 }

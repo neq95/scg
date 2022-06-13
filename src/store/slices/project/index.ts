@@ -1,12 +1,13 @@
-import { createAsyncThunk, createSelector, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getProjectPriorities, getProjectPrioritiesRequestType } from 'api/routes/project';
-import { getTasks, getTasksRequestType, getTasksResponseType } from 'api/routes/task';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+
+import { getTasksResponse } from 'api/routes/task/types';
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
 import { Task } from 'models/Task';
 import { RootState } from 'store';
 import { ProjectPriority } from 'models/Project';
 import { AppDispatch } from 'store';
+import { createTask, fetchProjectPriorities, fetchTasks } from './thunks';
 
 type tasksByPriorityType = Record<string, {ids: string[], pagination: Pagination}>;
 
@@ -17,9 +18,11 @@ type errorType = {
 
 type State = {
   status: Statuses;
+  id: string | null;
   priorities: NormalizedItems<ProjectPriority>;
   tasks: NormalizedItems<Task>,
   tasksByPriority: tasksByPriorityType,
+  taskAdditingInPriority: string | null, 
   error: errorType | null;
 }
 
@@ -29,24 +32,25 @@ const preparePriorities = (priorities: ProjectPriority[]) => {
     allIds: [],
   };
 
-  for (let circle = 0; circle < 5; circle++) {
-    priorities.forEach((priority) => {
-      const id = `${priority.id}${circle > 0 ? circle : ''}`;
-      const sort = priority.sort + (circle > 0 ? circle + 2 : 0) - 1;
-      result.byId[id] = priority;
-      result.allIds[sort] = id; 
-    });
-  }
+  // for (let circle = 0; circle < 5; circle++) {
+  //   priorities.forEach((priority) => {
+  //     const id = `${priority.id}${circle > 0 ? circle : ''}`;
+  //     const sort = priority.sort + (circle > 0 ? circle + 2 : 0) - 1;
+  //     result.byId[id] = priority;
+  //     result.allIds[sort] = id; 
+  //   });
+  // }
 
-  // priorities.forEach((priority) => {
-  //   result.byId[priority.id] = priority;
-  //   result.allIds[priority.sort] = priority.id; 
-  // });
+  priorities.forEach((priority) => {
+    priority.taskAdditing = false;
+    result.byId[priority.id] = priority;
+    result.allIds[priority.sort] = priority.id; 
+  });
 
   return result;
 };
 
-const prepareTasks = (tasks: getTasksResponseType['content']) => {
+const prepareTasks = (tasks: getTasksResponse['content']) => {
   type Result = {
     tasks: NormalizedItems<Task>;
     tasksByPriority: tasksByPriorityType;
@@ -64,20 +68,20 @@ const prepareTasks = (tasks: getTasksResponseType['content']) => {
   Object.keys(tasks).forEach((key) => {
     const priorityTaskIds: string[] = [];
 
-    for(let circle = 0; circle < 4; circle++) {
-      tasks[key].items.forEach((item) => {
-        const id = item.id + circle;
-        result.tasks.byId[id] = item;
-        result.tasks.allIds.push(id);
-        priorityTaskIds.push(id);
-      });
-    }
+    // for(let circle = 0; circle < 4; circle++) {
+    //   tasks[key].items.forEach((item) => {
+    //     const id = item.id + circle;
+    //     result.tasks.byId[id] = item;
+    //     result.tasks.allIds.push(id);
+    //     priorityTaskIds.push(id);
+    //   });
+    // }
 
-    // tasks[key].items.forEach((item) => {
-    //   result.tasks.byId[item.id] = item;
-    //   result.tasks.allIds.push(item.id);
-    //   priorityTaskIds.push(item.id);
-    // });
+    tasks[key].items.forEach((item) => {
+      result.tasks.byId[item.id] = item;
+      result.tasks.allIds.push(item.id);
+      priorityTaskIds.push(item.id);
+    });
 
     result.tasksByPriority[key] = {
       ids: priorityTaskIds,
@@ -90,6 +94,7 @@ const prepareTasks = (tasks: getTasksResponseType['content']) => {
 
 const initialState: State = {
   status: Statuses.idle,
+  id: null,
   priorities: {
     byId: {},
     allIds: [],
@@ -99,6 +104,7 @@ const initialState: State = {
     allIds: [],
   },
   tasksByPriority: {},
+  taskAdditingInPriority: null,
   error: null,
 };
 
@@ -106,16 +112,40 @@ const projectSlice = createSlice({
   name: 'project',
   initialState,
   reducers: {
+    initialized(state, action: PayloadAction<{projectId: string}>) {
+      state.id = action.payload.projectId;
+    },
+
     fetchingStarted(state) {
       state.status = Statuses.loading;
     },
+
     fetchingSucceeded(state) {
       state.status = Statuses.succeeded;
     },
+
     fetchingFailed(state, action: PayloadAction<{message: string, rejectedRequests: boolean[]}>) {
       state.status = Statuses.failed;
       state.error = action.payload;
     },
+
+    taskCreatingStarted(state, action: PayloadAction<{priorityId: string}>) {
+      if (state.taskAdditingInPriority) {
+        state.priorities.byId[state.taskAdditingInPriority].taskAdditing = false;
+      }
+
+      state.priorities.byId[action.payload.priorityId].taskAdditing = true;
+      state.taskAdditingInPriority = action.payload.priorityId;
+    },
+
+    taskCreatingFinished(state) {
+      if (!state.taskAdditingInPriority) {
+        return;
+      }
+
+      state.priorities.byId[state.taskAdditingInPriority].taskAdditing = false;
+      state.taskAdditingInPriority = null;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -123,18 +153,38 @@ const projectSlice = createSlice({
         const priorities = preparePriorities(action.payload.items);
         state.priorities = priorities;
       })
-      .addCase(fetchTasks.fulfilled, (state, action: PayloadAction<getTasksResponseType['content']>) => {
+      .addCase(fetchTasks.fulfilled, (state, action: PayloadAction<getTasksResponse['content']>) => {
         const preparedData = prepareTasks(action.payload);
         state.tasks = preparedData.tasks;
         state.tasksByPriority = preparedData.tasksByPriority;
+      })
+      .addCase(createTask.fulfilled, (state, action: PayloadAction<Task | void>) => {
+        if (!action.payload) {
+          return;
+        }
+
+        state.tasks.allIds.unshift(action.payload.id);
+        state.tasks.byId[action.payload.id] = action.payload;
+
+        if (!state.tasksByPriority[action.payload.priorityID]) {
+          state.tasksByPriority[action.payload.priorityID] = {
+            ids: [],
+            pagination: {
+              from: 1,
+              to: 1,
+              total: 1,
+            }
+          };
+        }
+        state.tasksByPriority[action.payload.priorityID].ids.unshift(action.payload.id);
       });
   }
 });
 
-export const fetchProject = (payload: getProjectPrioritiesRequestType | getTasksRequestType) => async (dispatch: AppDispatch, getState: () => RootState) => {
-  const {status, error} = getState().project;
+const fetchProject = () => async (dispatch: AppDispatch, getState: () => RootState) => {
+  const {id, status, error} = getState().project;
 
-  if (status === Statuses.loading) {
+  if (!id || status === Statuses.loading) {
     return;
   }
 
@@ -147,8 +197,8 @@ export const fetchProject = (payload: getProjectPrioritiesRequestType | getTasks
   dispatch(fetchingStarted());
 
   const results = await Promise.allSettled([
-    ...(sendRequests[0] ? [dispatch(fetchProjectPriorities(payload))] : []),
-    ...(sendRequests[1] ? [dispatch(fetchTasks(payload))] : []),
+    ...(sendRequests[0] ? [dispatch(fetchProjectPriorities({projectId: id}))] : []),
+    ...(sendRequests[1] ? [dispatch(fetchTasks({projectId: id}))] : []),
   ]);
 
   const rejectedRequests: boolean[] = [];
@@ -167,39 +217,8 @@ export const fetchProject = (payload: getProjectPrioritiesRequestType | getTasks
   }
 };
 
-export const fetchProjectPriorities = createAsyncThunk('project/priorities/fetch', async (payload: getProjectPrioritiesRequestType) => {
-  const response = await getProjectPriorities(payload);
-
-  return response.data.content;
-});
-
-
-export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequestType) => {
-  const response = await getTasks(payload);
-
-  return response.data.content;
-});
-
-
-const {fetchingStarted, fetchingSucceeded, fetchingFailed} = projectSlice.actions;
+const {initialized, fetchingStarted, fetchingSucceeded, fetchingFailed, taskCreatingStarted, taskCreatingFinished} = projectSlice.actions;
 
 export default projectSlice.reducer;
 
-const getProject = (state: RootState) => state.project;
-
-export const getStatus = createSelector(getProject, (project) => project.status);
-export const getError = createSelector(getProject, (project) => project.error);
-
-export const getAllPriorityIds = createSelector(getProject, (project) => project.priorities.allIds);
-export const getPriorityById = (state: RootState, id: string) => state.project.priorities.byId[id];
-
-export const getPriorityTaskIdsById = (state: RootState, id: string) => {
-  const tasksByPriority = state.project.tasksByPriority;
-
-  if (!tasksByPriority[id]) {
-    return [];
-  }
-
-  return state.project.tasksByPriority[id].ids;
-};
-export const getTaskById = (state: RootState, id: string) => state.project.tasks.byId[id];
+export { fetchProject, initialized, taskCreatingStarted, taskCreatingFinished};
