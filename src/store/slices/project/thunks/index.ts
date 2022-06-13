@@ -4,8 +4,8 @@ import Api from 'api';
 import { RootState } from 'store';
 import { createTaskRequest } from 'api/routes/task/types';
 import { Task } from 'models/Task';
-import { getProjectPriorities, getProjectPrioritiesRequestType } from 'api/routes/project';
-import { getTasks, getTasksRequestType } from 'api/routes/task';
+import { getProjectPrioritiesRequest } from 'api/routes/project/types';
+import { getTasksRequest } from 'api/routes/task/types';
 
 export const createTask = createAsyncThunk<
   Task | void,
@@ -26,15 +26,15 @@ export const createTask = createAsyncThunk<
     return response.data.content as Task;
 });
 
-export const fetchProjectPriorities = createAsyncThunk('project/priorities/fetch', async (payload: getProjectPrioritiesRequestType) => {
-  const response = await getProjectPriorities(payload);
+export const fetchProjectPriorities = createAsyncThunk('project/priorities/fetch', async (payload: getProjectPrioritiesRequest) => {
+  const response = await Api.project.getProjectPriorities(payload);
 
   return response.data.content;
 });
 
 
-export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequestType) => {
-  const response = await getTasks(payload);
+export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequest) => {
+  const response = await Api.task.getTasks(payload);
 
   return response.data.content;
 });

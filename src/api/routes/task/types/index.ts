@@ -1,4 +1,5 @@
 import { successResponse } from 'api/types';
+import { Pagination } from 'models/request';
 import { Task } from 'models/Task';
 
 type createTaskRequest = {
@@ -7,9 +8,20 @@ type createTaskRequest = {
   priorityId: string;
 }
 
-type createTaskResponse = successResponse<Task>
+type createTaskResponse = successResponse<Task>;
 
-export type {createTaskRequest, createTaskResponse};
+type getTasksRequest = {
+  projectId: string;
+}
+
+type getTasksResponse = successResponse<Record<string, {items: Task[], pagination: Pagination}>>;
+
+export type {
+  createTaskRequest,
+  createTaskResponse,
+  getTasksRequest,
+  getTasksResponse
+};
 
 
 

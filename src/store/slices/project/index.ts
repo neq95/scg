@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getTasksResponseType } from 'api/routes/task';
+
+import { getTasksResponse } from 'api/routes/task/types';
 import { Statuses } from 'models/Enums/Statuses';
 import { NormalizedItems, Pagination } from 'models/request';
 import { Task } from 'models/Task';
@@ -49,7 +50,7 @@ const preparePriorities = (priorities: ProjectPriority[]) => {
   return result;
 };
 
-const prepareTasks = (tasks: getTasksResponseType['content']) => {
+const prepareTasks = (tasks: getTasksResponse['content']) => {
   type Result = {
     tasks: NormalizedItems<Task>;
     tasksByPriority: tasksByPriorityType;
@@ -152,7 +153,7 @@ const projectSlice = createSlice({
         const priorities = preparePriorities(action.payload.items);
         state.priorities = priorities;
       })
-      .addCase(fetchTasks.fulfilled, (state, action: PayloadAction<getTasksResponseType['content']>) => {
+      .addCase(fetchTasks.fulfilled, (state, action: PayloadAction<getTasksResponse['content']>) => {
         const preparedData = prepareTasks(action.payload);
         state.tasks = preparedData.tasks;
         state.tasksByPriority = preparedData.tasksByPriority;

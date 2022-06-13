@@ -8,7 +8,7 @@ import Button from 'components/Button';
 import { useAppDispatch } from 'store';
 import { buildValidateText } from 'utils/validation';
 import styles from './styles.module.css';
-import {login as sendLoginRequest} from 'store/slices/auth';
+import {login as sendLoginRequest} from 'store/slices/auth/thunks';
 import { getUser } from 'store/slices/auth/thunks';
 
 interface IValidationField {
