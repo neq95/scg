@@ -17,12 +17,22 @@
   align-items: center;
 }
 
+.priority {
+  flex-shrink: 0;
+}
+
 .nameText {
   font-size: var(--font-size-title-2);
   line-height: var(--line-height-title-2);
   font-weight: var(--font-weight-medium);
 
+  flex-grow: 1;
+
   margin-left: 8px;
+}
+
+.add {
+  flex-shrink: 0;
 }
 
 .empty {
@@ -34,8 +44,13 @@
 
 .content {
   display: flex;
+  flex-grow: 1;
 
   min-height: 0;
+}
+
+.content.empty {
+  background-color: var(--gallery);
 }
 
 .list {

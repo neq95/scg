@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { getStatus, getAllPriorityIds } from 'store/slices/project';
+import {getStatus, getAllPriorityIds} from 'store/slices/project/selectors';
 
 import SkeletonColumn from 'components/Skeleton/Column';
 import SkeletonTask from 'components/Skeleton/Task';

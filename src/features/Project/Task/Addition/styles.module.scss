@@ -1,0 +1,21 @@
+.textarea {
+  padding: 16px;
+
+  border: 1px solid var(--color-control);
+  border-radius: 16px;
+  
+  &:focus {
+    border-color: var(--text-primary);
+  }
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+}
+
+.action {
+  &:not(:first-child) {
+    margin-left: 8px;
+  }
+}

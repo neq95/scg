@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import Input from 'components/Input';
 import Button from 'components/Button';
 
-import { register as sendRegisterRequest } from 'store/slices/auth';
+import { register as sendRegisterRequest } from 'store/slices/auth/thunks';
 import { useAppDispatch } from 'store';
 import styles from './styles.module.css';
 

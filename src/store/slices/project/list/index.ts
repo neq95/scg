@@ -1,13 +1,11 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 
+import Api from 'api';
 import { RootState } from 'store';
 import { Pagination, NormalizedItems } from 'models/request';
 import { Project } from 'models/Project';
 import { Statuses } from 'models/Enums/Statuses';
-import {
-  getProjectListRequestType,
-  getProjectList,
-} from 'api/routes/project';
+import { getProjectListRequest } from 'api/routes/project/types';
 
 const prepareData = (projects: Project[]) => {
   const result: NormalizedItems<Project> = {
@@ -23,8 +21,8 @@ const prepareData = (projects: Project[]) => {
   return result;
 };
 
-export const fetchProjects = createAsyncThunk('projects/fetch', async (payload: getProjectListRequestType) => {
-  const response = await getProjectList(payload);
+export const fetchProjects = createAsyncThunk('projects/fetch', async (payload: getProjectListRequest) => {
+  const response = await Api.project.getProjectList(payload);
 
   return response.data.content;
 });
