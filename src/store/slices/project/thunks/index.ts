@@ -2,14 +2,26 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import Api from 'api';
 import { RootState } from 'store';
-import { createTaskRequest } from 'api/routes/task/types';
+import { createTaskRequest, getTasksRequest, updateTaskRequest, updateTaskResponse } from 'api/routes/task/types';
 import { Task } from 'models/Task';
 import { getProjectPrioritiesRequest } from 'api/routes/project/types';
-import { getTasksRequest } from 'api/routes/task/types';
+
+export const fetchProjectPriorities = createAsyncThunk('project/priorities/fetch', async (payload: getProjectPrioritiesRequest) => {
+  const response = await Api.project.getProjectPriorities(payload);
+
+  return response.data.content;
+});
+
+
+export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequest) => {
+  const response = await Api.task.getTasks(payload);
+
+  return response.data.content;
+});
 
 export const createTask = createAsyncThunk<
   Task | void,
-  {priorityId: createTaskRequest['priorityId'], title: createTaskRequest['title']},
+  Omit<createTaskRequest, 'projectId'>,
   {state: RootState}>('tasks/create', async (payload, {getState}) => {
     const {id} = getState().project;
 
@@ -26,15 +38,21 @@ export const createTask = createAsyncThunk<
     return response.data.content as Task;
 });
 
-export const fetchProjectPriorities = createAsyncThunk('project/priorities/fetch', async (payload: getProjectPrioritiesRequest) => {
-  const response = await Api.project.getProjectPriorities(payload);
+export const updateTask = createAsyncThunk<
+  void,
+  Omit<updateTaskRequest, 'projectId'>, 
+  {state: RootState}
+>('task/update', async (payload, {getState}) => {
+  const {id} = getState().project;
 
-  return response.data.content;
-});
+  if (!id) {
+    return;
+  }
 
+  const data: updateTaskRequest = {
+    ...payload,
+    projectId: id,
+  };
 
-export const fetchTasks = createAsyncThunk('tasks/fetch', async (payload: getTasksRequest) => {
-  const response = await Api.task.getTasks(payload);
-
-  return response.data.content;
+  await Api.task.updateTask(data);
 });

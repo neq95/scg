@@ -5,23 +5,29 @@ import styles from './styles.module.scss';
 
 type Props = {
   className?: string;
+  id?: string,
   value: string;
   rows?: number;
   placeholder?: string;
   maxLength?: number;
   onChange: (event: React.ChangeEvent<HTMLTextAreaElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLTextAreaElement>) => void;
+  onFocus?: (event: React.FocusEvent<HTMLTextAreaElement, Element>) => void;
+  onBlur?: (event: React.FocusEvent<HTMLTextAreaElement, Element>) => void;
 };
 
 const ExpandableTextarea = React.forwardRef<{focus: () => void}, Props>((
   {
     className,
+    id,
     value,
     rows = 1,
     placeholder='Введите текст',
     maxLength,
     onChange,
     onKeyDown,
+    onFocus,
+    onBlur,
   }, ref) => {
     const element = useRef<EventTarget & HTMLTextAreaElement>(null);
 
@@ -56,6 +62,7 @@ const ExpandableTextarea = React.forwardRef<{focus: () => void}, Props>((
     return (
       <textarea
         className={cn(styles.textarea, className)}
+        id={id}
         ref={element}
         rows={rows}
         value={value}
@@ -63,6 +70,8 @@ const ExpandableTextarea = React.forwardRef<{focus: () => void}, Props>((
         maxLength={maxLength}
         onKeyDown={onKeyDown}
         onChange={onChangeEvent}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
     );
 });

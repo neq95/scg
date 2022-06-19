@@ -42,6 +42,7 @@ const GuiTaskCards = () => {
 							priorityColor={priorityColor1}
 							labels={labels}
 							difficulty="Трудно очень"
+							route="/"
 						/>
 					</div>
 
@@ -49,6 +50,7 @@ const GuiTaskCards = () => {
 						<TaskCard
 							title={title2}
 							priorityColor={priorityColor2}
+							route="/"
 						/>
 					</div>
 				</div>
@@ -65,6 +67,7 @@ const GuiTaskCards = () => {
 							labels={labels}
 							difficulty="Трудно очень"
 							fixedSize
+							route="/"
 						/>
 					</div>
 
@@ -73,6 +76,7 @@ const GuiTaskCards = () => {
 							title={title2}
 							priorityColor={priorityColor2}
 							fixedSize
+							route="/"
 						/>
 					</div>
 				</div>
