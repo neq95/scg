@@ -6,6 +6,7 @@ import SkeletonColumn from 'components/Skeleton/Column';
 import SkeletonTask from 'components/Skeleton/Task';
 import ProjectTaskColumn from 'features/Project/Task/Column';
 import Scrollbar from 'components/Scrollbar';
+import ProjectTaskModal from '../Modal';
 
 import { Statuses } from 'models/Enums/Statuses';
 import styles from './styles.module.css';
@@ -31,6 +32,8 @@ const ProjectTaskList: React.FC = () => {
           )
         : status === Statuses.succeeded
         ? (
+            <>
+            <ProjectTaskModal />
             <Scrollbar className={styles.content} autoHide={false}>
               <section className={styles.columns}>
                 {priorityIds.map((id) => {
@@ -42,6 +45,7 @@ const ProjectTaskList: React.FC = () => {
                 })}
               </section>
             </Scrollbar>
+            </>
           )
         : null
      }
