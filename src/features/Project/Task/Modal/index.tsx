@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import ExpandableTextarea from 'components/Textarea/Expandable';
 import IconButton from 'components/IconButton';
 import CrossIcon from 'icons/CrossIcon';
+import ProjectTaskModalDescription from './Description';
 
 import { RootState, useAppDispatch } from 'store';
 import { getTaskById } from 'store/slices/project/selectors';
@@ -22,7 +23,6 @@ const ProjectTaskModal = () => {
   const dispatch = useAppDispatch();
 
   const [title, setTitle] = useState(task.title);
-  const [description, setDescription] = useState('');
 
   const close = () => {
     if (projectId) {
@@ -36,10 +36,6 @@ const ProjectTaskModal = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
-  };
-
-  const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
   };
 
   const renderContent = () => {
@@ -69,18 +65,7 @@ const ProjectTaskModal = () => {
             </IconButton>
           </header>
 
-          <label htmlFor="task-modal-description">
-            Описание
-          </label>
-
-          <ExpandableTextarea
-            className={styles.description}
-            id="task-modal-description"
-            rows={1}
-            placeholder="Поле для подробного описания задачи..."
-            value={description}
-            onChange={onDescriptionChange}
-          />
+          <ProjectTaskModalDescription className={styles.description} />
         </div>
       </div>
     );
