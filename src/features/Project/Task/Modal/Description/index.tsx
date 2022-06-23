@@ -1,9 +1,12 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import cn from 'classnames';
+import ReactMarkdown from 'react-markdown';
 
-import ExpandableTextarea from 'components/Textarea/Expandable';
 import Button from 'components/Button';
 
+import { useAppDispatch } from 'store';
+import { updateTask } from 'store/slices/project/thunks';
 import styles from './styles.module.scss';
 
 type Props = {
@@ -13,16 +16,30 @@ type Props = {
 const placeholder = 'Поле для подробного описания задачи...';
 
 const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
+  const dispatch = useAppDispatch();
+  const {taskId} = useParams();
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const [editing, setEditing] = useState(false);
   const [description, setDescription] = useState('');
 
-  const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
+  const save = async () => {
+    await dispatch(updateTask({taskId: taskId!, description})).unwrap();
+    setEditing(false);
   };
 
-  const onCancelEditing = () => {
+  const startEditing = () => {
+    setEditing(true);
+    textareaRef.current?.focus();
+  };
+
+  const cancelEditing = () => {
     setDescription('');
     setEditing(false);
+  };
+
+  const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setDescription(event.target.value);
   };
 
   const renderEditingData = () => {
@@ -31,17 +48,18 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
         <textarea
           className={styles.rawContent}
           id="task-modal-description"
+          ref={textareaRef}
           placeholder={placeholder}
           value={description}
           onChange={onDescriptionChange}
         />
 
        <div className={styles.actions}>
-          <Button variant='contained'>
+          <Button variant='contained' onClick={save}>
             Сохранить
           </Button>
   
-          <Button variant='text' onClick={onCancelEditing}>
+          <Button variant='text' onClick={cancelEditing}>
             Отмена
           </Button>
        </div>
@@ -56,11 +74,13 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
       </span>
 
       <div className={styles.content}>
-        {!editing && <div className={styles.parsedContent} onClick={() => setEditing(true)}>
-          {description || placeholder}
-        </div>}
-  
-        {editing && renderEditingData()}
+        {
+          editing
+          ? renderEditingData()
+          : <div className={styles.parsedContent} onClick={startEditing}>
+              {description.length > 0 ? <ReactMarkdown className={styles.markdown}>{description}</ReactMarkdown> : placeholder}
+            </div>
+        }
       </div>
     </div>
   );

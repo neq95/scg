@@ -19,8 +19,8 @@ type createTaskResponse = successResponse<Task>;
 type updateTaskRequest = {
   projectId: string;
   taskId: string;
-  title: string,
-  description: string,
+  title?: string,
+  description?: string,
 };
 
 type updateTaskResponse = successResponse<null>;

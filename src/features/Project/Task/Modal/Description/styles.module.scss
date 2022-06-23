@@ -47,3 +47,75 @@
 
   margin-top: 8px;
 }
+
+.markdown {
+  & ul,
+  & ol {
+    margin: 8px 0;
+
+    & > li {
+      margin: 8px 8px 8px 24px;
+      margin-inline-end: 8px;
+      margin-inline-start: 24px;
+    }
+  }
+
+  & ul > li {
+    list-style: disc;
+  }
+
+  & ol > li {
+    list-style: decimal;
+  }
+
+  & h1 {
+    font-size: var(--font-size-title-2);
+    line-height: var(--line-height-title-2);
+
+    margin-bottom: 12px;
+  }
+
+  & h2 {
+    font-size: var(--font-size-title-3);
+    line-height: var(--line-height-title-3);
+
+    margin-top: 16px;
+    margin-bottom: 8px;
+  }
+
+  & h3 {
+    font-size: var(--font-size-title-4);
+    line-height: var(--line-height-title-4);
+
+    margin-top: 12px;
+    margin-bottom: 8px;
+  }
+
+  & h4 {
+    font-size: var(--font-size-text-1);
+    line-height: var(--line-height-text-1);
+
+    margin: 8px 0;
+  }
+
+  & h5 {
+    font-size: var(--font-size-text-2);
+    line-height: var(--line-height-text-2);
+
+    margin: 8px 0;
+  }
+
+  & h6 {
+    font-size: var(--font-size-text-3);
+    line-height: var(--line-height-text-3);
+
+    margin: 8px 0;
+  }
+
+  & p {
+    font-size: var(--font-size-text-1);
+    line-height: var(--line-height-text-1);
+
+    margin-bottom: 8px;
+  }
+}
