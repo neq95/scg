@@ -30,6 +30,7 @@ type Props = {
   difficulty?: string;
   fixedSize?: boolean;
   createdAt?: number;
+  route: string;
 }
 
 const TaskCard: React.FC<Props> = ({
@@ -43,55 +44,56 @@ const TaskCard: React.FC<Props> = ({
   difficulty,
   fixedSize,
   createdAt,
+  route,
 }) => {
   return (
-    <Link className={cn(className, styles.task, {[styles.fixed]: fixedSize})} to="/">
-        <div className={cn(styles.header, styles.row)}>
-          <div className={styles.headerMeta}>
-            <PriorityLabel color={priorityColor} />
-  
-            {createdAt && <span className={styles.date}>
-              { formatToDottedView(getDateFromTimestamp(createdAt)) }
-            </span>
-            }
-          </div>
+    <Link className={cn(className, styles.task, {[styles.fixed]: fixedSize})} to={route}>
+      <div className={cn(styles.header, styles.row)}>
+        <div className={styles.headerMeta}>
+          <PriorityLabel color={priorityColor} />
 
-          <Status className={styles.status} value={status} />
-        </div>
-
-        <div className={cn(styles.body, styles.row)}>
-          <p className={cn(styles.title, styles.row)}>
-            {title}
-          </p>
-
-          {labels && <LabelList className={styles.row} labels={labels} limit={2} />}
-
-          {description && <p className={cn(styles.description, 'text-one-line', styles.row)}>
-            {description}
-          </p>
+          {createdAt && <span className={styles.date}>
+            { formatToDottedView(getDateFromTimestamp(createdAt)) }
+          </span>
           }
         </div>
 
-        <div className={cn(styles.footer, styles.row)}>
-          {difficulty && <span className={cn(styles.difficulty, 'text-one-line')}>
-            {difficulty}
+        <Status className={styles.status} value={status} />
+      </div>
+
+      <div className={cn(styles.body, styles.row)}>
+        <p className={cn(styles.title, styles.row)}>
+          {title}
+        </p>
+
+        {labels && <LabelList className={styles.row} labels={labels} limit={2} />}
+
+        {description && <p className={cn(styles.description, 'text-one-line', styles.row)}>
+          {description}
+        </p>
+        }
+      </div>
+
+      <div className={cn(styles.footer, styles.row)}>
+        {difficulty && <span className={cn(styles.difficulty, 'text-one-line')}>
+          {difficulty}
+        </span>
+        }
+
+        <div className={cn(styles.meta, styles.row)}>
+          {estimation && <span className={styles.estimation}>
+            <TimerIcon />
+
+            <span className={styles.estimationTime}>
+              {estimation} ч.</span>
           </span>
           }
 
-          <div className={cn(styles.meta, styles.row)}>
-            {estimation && <span className={styles.estimation}>
-              <TimerIcon />
-
-              <span className={styles.estimationTime}>
-                {estimation} ч.</span>
-            </span>
-            }
-
-            <span className={styles.participants}>
-              participants
-            </span>
-          </div>
+          <span className={styles.participants}>
+            participants
+          </span>
         </div>
+      </div>
     </Link>
   );
 };

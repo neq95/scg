@@ -8,6 +8,7 @@ import LoginForm from 'features/Auth/Login/Form';
 import SignUpForm from 'features/Auth/SignUp/Form';
 import ProjectListPage from 'pages/Project/List';
 import ProjectDetailPage from 'pages/Project/Detail';
+import ProjectTaskModal from 'features/Project/Task/Modal';
 
 const Routes = () => {
 	return useRoutes([
@@ -45,6 +46,12 @@ const Routes = () => {
                 {
                   path: ':projectId',
                   element: <ProjectDetailPage />,
+                  children: [
+                    {
+                      path: ':taskId',
+                      element: <ProjectTaskModal />
+                    }
+                  ]
                 },
               ],
             },

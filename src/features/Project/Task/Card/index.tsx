@@ -5,6 +5,7 @@ import TaskCard from 'components/Task/Card';
 
 import { RootState } from 'store';
 import { getTaskById } from 'store/slices/project/selectors';
+import {toProjectTaskDetail} from 'utils/routes';
 
 type Props = {
   id: string;
@@ -20,6 +21,7 @@ const ProjectTaskCard: React.FC<Props> = ({id, priorityColor}) => {
       description={task.description}
       priorityColor={priorityColor}
       createdAt={task.createdAt}
+      route={toProjectTaskDetail({taskId: id})}
     />
   );
 };

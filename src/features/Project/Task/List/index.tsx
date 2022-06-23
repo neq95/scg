@@ -9,6 +9,7 @@ import Scrollbar from 'components/Scrollbar';
 
 import { Statuses } from 'models/Enums/Statuses';
 import styles from './styles.module.css';
+import { Outlet } from 'react-router-dom';
 
 const ProjectTaskList: React.FC = () => {
   const status = useSelector(getStatus);
@@ -31,6 +32,9 @@ const ProjectTaskList: React.FC = () => {
           )
         : status === Statuses.succeeded
         ? (
+            <>
+            <Outlet />
+
             <Scrollbar className={styles.content} autoHide={false}>
               <section className={styles.columns}>
                 {priorityIds.map((id) => {
@@ -42,6 +46,7 @@ const ProjectTaskList: React.FC = () => {
                 })}
               </section>
             </Scrollbar>
+            </>
           )
         : null
      }
