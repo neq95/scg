@@ -1,13 +1,14 @@
-import React, { useRef, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useEffect, useRef, useState } from 'react';
 import cn from 'classnames';
 import ReactMarkdown from 'react-markdown';
 
 import Button from 'components/Button';
 
 import { useAppDispatch } from 'store';
-import { updateTask } from 'store/slices/project/thunks';
 import styles from './styles.module.scss';
+import { updateDescription } from 'store/slices/task/thunks';
+import { useSelector } from 'react-redux';
+import { getDescription } from 'store/slices/task/selectors';
 
 type Props = {
   className?: string;
@@ -17,29 +18,35 @@ const placeholder = 'Поле для подробного описания за�
 
 const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
   const dispatch = useAppDispatch();
-  const {taskId} = useParams();
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const description = useSelector(getDescription);
+
   const [editing, setEditing] = useState(false);
-  const [description, setDescription] = useState('');
+  const [newDescription, setNewDescription] = useState('');
+
+  useEffect(() => {
+    if (editing) {
+      textareaRef.current?.focus();
+    }
+  }, [editing]);
 
   const save = async () => {
-    await dispatch(updateTask({taskId: taskId!, description})).unwrap();
+    await dispatch(updateDescription({description: newDescription})).unwrap();
     setEditing(false);
   };
 
   const startEditing = () => {
+    setNewDescription(description ?? '');
     setEditing(true);
-    textareaRef.current?.focus();
   };
 
   const cancelEditing = () => {
-    setDescription('');
     setEditing(false);
   };
 
   const onDescriptionChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setDescription(event.target.value);
+    setNewDescription(event.target.value);
   };
 
   const renderEditingData = () => {
@@ -50,7 +57,7 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
           id="task-modal-description"
           ref={textareaRef}
           placeholder={placeholder}
-          value={description}
+          value={newDescription}
           onChange={onDescriptionChange}
         />
 
@@ -78,7 +85,7 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
           editing
           ? renderEditingData()
           : <div className={styles.parsedContent} onClick={startEditing}>
-              {description.length > 0 ? <ReactMarkdown className={styles.markdown}>{description}</ReactMarkdown> : placeholder}
+              {description && description.length > 0 ? <ReactMarkdown className={styles.markdown}>{description}</ReactMarkdown> : placeholder}
             </div>
         }
       </div>

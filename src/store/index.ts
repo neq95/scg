@@ -4,12 +4,14 @@ import {useDispatch} from 'react-redux';
 import authReducer from './slices/auth';
 import projectListReducer from './slices/project/list';
 import projectReducer from './slices/project';
+import taskReducer from './slices/task';
 
 const store = configureStore({
   reducer: {
     auth: authReducer,
     projectList: projectListReducer,
     project: projectReducer,
+    task: taskReducer,
   }
 });
 

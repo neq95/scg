@@ -2,7 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import Api from 'api';
 import { RootState } from 'store';
-import { createTaskRequest, getTasksRequest, updateTaskRequest } from 'api/routes/task/types';
+import { createTaskRequest, getTasksRequest } from 'api/routes/task/types';
 import { Task } from 'models/Task';
 import { getProjectPrioritiesRequest } from 'api/routes/project/types';
 
@@ -36,39 +36,4 @@ export const createTask = createAsyncThunk<
     const response = await Api.task.createTask(data);
 
     return response.data.content as Task;
-});
-
-export type UpdatedTask = {
-  id: string;
-  content: {
-    title?: string;
-    description?: string;
-  }
-};
-
-export const updateTask = createAsyncThunk<
-  UpdatedTask | void,
-  Omit<updateTaskRequest, 'projectId'>, 
-  {state: RootState}
->('task/update', async (payload, {getState}) => {
-  const {id} = getState().project;
-
-  if (!id) {
-    return;
-  }
-
-  const data: updateTaskRequest = {
-    ...payload,
-    projectId: id,
-  };
-
-  await Api.task.updateTask(data);
-
-  return {
-    id: payload.taskId,
-    content: {
-      title: payload.title,
-      description: payload.description,
-    },
-  };
 });

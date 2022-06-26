@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -10,19 +10,29 @@ import ProjectTaskModalDescription from './Description';
 
 import { RootState, useAppDispatch } from 'store';
 import { getTaskById } from 'store/slices/project/selectors';
-import { updateTask } from 'store/slices/project/thunks';
+import {actions} from 'store/slices/task';
 import {toProjectPage} from 'utils/routes';
 import styles from './styles.module.scss';
+import { getStatus, getTitle } from 'store/slices/task/selectors';
+import { updateTitle } from 'store/slices/task/thunks';
+import { Statuses } from 'models/Enums/Statuses';
 
 const root = document.getElementById('root');
 
 const ProjectTaskModal = () => {
-  const {projectId, taskId} = useParams();
   const navigate = useNavigate();
-  const task = useSelector((state: RootState) => getTaskById(state, taskId!));
   const dispatch = useAppDispatch();
 
+  const {projectId, taskId} = useParams();
+  const task = useSelector((state: RootState) => getTaskById(state, taskId!));
+  const status = useSelector(getStatus);
+  const oldTitle = useSelector(getTitle);
+
   const [title, setTitle] = useState(task.title);
+
+  useEffect(() => {
+    dispatch(actions.initialized({id: task.id, title: task.title, description: task.description}));
+  }, []);
 
   const close = () => {
     if (projectId) {
@@ -31,7 +41,11 @@ const ProjectTaskModal = () => {
   };
 
   const onTitleBlur = () => {
-    dispatch(updateTask({taskId: taskId!, title, description: ''}));
+    if (title.trim() === oldTitle) {
+      return;
+    }
+
+    dispatch(updateTitle({title}));
   };
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
@@ -44,28 +58,30 @@ const ProjectTaskModal = () => {
         <div className={styles.backdrop} onClick={close} />
 
         <div className={styles.content}>
-          <header className={styles.header}>
-            <ExpandableTextarea
-              className={styles.title}
-              rows={1}
-              value={title}
-              placeholder="Заголовок задачи"
-              maxLength={127}
-              onBlur={onTitleBlur}
-              onChange={onChange}
-            />
+          {status === Statuses.succeeded && <>  
+            <header className={styles.header}>
+              <ExpandableTextarea
+                className={styles.title}
+                rows={1}
+                value={title}
+                placeholder="Заголовок задачи"
+                maxLength={127}
+                onBlur={onTitleBlur}
+                onChange={onChange}
+              />
 
-            <IconButton
-              className={styles.headerActions}
-              size='small'
-              variant='simple'
-              onClick={close}
-            >
-              <CrossIcon />
-            </IconButton>
-          </header>
+              <IconButton
+                className={styles.headerActions}
+                size='small'
+                variant='simple'
+                onClick={close}
+              >
+                <CrossIcon />
+              </IconButton>
+            </header>
 
-          <ProjectTaskModalDescription className={styles.description} />
+            <ProjectTaskModalDescription className={styles.description} />
+          </>}
         </div>
       </div>
     );

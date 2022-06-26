@@ -7,7 +7,8 @@ import { Task } from 'models/Task';
 import { RootState } from 'store';
 import { ProjectPriority } from 'models/Project';
 import { AppDispatch } from 'store';
-import { createTask, fetchProjectPriorities, fetchTasks, updateTask, UpdatedTask } from './thunks';
+import { createTask, fetchProjectPriorities, fetchTasks } from './thunks';
+import { updateTitle } from 'store/slices/task/thunks';
 
 type tasksByPriorityType = Record<string, {ids: string[], pagination: Pagination}>;
 
@@ -158,7 +159,7 @@ const projectSlice = createSlice({
         state.tasks = preparedData.tasks;
         state.tasksByPriority = preparedData.tasksByPriority;
       })
-      .addCase(createTask.fulfilled, (state, action: PayloadAction<Task | void>) => {
+      .addCase(createTask.fulfilled, (state, action) => {
         if (!action.payload) {
           return;
         }
@@ -178,13 +179,18 @@ const projectSlice = createSlice({
         }
         state.tasksByPriority[action.payload.priorityID].ids.unshift(action.payload.id);
       })
-      .addCase(updateTask.fulfilled, (state, action: PayloadAction<UpdatedTask | void>) => {
-        if (!action.payload) {
+      .addCase(updateTitle.fulfilled, (state, {payload}) => {
+        if (!payload) {
           return;
         }
 
-        let task = state.tasks.byId[action.payload.id];
-        task = Object.assign(task, action.payload.content);
+        const task = state.tasks.byId[payload.id];
+
+        if (!task) {
+          return;
+        }
+
+        task.title = payload.title;
       });
   }
 });
