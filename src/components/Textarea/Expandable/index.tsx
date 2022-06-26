@@ -55,10 +55,19 @@ const ExpandableTextarea = React.forwardRef<{focus: () => void}, Props>((
       element.style.height = element.scrollHeight + verticalBorders + 'px';
     };
 
+    const onTextareaKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+      if (event.key === 'Escape') {
+        element.current?.blur();
+      }
+
+      onKeyDown?.(event);
+    };
+
     const onChangeEvent = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
       adjustHeight(event.target);
       onChange(event);
     };
+
     return (
       <textarea
         className={cn(styles.textarea, className)}
@@ -68,7 +77,7 @@ const ExpandableTextarea = React.forwardRef<{focus: () => void}, Props>((
         value={value}
         placeholder={placeholder}
         maxLength={maxLength}
-        onKeyDown={onKeyDown}
+        onKeyDown={onTextareaKeyDown}
         onChange={onChangeEvent}
         onFocus={onFocus}
         onBlur={onBlur}

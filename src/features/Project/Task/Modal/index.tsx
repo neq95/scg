@@ -32,6 +32,8 @@ const ProjectTaskModal = () => {
 
   useEffect(() => {
     dispatch(actions.initialized({id: task.id, title: task.title, description: task.description}));
+
+    document.addEventListener('keydown', onDocumentKeyDown);
   }, []);
 
   const close = () => {
@@ -50,6 +52,13 @@ const ProjectTaskModal = () => {
 
   const onChange = (event: React.ChangeEvent<HTMLTextAreaElement>) => {
     setTitle(event.target.value);
+  };
+
+  const onDocumentKeyDown = (event: KeyboardEvent) => {
+    //React only on events bubbling from non-focused elements
+    if (event.key === 'Escape' && event.target === document.body) {
+      close();
+    }
   };
 
   const renderContent = () => {

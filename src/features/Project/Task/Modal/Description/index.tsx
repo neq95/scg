@@ -24,6 +24,7 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
 
   const [editing, setEditing] = useState(false);
   const [newDescription, setNewDescription] = useState('');
+  const [isSaving, setIsSaving] = useState(false);
 
   useEffect(() => {
     if (editing) {
@@ -32,7 +33,11 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
   }, [editing]);
 
   const save = async () => {
+    setIsSaving(true);
+
     await dispatch(updateDescription({description: newDescription})).unwrap();
+
+    setIsSaving(false);
     setEditing(false);
   };
 
@@ -49,6 +54,12 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
     setNewDescription(event.target.value);
   };
 
+  const onKeyDown = (event: React.KeyboardEvent<HTMLTextAreaElement>) => {
+    if (event.key === 'Escape') {
+      textareaRef.current?.blur();
+    }
+  };
+
   const renderEditingData = () => {
     return (
       <>
@@ -58,15 +69,16 @@ const ProjectTaskModalDescription: React.FC<Props> = ({className}) => {
           ref={textareaRef}
           placeholder={placeholder}
           value={newDescription}
+          onKeyDown={onKeyDown}
           onChange={onDescriptionChange}
         />
 
        <div className={styles.actions}>
-          <Button variant='contained' onClick={save}>
+          <Button variant='contained' disabled={isSaving} loading={isSaving} onClick={save}>
             Сохранить
           </Button>
   
-          <Button variant='text' onClick={cancelEditing}>
+          <Button variant='text' disabled={isSaving} onClick={cancelEditing}>
             Отмена
           </Button>
        </div>
