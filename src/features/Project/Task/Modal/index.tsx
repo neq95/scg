@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import { useNavigate, useParams } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -22,6 +22,7 @@ const root = document.getElementById('root');
 const ProjectTaskModal = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const {projectId, taskId} = useParams();
   const task = useSelector((state: RootState) => getTaskById(state, taskId!));
@@ -34,6 +35,10 @@ const ProjectTaskModal = () => {
     dispatch(actions.initialized({id: task.id, title: task.title, description: task.description}));
 
     document.addEventListener('keydown', onDocumentKeyDown);
+
+    return () => {
+      document.removeEventListener('keydown', onDocumentKeyDown);
+    };
   }, []);
 
   const close = () => {
@@ -55,41 +60,65 @@ const ProjectTaskModal = () => {
   };
 
   const onDocumentKeyDown = (event: KeyboardEvent) => {
-    //React only on events bubbling from non-focused elements
-    if (event.key === 'Escape' && event.target === document.body) {
+    if (event.key === 'Escape') {
       close();
+    }
+
+    if (event.key === 'Tab') {
+      const focusableElements = 'a[href], input:not([disabled]), select:not([disabled]), textarea:not([disabled]), button:not([disabled]), [tabindex="0"]';
+      const allFocusableElements = modalRef.current?.querySelectorAll(focusableElements);
+      
+      if (!allFocusableElements) {
+        event.preventDefault();
+        return;
+      }
+      
+      const firstElement = allFocusableElements[0];
+      const lastElement = allFocusableElements[allFocusableElements.length - 1];
+      
+      if (event.shiftKey) {
+        if (document.activeElement === firstElement) {
+          event.preventDefault();
+          (lastElement as HTMLElement).focus();
+        }
+      } else {
+        if (document.activeElement === lastElement) {
+          event.preventDefault();
+          (firstElement as HTMLElement).focus();
+        }
+      }
     }
   };
 
   const renderContent = () => {
     return (
-      <div className={styles.modal}>
+      <div className={styles.modal} ref={modalRef}>
         <div className={styles.backdrop} onClick={close} />
 
         <div className={styles.content}>
           {status === Statuses.succeeded && <>  
-            <header className={styles.header}>
-              <ExpandableTextarea
-                className={styles.title}
-                rows={1}
-                value={title}
-                placeholder="Заголовок задачи"
-                maxLength={127}
-                onBlur={onTitleBlur}
-                onChange={onChange}
-              />
-
-              <IconButton
-                className={styles.headerActions}
-                size='small'
-                variant='simple'
-                onClick={close}
-              >
-                <CrossIcon />
-              </IconButton>
-            </header>
-
-            <ProjectTaskModalDescription className={styles.description} />
+              <header className={styles.header}>
+                <ExpandableTextarea
+                  className={styles.title}
+                  rows={1}
+                  value={title}
+                  placeholder="Заголовок задачи"
+                  maxLength={127}
+                  onBlur={onTitleBlur}
+                  onChange={onChange}
+                />
+  
+                <IconButton
+                  className={styles.headerActions}
+                  size='small'
+                  variant='simple'
+                  onClick={close}
+                >
+                  <CrossIcon />
+                </IconButton>
+              </header>
+  
+              <ProjectTaskModalDescription className={styles.description} />
           </>}
         </div>
       </div>

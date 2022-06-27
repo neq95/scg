@@ -72,6 +72,10 @@
   background-color: var(--background-active-secondary);
 }
 
+.button.text:not(:disabled):focus {
+  border-color: var(--background-active-secondary);
+}
+
 .button.text:disabled {
   color: var(--text-disabled);
   cursor: unset;

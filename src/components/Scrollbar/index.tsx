@@ -10,6 +10,7 @@ type Props = {
 }
 
 const Scrollbar: React.FC<Props> = ({className, children, autoHide = true}) => {
+  
   return (
     <SimpleBar className={className} autoHide={autoHide}>
       {children}
